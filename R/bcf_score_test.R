@@ -22,6 +22,16 @@
 #'   Default: \code{"mean"}.
 #' @param num_grid_points Integer specifying the number of evaluation points for the distributional ECDF test. Ignored unless \code{test_type = "distributional"}. Default: 50.
 #' @param num_smooth_components Integer number of Legendre components (1-6) for \code{test_type = "smooth"}. Default: 4.
+#' @param rank_method For \code{test_type = "smooth"}, how the residual rank is formed:
+#'   \code{"per_draw"} (default, previous behavior) recomputes the rank within each MCMC draw
+#'   and Rao-Blackwellizes the Legendre basis, \code{sum_m P_j(u^(m))/M}; \code{"posterior_mean"}
+#'   averages the residuals first and ranks once, \code{P_j(rank(mean_m e^(m)))}.
+#'   The two differ materially. Averaging a basis function over a rank that jitters with the
+#'   posterior is a smoothing operator, and it damps fast-oscillating components hardest, so
+#'   \code{"per_draw"} attenuates higher-order components (skew, tail) more than lower-order
+#'   ones. Crucially the attenuation does not shrink with more draws: the average converges
+#'   *to* the damped quantity. \code{"posterior_mean"} never averages over a jittered rank.
+#'   Use it when components 3+ matter.
 #' @param dist_interaction_rule (Optional) Interaction rule for the score design used by the
 #'   \code{"distributional"} and \code{"smooth"} tests only (e.g. \code{"none"} for main effects),
 #'   allowing a smaller basis than the mean test. \code{NULL} (default) uses \code{general_params$interaction_rule}.
@@ -50,6 +60,12 @@
 #' @param prognostic_forest_params (Optional) A list of prognostic forest model parameters.
 #' @param variance_forest_params (Optional) A list of variance forest model parameters.
 #' @return A list of class `bcfscoretest` containing posterior samples and score test P-values.
+#'   \code{alpha_samples}, \code{sigma2_samples} and \code{mu_hat_train} are all returned on the
+#'   ORIGINAL outcome scale. (Before 2026-08-09 the first two were returned on the standardized
+#'   scale while \code{mu_hat_train} was rescaled, so reconstructing a residual from them left a
+#'   fraction of the treatment term behind; \code{y_bar_train} / \code{y_std_train} are now
+#'   returned so the standardized values remain recoverable as
+#'   \code{alpha_samples / y_std_train}.) \code{mu_hat_train} pools all chains.
 #'   For \code{test_type = "mean"} / \code{"variance"}: \code{rb_pval_quad}, \code{rb_pval_max}.
 #'   For \code{"distributional"}: \code{rb_pval_wass}, \code{rb_pval_cvm}, \code{rb_pval_max}, \code{t_grid}.
 #'   For \code{"smooth"}: \code{rb_pval_quad}, \code{rb_pval_max}, \code{rb_pval_minp}, and
@@ -62,6 +78,7 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
                                       test_type = c("mean", "distributional", "variance", "smooth"),
                                       num_grid_points = 50,
                                       num_smooth_components = 4,
+                                      rank_method = c("per_draw", "posterior_mean"),
                                       dist_interaction_rule = NULL,
                                       centering = c("ecdf", "model"),
                                       standardize_residuals = FALSE,
@@ -76,6 +93,7 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
   test_type <- match.arg(test_type)
   centering <- match.arg(centering)
   null_method <- match.arg(null_method)
+  rank_method <- match.arg(rank_method)
 
   if (!requireNamespace("MASS", quietly = TRUE)) stop("Package 'MASS' is required.")
 
@@ -180,12 +198,22 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
                            "is not small relative to n. Consider interaction_rule = 'none' or a smaller design."),
                     p_valid, n))
   }
-  if (test_type == "distributional" && p_valid * num_grid_points > n) {
-    warning(sprintf(paste0("Distributional score process has p_valid * K = %d coordinates but only ",
-                           "n = %d observations: the empirical covariance is rank-degenerate and power ",
-                           "is diluted. Consider reducing num_grid_points, setting dist_interaction_rule ",
-                           "= 'none', or using test_type = 'smooth'."),
-                    p_valid * num_grid_points, n))
+  # The score process lives in p_valid * (K or J) coordinates but its empirical
+  # covariance is an outer-product sum over n observations, so its rank is at most n.
+  # Past that point the 1e-8 ridge makes chol() succeed rather than fail, the
+  # eigendecomposition fallback never fires, and the quadratic / min-p / component
+  # p-values are returned as confident nonsense. max is unaffected (it inverts nothing).
+  score_dim <- switch(test_type, distributional = num_grid_points,
+                      smooth = num_smooth_components, 1L)
+  if (test_type %in% c("distributional", "smooth") && p_valid * score_dim > n) {
+    warning(sprintf(paste0("%s score process has p_valid * %s = %d coordinates but only n = %d ",
+                           "observations: the empirical covariance is rank-degenerate, so the ",
+                           "quadratic, min-p and per-component p-values are unreliable (the max ",
+                           "statistic is not affected). Reduce %s or set dist_interaction_rule = 'none'."),
+                    if (test_type == "smooth") "Smooth" else "Distributional",
+                    if (test_type == "smooth") "J" else "K",
+                    p_valid * score_dim, n,
+                    if (test_type == "smooth") "num_smooth_components" else "num_grid_points"))
   }
 
   num_chains <- general_params_updated$num_chains
@@ -203,6 +231,9 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
       base_sum <- matrix(0, nrow = num_chains, ncol = n)
     } else if (test_type == "smooth") {
       base_mat_sum <- replicate(num_chains, matrix(0, nrow = n, ncol = num_smooth_components), simplify = FALSE)
+      # rank_method = "posterior_mean" ranks once at the end, so it accumulates the
+      # residuals themselves rather than the basis evaluated at per-draw ranks.
+      resid_sum <- matrix(0, nrow = num_chains, ncol = n)
     } else {
       base_mat_sum <- replicate(num_chains, matrix(0, nrow = n, ncol = num_grid_points), simplify = FALSE)
     }
@@ -302,6 +333,8 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
     grid_initialized <- FALSE
     grid_pool_buffer <- NULL
   }
+
+  mu_hat_chains <- vector("list", num_chains)
 
   # =====================================================================
   # MAIN SAMPLER LOOP
@@ -412,8 +445,12 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
         } else if (test_type == "smooth") {
           # Neyman smooth components: orthonormal Legendre polynomials of the residual rank.
           # Component 1 ~ location, 2 ~ scale, 3+ ~ skew/tail heterogeneity.
-          u_i <- (rank(as.numeric(resid_score), ties.method = "average") - 0.5) / n
-          base_mat_sum[[chain_num]] <- base_mat_sum[[chain_num]] + legendre_basis(u_i, num_smooth_components)
+          if (rank_method == "posterior_mean") {
+            resid_sum[chain_num, ] <- resid_sum[chain_num, ] + as.numeric(resid_score)
+          } else {
+            u_i <- (rank(as.numeric(resid_score), ties.method = "average") - 0.5) / n
+            base_mat_sum[[chain_num]] <- base_mat_sum[[chain_num]] + legendre_basis(u_i, num_smooth_components)
+          }
         } else if (test_type == "distributional") {
           # On the first MCMC iteration, set the grid from post-warmup residuals
           if (!grid_initialized) {
@@ -443,6 +480,11 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
         }
       }
     }
+
+    # The forest sample container is re-created at the top of each chain, so
+    # predicting after the loop would silently return the LAST chain only
+    # (audit finding S3). Collect per chain and pool below.
+    mu_hat_chains[[chain_num]] <- forest_samples_mu$predict(forest_dataset_train)
   }
 
   # =====================================================================
@@ -480,7 +522,14 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
       rb_pval_components <- matrix(0, nrow = num_chains, ncol = num_smooth_components)
 
       for (c in 1:num_chains) {
-        phi_mean <- base_mat_sum[[c]] / num_mcmc
+        phi_mean <- if (rank_method == "posterior_mean") {
+          # Rank the posterior-mean residual once. Ranks are scale-invariant, so it
+          # does not matter that these residuals are on the standardized scale.
+          r_bar <- resid_sum[c, ] / num_mcmc
+          legendre_basis((rank(r_bar, ties.method = "average") - 0.5) / n, num_smooth_components)
+        } else {
+          base_mat_sum[[c]] / num_mcmc
+        }
         pvals_smooth <- compute_smooth_pvalue_safe(phi_mean, Z_cen, X_cen, p_valid, num_smooth_components,
                                                    n_sim = num_null_draws, null_method = null_method)
         rb_pval_quad[c] <- pvals_smooth$quad
@@ -508,16 +557,29 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
     }
   }
 
-  mu_hat_train <- forest_samples_mu$predict(forest_dataset_train) * y_std_train + y_bar_train
+  mu_hat_train <- do.call(cbind, mu_hat_chains) * y_std_train + y_bar_train
+
+  # Put every returned quantity on the ORIGINAL outcome scale. alpha and sigma2 are
+  # sampled against the standardized residual, while mu_hat_train has always been
+  # rescaled; returning the mixture meant that
+  #   y - rowMeans(mu_hat_train) - mean(alpha_samples) * Z_cen
+  # left a fraction (1 - 1/y_std_train) of the treatment term in the "residual",
+  # which correlates with Z_cen and manufactures rejections. The standardized values
+  # remain recoverable via the y_bar_train / y_std_train fields below.
+  alpha_samples <- alpha_samples * y_std_train
+  sigma2_samples <- sigma2_samples * (y_std_train^2)
 
   result <- list(
     "model_params" = general_params_updated,
     "alpha_samples" = alpha_samples,
     "sigma2_samples" = sigma2_samples,
     "mu_hat_train" = mu_hat_train,
+    "y_bar_train" = y_bar_train,
+    "y_std_train" = y_std_train,
     "train_set_metadata" = X_train_metadata,
     "test_config" = list(
       test_type = test_type, use_rao_blackwell = use_rao_blackwell, null_method = null_method,
+      rank_method = rank_method,
       num_grid_points = num_grid_points, num_smooth_components = num_smooth_components,
       score_design_rule = score_design_rule, p_valid = p_valid, centering = centering,
       standardize_residuals = standardize_residuals, grid_pool_draws = grid_pool_draws,

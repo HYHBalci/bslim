@@ -15,8 +15,18 @@ bcf_restricted_score_test(
   num_burnin = 100,
   num_mcmc = 500,
   use_rao_blackwell = TRUE,
-  test_type = c("mean", "distributional"),
+  test_type = c("mean", "distributional", "variance", "smooth"),
   num_grid_points = 50,
+  num_smooth_components = 4,
+  rank_method = c("per_draw", "posterior_mean"),
+  dist_interaction_rule = NULL,
+  centering = c("ecdf", "model"),
+  standardize_residuals = FALSE,
+  grid_pool_draws = 1,
+  ad_weights = FALSE,
+  null_method = c("gaussian", "multiplier", "permutation"),
+  num_null_draws = 10000,
+  propensity_clip = NULL,
   general_params = list(),
   prognostic_forest_params = list(),
   variance_forest_params = list()
@@ -31,9 +41,10 @@ bcf_restricted_score_test(
 
 \item{propensity_train}{(Optional) Vector of propensity scores.}
 
-\item{rfx_group_ids_train}{(Optional) Group labels used for an additive random effects model.}
+\item{rfx_group_ids_train}{(Optional) Group labels used for an additive random effects model.
+NOTE: random effects are not implemented in the restricted sampler; supplying this argument is an error.}
 
-\item{rfx_basis_train}{(Optional) Basis for "random-slope" regression.}
+\item{rfx_basis_train}{(Optional) Basis for "random-slope" regression. See note on \code{rfx_group_ids_train}.}
 
 \item{num_gfr}{Number of "warm-start" iterations. Default: 5.}
 
@@ -43,9 +54,62 @@ bcf_restricted_score_test(
 
 \item{use_rao_blackwell}{Logical. If TRUE, averages the score vector and covariance matrix across MCMC draws to compute a single optimal P-value. Default: TRUE.}
 
-\item{test_type}{Character string specifying the score test type: \code{"mean"} for testing the conditional mean, or \code{"distributional"} for testing the full conditional distribution via ECDF. Default: \code{"mean"}.}
+\item{test_type}{Character string specifying the score test type:
+\code{"mean"} tests the conditional mean (BLP of the CATE in the score design);
+\code{"distributional"} tests the full conditional distribution via the ECDF score process;
+\code{"variance"} tests for variance (scale) heterogeneity via the squared-residual score
+\code{s_i = Z_cen_i (e_i^2 - mean(e^2))}, sharing the mean test's machinery and its double robustness;
+\code{"smooth"} is a Neyman smooth test: the score process is projected on
+\code{num_smooth_components} orthonormal Legendre polynomials of the residual rank, so that
+component 1 captures location heterogeneity, component 2 scale, components 3+ skew/tail shape.
+Default: \code{"mean"}.}
 
-\item{num_grid_points}{Integer specifying the number of evaluation points for the distributional ECDF test. Ignored if \code{test_type = "mean"}. Default: 50.}
+\item{num_grid_points}{Integer specifying the number of evaluation points for the distributional ECDF test. Ignored unless \code{test_type = "distributional"}. Default: 50.}
+
+\item{num_smooth_components}{Integer number of Legendre components (1-6) for \code{test_type = "smooth"}. Default: 4.}
+
+\item{rank_method}{For \code{test_type = "smooth"}, how the residual rank is formed:
+\code{"per_draw"} (default, previous behavior) recomputes the rank within each MCMC draw
+and Rao-Blackwellizes the Legendre basis, \code{sum_m P_j(u^(m))/M}; \code{"posterior_mean"}
+averages the residuals first and ranks once, \code{P_j(rank(mean_m e^(m)))}.
+The two differ materially. Averaging a basis function over a rank that jitters with the
+posterior is a smoothing operator, and it damps fast-oscillating components hardest, so
+\code{"per_draw"} attenuates higher-order components (skew, tail) more than lower-order
+ones. Crucially the attenuation does not shrink with more draws: the average converges
+\emph{to} the damped quantity. \code{"posterior_mean"} never averages over a jittered rank.
+Use it when components 3+ matter.}
+
+\item{dist_interaction_rule}{(Optional) Interaction rule for the score design used by the
+\code{"distributional"} and \code{"smooth"} tests only (e.g. \code{"none"} for main effects),
+allowing a smaller basis than the mean test. \code{NULL} (default) uses \code{general_params$interaction_rule}.}
+
+\item{centering}{For the distributional test, how indicators are centered: \code{"ecdf"} (default,
+marginal empirical CDF -- current behavior) or \code{"model"} (the fitted null model's Gaussian CDF,
+\code{pnorm(t / sigma)}), which restores a product-bias/double-robustness structure at the price of
+assuming the null error law is Gaussian.}
+
+\item{standardize_residuals}{Logical. If TRUE, residuals are divided by the per-draw \code{sigma}
+before computing indicator/rank scores, removing scale drift across MCMC draws. Default: FALSE.}
+
+\item{grid_pool_draws}{Integer >= 1. Number of trailing burn-in draws whose residuals are pooled
+(together with the first retained draw) to set the ECDF grid. Default: 1 (current behavior: first retained draw only).}
+
+\item{ad_weights}{Logical. If TRUE, the CvM-type distributional statistic uses Anderson-Darling
+weights \code{1/(F(1-F))}, upweighting the tails where scale alternatives concentrate. Default: FALSE.}
+
+\item{null_method}{How the null distribution of the Rao-Blackwellized statistics is computed:
+\code{"gaussian"} (default, current behavior: simulate \code{N(0, Sigma_hat)} via Cholesky of the full
+covariance), \code{"multiplier"} (Gaussian multiplier bootstrap \code{t(X_s) \%*\% G} -- the same law,
+but never forms or factors the \code{(p*K) x (p*K)} matrix), or \code{"permutation"} (permute the
+\code{Z - pihat} marks against the fitted residual scores; finite-sample-motivated, recommended with
+\code{num_null_draws = 2000}). For \code{"mean"}/\code{"variance"}, \code{"multiplier"} is equivalent
+to \code{"gaussian"} and is treated as such. Ignored when \code{use_rao_blackwell = FALSE}.}
+
+\item{num_null_draws}{Number of simulation draws (or permutations) for null distributions. Default: 10000.}
+
+\item{propensity_clip}{(Optional) If non-NULL, propensity scores are clipped to
+\code{[propensity_clip, 1 - propensity_clip]}. Recommended (e.g. 0.02) whenever the propensity is
+estimated internally, since the internal BART fit is not constrained to (0, 1). Default: NULL (no clipping).}
 
 \item{general_params}{(Optional) A list of general model parameters.}
 
@@ -55,6 +119,16 @@ bcf_restricted_score_test(
 }
 \value{
 A list of class \code{bcfscoretest} containing posterior samples and score test P-values.
+\code{alpha_samples}, \code{sigma2_samples} and \code{mu_hat_train} are all returned on the
+ORIGINAL outcome scale. (Before 2026-08-09 the first two were returned on the standardized
+scale while \code{mu_hat_train} was rescaled, so reconstructing a residual from them left a
+fraction of the treatment term behind; \code{y_bar_train} / \code{y_std_train} are now
+returned so the standardized values remain recoverable as
+\code{alpha_samples / y_std_train}.) \code{mu_hat_train} pools all chains.
+For \code{test_type = "mean"} / \code{"variance"}: \code{rb_pval_quad}, \code{rb_pval_max}.
+For \code{"distributional"}: \code{rb_pval_wass}, \code{rb_pval_cvm}, \code{rb_pval_max}, \code{t_grid}.
+For \code{"smooth"}: \code{rb_pval_quad}, \code{rb_pval_max}, \code{rb_pval_minp}, and
+\code{rb_pval_components} (chains x components; component j's chi-squared p-value).
 }
 \description{
 Fit a Restricted BCF Model (Constant Treatment Effect) and Compute Score Test P-Values
