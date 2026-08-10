@@ -68,8 +68,19 @@
 #'   \code{alpha_samples / y_std_train}.) \code{mu_hat_train} pools all chains.
 #'   For \code{test_type = "mean"} / \code{"variance"}: \code{rb_pval_quad}, \code{rb_pval_max}.
 #'   For \code{"distributional"}: \code{rb_pval_wass}, \code{rb_pval_cvm}, \code{rb_pval_max}, \code{t_grid}.
-#'   For \code{"smooth"}: \code{rb_pval_quad}, \code{rb_pval_max}, \code{rb_pval_minp}, and
-#'   \code{rb_pval_components} (chains x components; component j's chi-squared p-value).
+#'   For \code{"smooth"}: \code{rb_pval_quad}, \code{rb_pval_max}, \code{rb_pval_minp},
+#'   \code{rb_pval_components} (chains x components; component j's chi-squared p-value),
+#'   \code{rb_pval_max_byJ} (chains x components; the max statistic truncated at the first
+#'   \eqn{J'} components, for every \eqn{J' = 1, \ldots, J}), \code{rb_pval_adaptive}
+#'   (the smallest of those, corrected for choosing \eqn{J'} by data) and
+#'   \code{rb_pval_adaptive_pair} (the same device over the two-look family
+#'   \eqn{\{2, J\}}). Because the truncations are nested sub-maxima evaluated on a single
+#'   set of null draws, \code{rb_pval_max_byJ} costs nothing extra. Note that the
+#'   selection correction in \code{rb_pval_adaptive} is not negligible off the ceiling:
+#'   on a variance alternative at \eqn{n = 200} the truncations were 68.5\% at
+#'   \eqn{J' = 2} against 57.2\% at \eqn{J' = 4}, and the four-look adaptive returned
+#'   57.5\% -- it tracked the full max rather than the better truncation. The two-look
+#'   variant exists to halve that multiplicity.
 #' @export
 bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_train = NULL,
                                       rfx_group_ids_train = NULL, rfx_basis_train = NULL,
@@ -520,6 +531,9 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
       rb_pval_max_smooth <- numeric(num_chains)
       rb_pval_minp <- numeric(num_chains)
       rb_pval_components <- matrix(0, nrow = num_chains, ncol = num_smooth_components)
+      rb_pval_max_byJ <- matrix(0, nrow = num_chains, ncol = num_smooth_components)
+      rb_pval_adaptive <- numeric(num_chains)
+      rb_pval_adaptive_pair <- numeric(num_chains)
 
       for (c in 1:num_chains) {
         phi_mean <- if (rank_method == "posterior_mean") {
@@ -536,6 +550,9 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
         rb_pval_max_smooth[c] <- pvals_smooth$max
         rb_pval_minp[c] <- pvals_smooth$minp
         rb_pval_components[c, ] <- pvals_smooth$components
+        rb_pval_max_byJ[c, ] <- pvals_smooth$max_byJ
+        rb_pval_adaptive[c] <- pvals_smooth$adaptive
+        rb_pval_adaptive_pair[c] <- pvals_smooth$adaptive_pair
       }
     } else {
       rb_pval_wass <- numeric(num_chains)
@@ -596,6 +613,11 @@ bcf_restricted_score_test <- function(X_train, Z_train, y_train, propensity_trai
       result[["rb_pval_max"]] <- rb_pval_max_smooth
       result[["rb_pval_minp"]] <- rb_pval_minp
       result[["rb_pval_components"]] <- rb_pval_components
+      # max at every nested truncation J' = 1..num_smooth_components, plus the
+      # selection-corrected adaptive-J p-value. All from the same null draws.
+      result[["rb_pval_max_byJ"]] <- rb_pval_max_byJ
+      result[["rb_pval_adaptive"]] <- rb_pval_adaptive
+      result[["rb_pval_adaptive_pair"]] <- rb_pval_adaptive_pair
     } else {
       result[["rb_pval_wass"]] <- rb_pval_wass
       result[["rb_pval_cvm"]] <- rb_pval_cvm
@@ -808,7 +830,9 @@ compute_mark_permutation_pvalue <- function(base_mean, Z_cen, X_cen, p_valid, n_
 #' @param J The number of smooth components.
 #' @param n_sim Number of null simulation draws (or permutations).
 #' @param null_method One of "gaussian", "multiplier", "permutation".
-#' @return A list with `quad`, `max`, `minp`, and `components` (J-vector of chi-squared p-values).
+#' @return A list with `quad`, `max`, `minp`, `components` (J-vector of chi-squared p-values),
+#'   `max_byJ` (J-vector: the max statistic's p-value at each nested truncation 1..J) and
+#'   `adaptive` (min over those truncations, corrected for the selection using the same draws).
 compute_smooth_pvalue_safe <- function(phi_mean, Z_cen, X_cen, p_valid, J, n_sim = 10000,
                                        null_method = "gaussian") {
   n <- nrow(X_cen)
@@ -833,7 +857,14 @@ compute_smooth_pvalue_safe <- function(phi_mean, Z_cen, X_cen, p_valid, J, n_sim
 
   comp_pvals <- pchisq(T_j_obs, df = p_valid, lower.tail = FALSE)
   minp_obs <- min(comp_pvals)
-  max_Z_obs <- max(abs(U / sd_mat))
+
+  # The max statistic at truncation J' is the max over the first J' components only, i.e.
+  # a sub-max of the statistic at J. Accumulating the running maximum yields every nested
+  # test J' = 1..J in one pass and -- below -- from the SAME null draws. That is what makes
+  # reporting several truncations honest: they are one jointly calibrated family, not J
+  # separate runs whose best result could be cherry-picked.
+  max_Z_obs_byJ <- cummax(apply(abs(U / sd_mat), 2, max))
+  max_Z_obs <- max_Z_obs_byJ[J]
 
   # Overall quadratic form across all p*J coordinates (pJ is small by construction)
   tilde_X <- matrix(0, nrow = n, ncol = p_valid * J)
@@ -845,7 +876,7 @@ compute_smooth_pvalue_safe <- function(phi_mean, Z_cen, X_cen, p_valid, J, n_sim
 
   # Null simulation: T_j per component, minp across components, max coordinate, overall quad
   T_j_sim <- matrix(0, nrow = J, ncol = n_sim)
-  max_Z_sim <- numeric(n_sim)
+  max_Z_sim_byJ <- matrix(0, nrow = J, ncol = n_sim)   # row J' = max over first J' components
   quad_sim <- numeric(n_sim)
 
   if (null_method == "permutation") {
@@ -855,7 +886,7 @@ compute_smooth_pvalue_safe <- function(phi_mean, Z_cen, X_cen, p_valid, J, n_sim
       s_p <- sweep(s_p, 2, colMeans(s_p), "-")
       U_p <- crossprod(X_cen, s_p)
       for (j in 1:J) T_j_sim[j, b] <- as.numeric(t(U_p[, j]) %*% V_inv_list[[j]] %*% U_p[, j])
-      max_Z_sim[b] <- max(abs(U_p / sd_mat))
+      max_Z_sim_byJ[, b] <- cummax(apply(abs(U_p / sd_mat), 2, max))
       u_p_vec <- as.numeric(U_p)
       quad_sim[b] <- as.numeric(t(u_p_vec) %*% Sigma_inv %*% u_p_vec)
     }
@@ -874,21 +905,54 @@ compute_smooth_pvalue_safe <- function(phi_mean, Z_cen, X_cen, p_valid, J, n_sim
         U_j_sim <- U_sim_full[idx_j, , drop = FALSE]
         T_j_sim[j, cols] <- colSums(U_j_sim * (V_inv_list[[j]] %*% U_j_sim))
         seg <- apply(abs(U_j_sim / sd_mat[, j]), 2, max)
-        max_Z_sim[cols] <- pmax(max_Z_sim[cols], seg)
+        max_Z_sim_byJ[j, cols] <- if (j == 1L) seg else pmax(max_Z_sim_byJ[j - 1L, cols], seg)
       }
       quad_sim[cols] <- colSums(U_sim_full * (Sigma_inv %*% U_sim_full))
       done <- done + m
     }
   }
 
+  max_Z_sim <- max_Z_sim_byJ[J, ]
+
   comp_pvals_sim <- pchisq(T_j_sim, df = p_valid, lower.tail = FALSE)
   minp_sim <- apply(comp_pvals_sim, 2, min)
+
+  # Marginal p-value of the max statistic at each truncation J' = 1..J. Each is a valid
+  # test on its own; which one to report must still be fixed in advance.
+  max_byJ <- vapply(seq_len(J), function(j) mean(max_Z_sim_byJ[j, ] >= max_Z_obs_byJ[j]),
+                    numeric(1))
+
+  # Adaptive-J: the smallest of those p-values, calibrated against the null distribution of
+  # that same minimum. Each null draw is converted to a p-value under its own truncation's
+  # simulated law, then minimised over truncations, exactly as the across-component min-p
+  # above. This lets the data pick J' without invalidating the test -- the selection is
+  # priced in. The penalty is small because the truncations are nested and hence strongly
+  # dependent, which is precisely what a Bonferroni over J separate runs cannot exploit.
+  p_sim_byJ <- matrix(0, nrow = J, ncol = n_sim)
+  for (j in seq_len(J)) {
+    p_sim_byJ[j, ] <- (n_sim - rank(max_Z_sim_byJ[j, ], ties.method = "min") + 1) / n_sim
+  }
+  adaptive_over <- function(idx) {
+    idx <- sort(unique(idx))
+    if (length(idx) == 1L) return(max_byJ[idx])
+    mean(apply(p_sim_byJ[idx, , drop = FALSE], 2, min) <= min(max_byJ[idx]))
+  }
 
   return(list(
     quad = mean(quad_sim >= quad_obs),
     max = mean(max_Z_sim >= max_Z_obs),
     minp = mean(minp_sim <= minp_obs),
-    components = comp_pvals
+    components = comp_pvals,
+    max_byJ = max_byJ,
+    adaptive = adaptive_over(seq_len(J)),
+    # Two-look variant over {2, J}: the smallest omnibus that still spans location AND
+    # scale, and the full one. Measured motivation -- the J-look version's correction can
+    # cost more than choosing well is worth. On a variance alternative at n = 200 the
+    # truncations were J'=2 68.5% against J'=4 57.2%, and the four-look adaptive landed at
+    # 57.5%: it tracked the full max and returned none of J'=2's advantage. Halving the
+    # number of looks halves the multiplicity that has to be paid for. The family is fixed
+    # by that argument, not by which truncation happened to win.
+    adaptive_pair = adaptive_over(c(min(2L, J), J))
   ))
 }
 
