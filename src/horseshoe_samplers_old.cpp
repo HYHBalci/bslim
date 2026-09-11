@@ -15,6 +15,19 @@
 
 // For R's random number generators (rnorm, rgamma, etc.)
 #include <Rmath.h>
+#include <R_ext/Random.h>
+
+namespace {
+// The cpp11 wrapper does not manage R's RNG state. Own it for this entire
+// transition, including all coefficient and shrinkage draws.
+class LinearTreatmentRNGScope {
+ public:
+  LinearTreatmentRNGScope() { GetRNGstate(); }
+  ~LinearTreatmentRNGScope() { PutRNGstate(); }
+  LinearTreatmentRNGScope(const LinearTreatmentRNGScope&) = delete;
+  LinearTreatmentRNGScope& operator=(const LinearTreatmentRNGScope&) = delete;
+};
+}  // namespace
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -264,6 +277,7 @@ cpp11::writable::list updateLinearTreatmentCpp_cpp_old(
     const std::string& propensity_seperate = "none",
     bool regularize_ATE = false,
     double hn_scale = 1.0) {
+  LinearTreatmentRNGScope rng_scope;
   
   // --- INITIAL SETUP ---
   int n = residual.size();
