@@ -32,11 +32,17 @@ bcf_linear_probit(
 Matrix covariates will be assumed to be all numeric. Covariates passed as a dataframe will be
 preprocessed based on the variable types.}
 
-\item{Z_train}{Vector of (continuous or binary) treatment assignments.}
+\item{Z_train}{Vector of (continuous or binary) treatment assignments.
+When \code{general_params$orthogonalize = TRUE}, supply raw binary assignments
+\code{0} or \code{1}, not pre-centred or residualised values.}
 
 \item{y_train}{Outcome to be modeled by the ensemble.}
 
-\item{propensity_train}{(Optional) Vector of propensity scores. If not provided, this will be estimated from the data.}
+\item{propensity_train}{(Optional) Vector of propensity scores. If not provided, this will be estimated from the data.
+When \code{general_params$orthogonalize = TRUE}, this argument is required:
+supply one finite, externally estimated score in \code{[0, 1]} per training row.
+These scores are held fixed and used only to residualise treatment, not as
+predictors in the prognostic forest.}
 
 \item{rfx_group_ids_train}{(Optional) Group labels used for an additive random effects model.}
 
@@ -48,9 +54,12 @@ will be estimated.}
 May be provided either as a dataframe or a matrix, but the format of \code{X_test} must be consistent with
 that of \code{X_train}.}
 
-\item{Z_test}{(Optional) Test set of (continuous or binary) treatment assignments.}
+\item{Z_test}{(Optional) Test set of (continuous or binary) treatment assignments.
+For orthogonalised models, supply raw binary assignments \code{0} or \code{1}.}
 
-\item{propensity_test}{(Optional) Vector of propensity scores. If not provided, this will be estimated from the data.}
+\item{propensity_test}{(Optional) Vector of propensity scores. If not provided, this will be estimated from the data.
+For orthogonalised models, this argument is required whenever \code{X_test} is
+supplied: provide one finite external score in \code{[0, 1]} per test row.}
 
 \item{rfx_group_ids_test}{(Optional) Test set group labels used for an additive random effects model.}
 
@@ -68,6 +77,15 @@ that of \code{X_train}.}
 
 \item{general_params}{(Optional) A list of general (non-forest-specific) model parameters. Key options include:
 \itemize{
+\item \code{orthogonalize}: Boolean. If \code{TRUE}, uses the fixed external
+propensity scores to code treatment as \code{Z - propensity}. This mode requires
+raw binary treatment and external scores for training, test and prediction
+rows. It does not estimate or update an internal propensity model. Adaptive
+treatment coding is disabled, \code{propensity_covariate} is forced to
+\code{"none"}, and \code{propensity_seperate} must be \code{"none"}.
+This mode requires \code{standardize_cov = FALSE} and \code{keep_burnin = FALSE}.
+If scaling is needed, transform covariates externally using training-data
+moments. Retained GFR draws, including GFR-only fits, are supported.
 \item \code{use_ncp}: Boolean. If \code{TRUE}, uses Non-Centered Parameterization for the linear sampler (recommended for stability).
 \item \code{interaction_rule}: String. Defines how interactions are created (e.g., "continuous", "continuous_or_binary").
 \item \code{regularize_ATE}: Boolean. If \code{TRUE}, the ATE (intercept) is subject to shrinkage.
@@ -96,4 +114,16 @@ This function implements a hybrid Bayesian Causal Forest model that combines
 non-parametric tree ensembles with linear outcome modeling. It supports
 continuous and binary (probit) outcomes, linear interaction terms with
 horseshoe regularization, and random effects.
+}
+\details{
+With \code{general_params$orthogonalize = TRUE}, Gaussian outcome predictions
+use \eqn{\mu(X) + (Z - \widehat{\pi})\tau(X)}. The supplied propensity scores
+are held fixed throughout sampling and excluded from the prognostic forest.
+The treatment-effect contrast \eqn{\tau(X)} itself is not multiplied by the
+residualised treatment. This fixed-design mode supports the corrected Gaussian
+hc-hs residual-variance update. Internal propensity coefficients are not sampled.
+Internal covariate standardisation and retention of burn-in coefficient
+histories are not supported in this mode. Use \code{standardize_cov = FALSE}
+and \code{keep_burnin = FALSE}; apply any covariate scaling externally using
+training-data moments for both training and evaluation rows.
 }

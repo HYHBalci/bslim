@@ -34,7 +34,10 @@
 #' preprocessed based on the variable types.
 #' @param Z_train Vector of (continuous or binary) treatment assignments.
 #' @param y_train Outcome to be modeled by the ensemble.
-#' @param propensity_train (Optional) Vector of propensity scores. If not provided, this will be estimated from the data.
+#' @param propensity_train Vector of propensity scores. Required when `orthogonalize = TRUE`:
+#' one finite externally estimated probability in [0, 1] per training row. These scores
+#' remain fixed and enter only the treatment coding, not the prognostic forest.
+#' Otherwise optional; missing scores may be estimated when used as forest covariates.
 #' @param rfx_group_ids_train (Optional) Group labels used for an additive random effects model.
 #' @param rfx_basis_train (Optional) Basis for "random-slope" regression in an additive random effects model.
 #' If `rfx_group_ids_train` is provided with a regression basis, an intercept-only random effects model
@@ -43,7 +46,8 @@
 #' May be provided either as a dataframe or a matrix, but the format of `X_test` must be consistent with
 #' that of `X_train`.
 #' @param Z_test (Optional) Test set of (continuous or binary) treatment assignments.
-#' @param propensity_test (Optional) Vector of propensity scores. If not provided, this will be estimated from the data.
+#' @param propensity_test Test-set propensity scores. Required with `X_test` when
+#' `orthogonalize = TRUE`, with one finite probability in [0, 1] per test row.
 #' @param rfx_group_ids_test (Optional) Test set group labels used for an additive random effects model.
 #' @param rfx_basis_test (Optional) Test set basis for "random-slope" regression in additive random effects model.
 #' @param num_gfr Number of "warm-start" iterations run using the grow-from-root algorithm. Default: 5.
@@ -65,10 +69,27 @@
 #'   \item `unlink`: Boolean. If `TRUE`, decouples interaction shrinkage from main effects, meaning interaction terms get their own independent local shrinkage parameters (`tau_beta`).
 #'   \item `probit_outcome_model`: Boolean. If `TRUE`, assumes binary outcome with probit link.
 #'   \item `standardize`: Boolean. Whether to standardize the outcome. Default `TRUE`.
+#'   \item `orthogonalize`: Boolean. If `TRUE`, requires raw binary (0/1) treatment
+#'   and externally supplied propensity scores, and uses fixed coding `Z - propensity`.
+#'   Overrides `propensity_covariate` to `"none"` and `adaptive_coding` to `FALSE`;
+#'   requires `propensity_seperate = "none"`. No internal propensity model is fitted.
+#'   Requires `standardize_cov = FALSE` and `keep_burnin = FALSE`; apply any covariate
+#'   transformation externally using training-set moments. Outcome standardization
+#'   remains supported. Predictions use `mu(X) + (Z - propensity) * tau(X)`.
 #' }
 #' @param prognostic_forest_params (Optional) A list of prognostic forest model parameters (e.g., `num_trees`, `alpha`, `beta`).
 #' @param treatment_effect_forest_params (Optional) A list of treatment effect forest model parameters.
 #' @param variance_forest_params (Optional) A list of variance forest model parameters (for heteroskedasticity).
+#'
+#' @details
+#' Fixed external-propensity orthogonalisation fits
+#' `mu(X) + (Z - propensity) * tau(X)`. It does not append propensity to the
+#' prognostic forest or sample propensity coefficients. The treatment contrast
+#' `tau(X)` remains unscaled by the treatment coding. The corrected Gaussian
+#' hc-hs variance conditional applies to this fixed design. Retained GFR draws
+#' are supported, including GFR-only fits. Internal covariate standardisation
+#' and retained burn-in coefficient histories are not supported in this mode;
+#' use `standardize_cov = FALSE` and `keep_burnin = FALSE`.
 #'
 #' @return A list of class `bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
 #' @export
@@ -143,6 +164,30 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   
   propensity_seperate <- match.arg(general_params_updated$propensity_seperate, choices = c("none", "mu", "tau"))
   orthogonalize <- general_params_updated$orthogonalize
+  if (!is.logical(orthogonalize) || length(orthogonalize) != 1L || is.na(orthogonalize)) {
+    stop("orthogonalize must be TRUE or FALSE")
+  }
+  if (orthogonalize) {
+    # Validate before any preprocessing or sampling; never estimate missing scores.
+    .validate_binary_treatment(Z_train, nrow(X_train), "Z_train")
+    propensity_train <- .validate_external_propensity(propensity_train, nrow(X_train), "propensity_train")
+    if (!is.null(X_test)) {
+      .validate_binary_treatment(Z_test, nrow(X_test), "Z_test")
+      propensity_test <- .validate_external_propensity(propensity_test, nrow(X_test), "propensity_test")
+    }
+    if (propensity_seperate != "none") {
+      stop("orthogonalize = TRUE requires propensity_seperate = 'none'")
+    }
+    if (!identical(standardize_cov, FALSE)) {
+      stop("orthogonalize = TRUE requires standardize_cov = FALSE; transform covariates externally using training-set moments")
+    }
+    if (!identical(general_params_updated$keep_burnin, FALSE)) {
+      stop("orthogonalize = TRUE requires keep_burnin = FALSE; burn-in coefficient histories are not supported")
+    }
+    # This mode has exactly one role for propensity: fixed treatment coding.
+    general_params_updated$propensity_covariate <- "none"
+    general_params_updated$adaptive_coding <- FALSE
+  }
   robust <- general_params_updated$robust
   robust_nu <- general_params_updated$robust_nu
 
@@ -763,6 +808,13 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   if ((!binary_treatment) && (adaptive_coding)) {
     adaptive_coding <- FALSE
   }
+
+  if (orthogonalize) {
+    # All sampler paths below now see the same fixed design, including warm starts,
+    # chain resets, coefficient updates and the Gaussian variance conditional.
+    Z_train <- matrix(as.numeric(Z_train) - as.numeric(propensity_train), ncol = 1L)
+    if (has_test) Z_test <- matrix(as.numeric(Z_test) - as.numeric(propensity_test), ncol = 1L)
+  }
   
   # Check if propensity_covariate is one of the required inputs
   if (!(propensity_covariate %in% c("mu","tau","both","none"))) {
@@ -790,7 +842,7 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
     }
   }
   
-  if (has_test) {
+  if (has_test && (orthogonalize || propensity_covariate != "none" || propensity_seperate != "none")) {
     if (is.null(propensity_test)) stop("Propensity score must be provided for the test set if provided for the training set")
   }
   
@@ -1022,11 +1074,11 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   if (sample_sigma_global &&
       (sample_global_prior != "hc-hs" || !unlink || regularize_ATE || use_ncp ||
        simple_prior || robust || probit_outcome_model || include_variance_forest ||
-       has_rfx || adaptive_coding || orthogonalize || propensity_seperate != "none" ||
+       has_rfx || adaptive_coding || propensity_seperate != "none" ||
        sigma_residual != 0)) {
     stop(paste("The corrected variance update supports Gaussian, unlinked hc-hs",
                "with a sigma-independent alpha prior and fixed treatment coding.",
-               "Other priors, orthogonalisation, random effects, variance forests,",
+               "Other priors, random effects, variance forests,",
                "and non-centred/robust/probit variants require separate validation."))
   }
   sample_counter <- 0
@@ -1102,6 +1154,12 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   }
 
   obs_weights <- rep(1.0, n)
+  if (orthogonalize) {
+    # Unlike the legacy Beta arrays, this history includes retained GFR draws and
+    # follows the forest's sample order exactly for cached and new predictions.
+    orthogonal_coefficients <- matrix(NA_real_, nrow = num_retained_samples,
+                                     ncol = 1L + p_mod + p_int)
+  }
   
   # Precompute design matrices helper
   X_main_for_design <- if (propensity_seperate == "tau") X_train else X_train_raw
@@ -1112,76 +1170,6 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
       X_int[, k] <- X_main_for_design[, int_pairs_matrix[1, k]] * X_main_for_design[, int_pairs_matrix[2, k]]
     }
     X_main_with_int <- cbind(X_main_with_int, X_int)
-  }
-
-  # Helper for Propensity Score Logistic Regression
-  update_propensity_model <- function(Z, X_design_theta, theta, lambda_theta, tau_glob_theta, nu_theta, xi_theta) {
-    p_theta <- length(theta)
-    
-    # 1. Sample omega
-    eta_theta <- X_design_theta %*% theta
-    omega <- BayesLogit::rpg(num = length(Z), h = 1, z = abs(eta_theta))
-    omega[omega < 1e-9] <- 1e-9
-    
-    # 2. Sample theta
-    Y_star <- (Z - 0.5) / omega
-    Xt_Omega_X <- crossprod(X_design_theta, omega * X_design_theta)
-    
-    # Prior precision: 1/100 for intercept, horseshoe for covariates
-    prior_precision <- numeric(p_theta)
-    prior_precision[1] <- 1/100
-    if (p_theta > 1) {
-      prior_precision[2:p_theta] <- 1 / pmax(lambda_theta^2 * tau_glob_theta^2, 1e-9)
-    }
-    P_inv_diag <- diag(prior_precision, nrow = p_theta, ncol = p_theta)
-    
-    posterior_precision_mat <- Xt_Omega_X + P_inv_diag
-    chol_attempt <- try(chol(posterior_precision_mat), silent = TRUE)
-    if (inherits(chol_attempt, "try-error")) {
-      posterior_precision_mat <- posterior_precision_mat + diag(1e-6, p_theta)
-      chol_attempt <- try(chol(posterior_precision_mat), silent = TRUE)
-      if (inherits(chol_attempt, "try-error")) {
-        posterior_precision_mat <- posterior_precision_mat + diag(1e-4, p_theta)
-        chol_attempt <- chol(posterior_precision_mat)
-      }
-    }
-    posterior_covariance_mat <- chol2inv(chol_attempt)
-    posterior_mean_vec <- posterior_covariance_mat %*% crossprod(X_design_theta, omega * Y_star)
-    
-    theta <- MASS::mvrnorm(n = 1, mu = as.vector(posterior_mean_vec), Sigma = posterior_covariance_mat)
-    
-    # 3. Sample Horseshoe parameters
-    if (p_theta > 1) {
-      nu_theta <- 1.0 / rgamma(p_theta - 1, shape = 1.0, rate = 1.0 + 1.0 / pmax(lambda_theta^2, 1e-9))
-      lambda_theta <- sqrt(1.0 / rgamma(p_theta - 1, shape = 1.0, rate = 1.0 / nu_theta + (theta[-1]^2) / pmax(2.0 * tau_glob_theta^2, 1e-9)))
-      
-      xi_theta <- 1.0 / rgamma(1, shape = 1.0, rate = 1.0 + 1.0 / max(tau_glob_theta^2, 1e-9))
-      sum_theta_over_lambda_sq <- sum((theta[-1]^2) / pmax(lambda_theta^2, 1e-9))
-      tau_glob_theta <- sqrt(1.0 / rgamma(1, shape = (p_theta - 1 + 1.0) / 2.0, rate = 1.0 / xi_theta + sum_theta_over_lambda_sq / 2.0))
-    }
-    
-    # 4. Compute propensity
-    prop_train <- 1 / (1 + exp(-X_design_theta %*% theta))
-    
-    return(list(
-      theta = theta,
-      lambda_theta = lambda_theta,
-      tau_glob_theta = tau_glob_theta,
-      nu_theta = nu_theta,
-      xi_theta = xi_theta,
-      propensity_train = as.vector(prop_train)
-    ))
-  }
-
-  if (orthogonalize) {
-    X_design_theta <- cbind(1, X_main_with_int)
-    p_theta <- ncol(X_design_theta)
-    theta <- rep(0, p_theta)
-    lambda_theta <- rep(1, max(1, p_theta - 1))
-    tau_glob_theta <- 1
-    nu_theta <- rep(1, max(1, p_theta - 1))
-    xi_theta <- 1
-    if (save_output) theta_samples <- matrix(NA, nrow = num_retained_samples, ncol = p_theta)
   }
 
   compute_design_matrices <- function(Z_lin) {
@@ -1230,22 +1218,7 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
       }
       
       # Sample the treatment forest
-      if (orthogonalize) {
-        prop_update <- update_propensity_model(Z_train, X_design_theta, theta, lambda_theta, tau_glob_theta, nu_theta, xi_theta)
-        theta <- prop_update$theta
-        lambda_theta <- prop_update$lambda_theta
-        tau_glob_theta <- prop_update$tau_glob_theta
-        nu_theta <- prop_update$nu_theta
-        xi_theta <- prop_update$xi_theta
-        propensity_train <- prop_update$propensity_train
-        
-        if (keep_sample && save_output) theta_samples[sample_counter, ] <- theta
-        
-        Z_linear <- Z_train - propensity_train
-        design_mats <- compute_design_matrices(Z_linear)
-        X_design <- design_mats$X_design
-        XtX_design <- design_mats$XtX_design
-      } else if (adaptive_coding) {
+      if (adaptive_coding) {
         Z_linear <- tau_basis_train
         design_mats <- compute_design_matrices(Z_linear)
         X_design <- design_mats$X_design
@@ -1500,6 +1473,9 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
         beta_real <- beta
         beta_int_real <- beta_int
       }
+      if (orthogonalize && keep_sample) {
+        orthogonal_coefficients[sample_counter, ] <- c(alpha_real, beta_real, beta_int_real)
+      }
       
       # Update outcome with new residual
       outcome_train$update_data(residual)
@@ -1733,22 +1709,7 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
           }
         }
         
-        if (orthogonalize) {
-          prop_update <- update_propensity_model(Z_train, X_design_theta, theta, lambda_theta, tau_glob_theta, nu_theta, xi_theta)
-          theta <- prop_update$theta
-          lambda_theta <- prop_update$lambda_theta
-          tau_glob_theta <- prop_update$tau_glob_theta
-          nu_theta <- prop_update$nu_theta
-          xi_theta <- prop_update$xi_theta
-          propensity_train <- prop_update$propensity_train
-          
-          if (keep_sample && save_output) theta_samples[sample_counter, ] <- theta
-          
-          Z_linear <- Z_train - propensity_train
-          design_mats <- compute_design_matrices(Z_linear)
-          X_design <- design_mats$X_design
-          XtX_design <- design_mats$XtX_design
-        } else if (adaptive_coding) {
+        if (adaptive_coding) {
           Z_linear <- tau_basis_train
           design_mats <- compute_design_matrices(Z_linear)
           X_design <- design_mats$X_design
@@ -1998,6 +1959,9 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
           beta_real <- beta
           beta_int_real <- beta_int
         }
+        if (orthogonalize && keep_sample) {
+          orthogonal_coefficients[sample_counter, ] <- c(alpha_real, beta_real, beta_int_real)
+        }
         
         if(keep_sample){
           linear_counter <- linear_counter + 1
@@ -2109,22 +2073,32 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
       b_0_samples <- b_0_samples[(num_gfr+1):length(b_0_samples)]
     }
     num_retained_samples <- num_retained_samples - num_gfr
+    if (orthogonalize) {
+      orthogonal_coefficients <- orthogonal_coefficients[-seq_len(num_gfr), , drop = FALSE]
+    }
   }
   
   # Forest predictions
   mu_hat_train <- forest_samples_mu$predict(forest_dataset_train)*y_std_train + y_bar_train
-  if (adaptive_coding) {
+  if (orthogonalize) {
+    tau_hat_train <- .fixed_external_linear_draws(
+      X_main_for_design, orthogonal_coefficients, int_pairs_matrix, y_std_train)
+  } else if (adaptive_coding) {
     tau_hat_train_raw <- as.vector(full_design_matrix_train %*% c(alpha_real, beta_real, beta_int_real))
     tau_hat_train <- t(t(tau_hat_train_raw) * (b_1_samples - b_0_samples))*y_std_train
   } else {
     tau_x_raw_train <- as.vector(full_design_matrix_train %*% c(alpha_real, beta_real, beta_int_real))
     tau_hat_train <- tau_x_raw_train
   }
-  y_hat_train <- mu_hat_train + as.vector(full_design_matrix_train %*% c(alpha_real, beta_real, beta_int_real))* as.numeric(Z_train)
+  y_hat_train <- if (orthogonalize) mu_hat_train + tau_hat_train * as.numeric(Z_train) else
+    mu_hat_train + as.vector(full_design_matrix_train %*% c(alpha_real, beta_real, beta_int_real))* as.numeric(Z_train)
 
   if (has_test) {
     mu_hat_test <- forest_samples_mu$predict(forest_dataset_test)*y_std_train + y_bar_train
-    if (adaptive_coding) {
+    if (orthogonalize) {
+      tau_hat_test <- .fixed_external_linear_draws(
+        X_test, orthogonal_coefficients, int_pairs_matrix, y_std_train)
+    } else if (adaptive_coding) {
       tau_hat_test_raw <- forest_samples_tau$predict_raw(forest_dataset_test)
       tau_hat_test <- t(t(tau_hat_test_raw) * (b_1_samples - b_0_samples))*y_std_train
     } else {
@@ -2197,6 +2171,9 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
     "num_variance_covariates" = num_variance_covariates,
     "treatment_dim" = ncol(Z_train), 
     "propensity_covariate" = propensity_covariate, 
+    "propensity_seperate" = propensity_seperate,
+    "orthogonalize" = orthogonalize,
+    "orthogonalization" = if (orthogonalize) "fixed-external" else "none",
     "binary_treatment" = binary_treatment, 
     "adaptive_coding" = adaptive_coding, 
     "internal_propensity_model" = internal_propensity_model, 
@@ -2266,8 +2243,14 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
     result[["b_0_samples"]] = b_0_samples
     result[["b_1_samples"]] = b_1_samples
   }
-  if (orthogonalize && save_output) {
-    result[["theta_samples"]] = theta_samples
+  if (orthogonalize) {
+    result[["orthogonal_coefficients"]] <- orthogonal_coefficients
+    result[["propensity_train"]] <- as.numeric(propensity_train)
+    result[["treatment_coding_train"]] <- as.numeric(Z_train)
+    if (has_test) {
+      result[["propensity_test"]] <- as.numeric(propensity_test)
+      result[["treatment_coding_test"]] <- as.numeric(Z_test)
+    }
   }
   if (has_rfx) {
     result[["rfx_samples"]] = rfx_samples
@@ -2293,14 +2276,26 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
 #'
 #' @param object Object of type `bcfmodel` returned by `bcf_linear_probit`.
 #' @param X Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
+#' Apply the same external training-data transformations used for fitting.
 #' @param Z Treatments used for prediction.
-#' @param propensity (Optional) Propensities used for prediction.
+#' @param propensity Propensities used for prediction. Required for fixed external
+#' orthogonalisation, with one finite probability in [0, 1] per row. Supply raw
+#' binary `Z`; predictions use `mu(X) + (Z - propensity) * tau(X)`.
 #' @param rfx_group_ids (Optional) Test set group labels used for an additive random effects model.
 #' @param rfx_basis (Optional) Test set basis for "random-slope" regression in additive random effects model.
+#'
+#' @details For fixed external-propensity models, supply raw binary `Z` and
+#' externally estimated propensity scores for every prediction row. Propensity
+#' is used only in `Z - propensity`, never as an extra prognostic covariate.
+#' Returned `tau_hat` remains the treatment-effect contrast.
 #'
 #' @return List of `nrow(X)` by `object$num_samples` matrices.
 #' @export
 predict_linear_bcf <- function(object, X, Z, propensity = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...) {
+  if (identical(object$model_params$orthogonalization, "fixed-external")) {
+    return(.predict_linear_bcf_fixed_external(object, X, Z, propensity,
+                                              rfx_group_ids, rfx_basis, ...))
+  }
   
   # 1. Basic Data Integrity Checks
   if ((!is.data.frame(X)) && (!is.matrix(X))) stop("X must be a matrix or dataframe")

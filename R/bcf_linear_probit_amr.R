@@ -1977,6 +1977,10 @@ bcf_linear_probit_amr <- function(X_train, Z_train, y_train, propensity_train = 
 #' @return List of `nrow(X)` by `object$num_samples` matrices.
 #' @export
 predict_linear_bcf <- function(object, X, Z, propensity = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...) {
+  if (identical(object$model_params$orthogonalization, "fixed-external")) {
+    return(.predict_linear_bcf_fixed_external(
+      object, X, Z, propensity, rfx_group_ids, rfx_basis, ...))
+  }
   
   # 1. Basic Data Integrity Checks
   if ((!is.data.frame(X)) && (!is.matrix(X))) stop("X must be a matrix or dataframe")

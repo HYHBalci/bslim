@@ -27,11 +27,17 @@ predict_linear_bcf(
 \arguments{
 \item{object}{Object of type \code{bcfmodel} returned by \code{bcf_linear_probit}.}
 
-\item{X}{Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.}
+\item{X}{Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
+For orthogonalised models, apply the same external covariate transformations
+used for training; any scaling moments must come from the training data.}
 
-\item{Z}{Treatments used for prediction.}
+\item{Z}{Treatments used for prediction. For orthogonalised models, supply raw
+binary assignments \code{0} or \code{1}, not residualised values.}
 
-\item{propensity}{(Optional) Propensities used for prediction.}
+\item{propensity}{(Optional) Propensities used for prediction. Required for
+orthogonalised models: supply one finite external score in \code{[0, 1]} per
+prediction row. These scores are used to code treatment as \code{Z - propensity}
+and are not appended to the prognostic covariates.}
 
 \item{rfx_group_ids}{(Optional) Test set group labels used for an additive random effects model.}
 
@@ -46,4 +52,10 @@ List of \code{nrow(X)} by \code{object$num_samples} matrices.
 Predict from a sampled Linear Probit BCF model on new data
 
 Predict from a sampled Linear Probit BCF model on new data
+}
+\details{
+For orthogonalised models, the treatment-effect contrast \eqn{\tau(X)} is
+unchanged; Gaussian outcome predictions use
+\eqn{\mu(X) + (Z - \widehat{\pi})\tau(X)}. Propensity scores must be supplied
+externally and are not estimated by this function.
 }

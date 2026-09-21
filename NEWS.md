@@ -1,3 +1,29 @@
+# stochtree 0.1.1.9004
+
+## Breaking Changes
+
+* `bcf_linear_probit(..., general_params = list(orthogonalize = TRUE))`
+  now uses fixed, externally supplied propensity scores to code treatment as
+  `Z - propensity`. It no longer fits or updates an internal propensity model;
+  internal propensity coefficients (`theta`) are no longer sampled.
+* This mode requires raw binary treatment values (`0` or `1`) and one finite
+  propensity score in `[0, 1]` per observation. `propensity_train` is required,
+  as is `propensity_test` when test covariates are supplied. Prediction requires
+  a corresponding `propensity` vector.
+* Orthogonalisation disables adaptive treatment coding and excludes propensity
+  scores from the prognostic forest (`propensity_covariate = "none"`).
+  `propensity_seperate` must be `"none"`. The treatment-effect contrast is
+  unchanged; Gaussian outcome predictions use `mu + (Z - propensity) * tau`.
+* Orthogonalisation requires `standardize_cov = FALSE` and `keep_burnin = FALSE`.
+  If covariate scaling is needed, transform training and evaluation covariates
+  externally using moments estimated on the training data. Retained GFR draws,
+  including GFR-only fits, are supported; retained burn-in coefficient histories
+  are not.
+* Fixed external-propensity orthogonalisation supports the corrected Gaussian
+  hc-hs residual-variance update. The former guard for the internally sampled
+  propensity branch has been removed. Non-orthogonalised models retain their
+  existing behaviour.
+
 # stochtree 0.1.2
 
 ## New Features

@@ -1553,6 +1553,10 @@ bcf <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_id
 #'                  num_burnin = 0, num_mcmc = 10)
 #' preds <- predict(bcf_model, X_test, Z_test, pi_test)
 predict.bcfmodel <- function(object, X, Z, propensity = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...){
+    if (identical(object$model_params$orthogonalization, "fixed-external")) {
+        return(.predict_linear_bcf_fixed_external(
+            object, X, Z, propensity, rfx_group_ids, rfx_basis, ...))
+    }
     # Preprocess covariates
   
     print('1')
