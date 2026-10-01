@@ -1,3 +1,29 @@
+# Gaussian unlinked hc-hs variance conditional. The alpha and forest priors
+# are independent of sigma squared and therefore contribute no extra terms.
+.hchs_variance_parameters <- function(residual, beta, beta_int, local_scale,
+                                      global_scale, prior_shape, prior_scale) {
+    coefficients <- c(beta, beta_int)
+    if (length(local_scale) != length(coefficients) ||
+        length(global_scale) != 1L || length(prior_shape) != 1L ||
+        length(prior_scale) != 1L ||
+        any(!is.finite(c(residual, coefficients, local_scale, global_scale,
+                        prior_shape, prior_scale))) ||
+        any(local_scale <= 0) || global_scale <= 0 ||
+        prior_shape <= 0 || prior_scale <= 0) {
+        stop("Invalid coefficient scales or residuals in the hc-hs variance conditional")
+    }
+    effective_scale <- local_scale
+    if (length(beta_int)) {
+        index <- length(beta) + seq_along(beta_int)
+        effective_scale[index] <- effective_scale[index] * global_scale
+    }
+    quadratic <- sum((coefficients / effective_scale)^2)
+    if (!is.finite(quadratic)) stop("Non-finite coefficient-prior quadratic")
+    list(shape=prior_shape + (length(residual) + length(coefficients))/2,
+         scale=prior_scale + (sum(residual^2) + quadratic)/2,
+         quadratic=quadratic, coefficient_count=length(coefficients))
+}
+
 #' Run the Bayesian Causal Forest (BCF) algorithm with Linear/Probit extensions
 #'
 #' @description
@@ -30,14 +56,14 @@
 #' @param previous_model_warmstart_sample_num (Optional) Sample number from `previous_model_json` that will be used to warmstart this BCF sampler. Default: `NULL`.
 #' @param general_params (Optional) A list of general (non-forest-specific) model parameters. Key options include:
 #' \itemize{
-#'   \item `use_ncp`: Boolean. If `TRUE`, uses Non-Centered Parameterization for the linear sampler (recommended for stability).
+#'   \item `use_ncp`: Boolean. If `TRUE`, uses Non-Centered Parameterization for the linear sampler.
 #'   \item `interaction_rule`: String. Defines how interactions are created (e.g., "continuous", "continuous_or_binary").
 #'   \item `regularize_ATE`: Boolean. If `TRUE`, the ATE (intercept) is subject to shrinkage.
 #'   \item `sample_global_prior`: String. Defines the global shrinkage prior. Options:
 #'     - `"half-cauchy"`: Standard horseshoe. Both main effects and interactions are shrunk locally and globally.
 #'     - `"half-normal"`: Similar to half-cauchy, but global shrinkage uses a half-Normal prior (via slice sampler).
-#'     - `"hc-hs"` (Half-Cauchy Horseshoe): Hybrid prior. Global shrinkage applies only to interactions. Main effects receive a marginal Cauchy prior (local shrinkage only).
-#'     - `"hybrid"`: Hybrid prior. Global shrinkage applies only to interactions. Main effects receive a flat prior (no shrinkage, variance fixed to 100 * sigma^2).
+#'     - `"hc-hs"` (Half-Cauchy Horseshoe): Hybrid prior. Global shrinkage applies only to interactions. Main effects have Gaussian priors with independent half-Cauchy local scales (no global multiplier).
+#'     - `"hybrid"`: Hybrid prior. Global shrinkage applies only to interactions. Main effects have Gaussian priors with variance fixed to 100 * sigma^2.
 #'     - `"none"` (or `"OLS"`): No shrinkage. `tau_beta` and `tau_glob` are fixed to constants.
 #'   \item `unlink`: Boolean. If `TRUE`, decouples interaction shrinkage from main effects, meaning interaction terms get their own independent local shrinkage parameters (`tau_beta`).
 #'   \item `probit_outcome_model`: Boolean. If `TRUE`, assumes binary outcome with probit link.
@@ -46,6 +72,27 @@
 #' @param prognostic_forest_params (Optional) A list of prognostic forest model parameters (e.g., `num_trees`, `alpha`, `beta`).
 #' @param treatment_effect_forest_params (Optional) A list of treatment effect forest model parameters.
 #' @param variance_forest_params (Optional) A list of variance forest model parameters (for heteroskedasticity).
+#'
+#' @details
+#' The corrected residual-variance full conditional is used for Gaussian,
+#' unlinked `hc-hs` with `gibbs = TRUE`, an unregularized ATE, and fixed treatment
+#' coding. It requires `simple_prior`, `use_ncp`, `robust`, `adaptive_coding`, and
+#' `orthogonalize` to be `FALSE`, `propensity_seperate = "none"`,
+#' `sigma_residual = 0`, and no random effects or variance forest. Its inverse-gamma
+#' shape is `sigma2_global_shape + (n + p + q)/2`; its scale is
+#' `sigma2_global_scale + (RSS + sum(beta^2/lambda^2) +
+#' sum(beta_int^2/(tau_glob^2 * eta^2)))/2`. Alpha and forest leaf priors are
+#' independent of the residual variance. Here p and q count main and interaction
+#' coefficients, respectively; these quantities are on the fitted outcome scale.
+#'
+#' Other configurations retain their legacy variance updates and have not been
+#' validated by this correction. Inspect `model_params$variance_update` and
+#' `model_params$hchs_variance_scope`; the latter records eligibility even when
+#' the residual variance is fixed. This repair does not establish convergence,
+#' and does not validate probit, non-centered, robust, linked, or alternate-prior
+#' variants. Numerical variance floors in the existing sampler remain in place.
+#' The old linear C++ kernel now brackets R random draws with R RNG state access.
+#' A supplied nonnegative `random_seed` restores the caller's R RNG state on exit.
 #'
 #' @return A list of class `bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
 #' @export
@@ -329,10 +376,18 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   has_existing_random_seed <- F
   if (custom_rng) {
       # Cache original global environment RNG state (if it exists)
-      if (exists(".Random.seed", envir = .GlobalEnv)) {
-          original_global_seed <- .Random.seed
+      if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
+          original_global_seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
           has_existing_random_seed <- T
       }
+      # Restore the caller's RNG state on success and on errors after this point.
+      on.exit({
+          if (has_existing_random_seed) {
+              assign(".Random.seed", original_global_seed, envir = .GlobalEnv)
+          } else if (exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {
+              rm(".Random.seed", envir = .GlobalEnv)
+          }
+      }, add = TRUE)
       # Set new seed and store associated RNG state
       set.seed(random_seed)
   }
@@ -986,6 +1041,13 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   if (sample_sigma2_global) global_var_samples <- rep(NA, num_retained_samples)
   if (sample_sigma2_leaf_mu) leaf_scale_mu_samples <- rep(NA, num_retained_samples)
   if (sample_sigma2_leaf_tau) leaf_scale_tau_samples <- rep(NA, num_retained_samples)
+  # The corrected full conditional is validated only for this configuration.
+  # Other experimental configurations retain their existing variance updates.
+  hchs_variance_scope <- sample_global_prior == "hc-hs" && unlink && gibbs &&
+    !regularize_ATE && !use_ncp && !simple_prior && !robust &&
+    !probit_outcome_model && !include_variance_forest && !has_rfx &&
+    !adaptive_coding && !orthogonalize && propensity_seperate == "none" &&
+    sigma_residual == 0
   sample_counter <- 0
   
   # Prepare adaptive coding structure
@@ -1271,7 +1333,13 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
       
       # Sample variance parameters (if requested)
       if (sample_sigma2_global) {
-        current_sigma2 <- sampleGlobalErrorVarianceOneIteration(outcome_train, forest_dataset_train, rng, a_global, b_global)
+        if (hchs_variance_scope) {
+          variance_parameters <- .hchs_variance_parameters(
+            outcome_train$get_data(), beta, beta_int, tau_beta, tau_glob, a_global, b_global)
+          current_sigma2 <- rinvgamma(variance_parameters$shape, variance_parameters$scale)
+        } else {
+          current_sigma2 <- sampleGlobalErrorVarianceOneIteration(outcome_train, forest_dataset_train, rng, a_global, b_global)
+        }
         global_model_config$update_global_error_variance(current_sigma2)
       }
       if (sample_sigma2_leaf_mu) {
@@ -1503,8 +1571,15 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
         )
       }
       if (sample_sigma2_global) {
-        shape_sigma_post <- 0.001 + n / 2
-        rate_sigma_post <- 0.001 + 0.5 * sum(outcome_train$get_data()^2)
+        if (hchs_variance_scope) {
+          variance_parameters <- .hchs_variance_parameters(
+            outcome_train$get_data(), beta, beta_int, tau_beta, tau_glob, a_global, b_global)
+          shape_sigma_post <- variance_parameters$shape
+          rate_sigma_post <- variance_parameters$scale
+        } else {
+          shape_sigma_post <- 0.001 + n / 2
+          rate_sigma_post <- 0.001 + 0.5 * sum(outcome_train$get_data()^2)
+        }
         sigma_sq <- rinvgamma(shape = shape_sigma_post, scale = rate_sigma_post)
         current_sigma2 <- max(sigma_sq, 1e-9)
         global_model_config$update_global_error_variance(current_sigma2)
@@ -2019,8 +2094,15 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
           )
         }
         if (sample_sigma_global) {
-          shape_sigma_post <- 0.001 + n / 2
-          rate_sigma_post <- 0.001 + 0.5 * sum(outcome_train$get_data()^2)
+          if (hchs_variance_scope) {
+            variance_parameters <- .hchs_variance_parameters(
+              outcome_train$get_data(), beta, beta_int, tau_beta, tau_glob, a_global, b_global)
+            shape_sigma_post <- variance_parameters$shape
+            rate_sigma_post <- variance_parameters$scale
+          } else {
+            shape_sigma_post <- 0.001 + n / 2
+            rate_sigma_post <- 0.001 + 0.5 * sum(outcome_train$get_data()^2)
+          }
           sigma_sq <- rinvgamma(shape = shape_sigma_post, scale = rate_sigma_post)
           current_sigma2 <- max(sigma_sq, 1e-9)
           global_model_config$update_global_error_variance(current_sigma2)
@@ -2126,6 +2208,13 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
     num_variance_covariates <- 0
   }
   model_params <- list(
+    "variance_update" = if (!sample_sigma_global) "fixed-variance" else if (hchs_variance_scope)
+      "hchs-full-conditional-20260927" else "legacy-unvalidated",
+    "hchs_variance_scope" = hchs_variance_scope,
+    "variance_prior_shape" = a_global,
+    "variance_prior_scale" = b_global,
+    "linear_rng_scope" = if (!use_ncp && !robust)
+      "old-kernel-R-RNG-scoped-20260927" else "alternate-kernel-unvalidated",
     "initial_sigma2" = sigma2_init, 
     "initial_sigma2_leaf_mu" = sigma2_leaf_mu,
     "initial_sigma2_leaf_tau" = sigma2_leaf_tau,
@@ -2233,14 +2322,6 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
   
   class(result) <- "bcfmodel"
   
-  # Restore global RNG state if user provided a random seed
-  if (custom_rng) {
-      if (has_existing_random_seed) {
-          .Random.seed <- original_global_seed
-      } else {
-          rm(".Random.seed", envir = .GlobalEnv)
-      }
-  }
   return(result)
 }
 

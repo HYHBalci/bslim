@@ -1,0 +1,16 @@
+{
+  "release_date": "2026-10-01",
+  "branch": "codex/heterogeneity-evidence-2026-10-01",
+  "analysis_repository": "https://github.com/HYHBalci/bcf-linear/tree/codex/heterogeneity-evidence-2026-10-01/heterogeneity-project",
+  "paper_relative_sibling": "../../../bcf-linear/heterogeneity-project/manuscript/paper_draft.pdf",
+  "knowledge_relative_sibling": "../../../bcf-linear/heterogeneity-project/knowledge/explorer.html",
+  "fresh_build_validation_relative_sibling": "../../../bcf-linear/heterogeneity-project/research-update-2026-10-01/fresh_build_validation.json",
+  "assertions": {
+    "diagnostics_aipw_orthogonal_probit": 226,
+    "live_horseshoe": 29,
+    "extracted_source_horseshoe": 32
+  },
+  "runtime_scope": "Current source build; distinct from historical private DLL. Source-overlay and installed-namespace modes are explicitly distinguished.",
+  "scientific_scope": "Specified-model theorem and exploratory evidence; actual default-prior/finite-MCMC transfer and observational calibration remain open.",
+  "excluded": "Private libraries, binaries, full simulation records and caches."
+}

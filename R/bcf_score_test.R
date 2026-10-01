@@ -10,34 +10,29 @@
 #' @param num_gfr Number of "warm-start" iterations. Default: 5.
 #' @param num_burnin Number of "burn-in" iterations. Default: 100.
 #' @param num_mcmc Number of "retained" iterations. Default: 500.
-#' @param use_rao_blackwell Logical. If TRUE, averages the score vector and covariance matrix across MCMC draws to compute a single optimal P-value. Default: TRUE.
+#' @param use_rao_blackwell Logical. For the default mean test, TRUE averages residual contributions across posterior draws before constructing the statistic and its empirical covariance; it does not average draw-specific covariance matrices. The legacy argument name is retained for compatibility. Posterior averaging alone does not establish Rao-Blackwellization, a marginal likelihood score, frequentist calibration, or optimality. Default: TRUE.
 #' @param test_type Character string specifying the score test type:
-#'   \code{"mean"} tests the conditional mean (BLP of the CATE in the score design);
-#'   \code{"distributional"} tests the full conditional distribution via the ECDF score process;
+#'   \code{"mean"} tests conditional-mean score directions in the declared finite design;
+#'   \code{"distributional"} tests selected ECDF directions on a finite covariate/grid design;
 #'   \code{"variance"} tests for variance (scale) heterogeneity via the squared-residual score
-#'   \code{s_i = Z_cen_i (e_i^2 - mean(e^2))}, sharing the mean test's machinery and its double robustness;
+#'   \code{s_i = Z_cen_i (e_i^2 - mean(e^2))}, using the same numerical machinery, without a general double-robustness guarantee;
 #'   \code{"smooth"} is a Neyman smooth test: the score process is projected on
 #'   \code{num_smooth_components} orthonormal Legendre polynomials of the residual rank, so that
-#'   component 1 captures location heterogeneity, component 2 scale, components 3+ skew/tail shape.
+#'   the components are rank-polynomial directions, not isolated tests of raw location, scale, skewness or tails.
 #'   Default: \code{"mean"}.
 #' @param num_grid_points Integer specifying the number of evaluation points for the distributional ECDF test. Ignored unless \code{test_type = "distributional"}. Default: 50.
 #' @param num_smooth_components Integer number of Legendre components (1-6) for \code{test_type = "smooth"}. Default: 4.
 #' @param rank_method For \code{test_type = "smooth"}, how the residual rank is formed:
 #'   \code{"per_draw"} (default, previous behavior) recomputes the rank within each MCMC draw
-#'   and Rao-Blackwellizes the Legendre basis, \code{sum_m P_j(u^(m))/M}; \code{"posterior_mean"}
+#'   and averages the Legendre basis over posterior draws, \code{sum_m P_j(u^(m))/M}; \code{"posterior_mean"}
 #'   averages the residuals first and ranks once, \code{P_j(rank(mean_m e^(m)))}.
-#'   The two differ materially. Averaging a basis function over a rank that jitters with the
-#'   posterior is a smoothing operator, and it damps fast-oscillating components hardest, so
-#'   \code{"per_draw"} attenuates higher-order components (skew, tail) more than lower-order
-#'   ones. Crucially the attenuation does not shrink with more draws: the average converges
-#'   *to* the damped quantity. \code{"posterior_mean"} never averages over a jittered rank.
-#'   Use it when components 3+ matter.
+#'   The two operations can differ even as the number of posterior draws increases. Their relative power is alternative-dependent, and neither isolates raw moments.
 #' @param dist_interaction_rule (Optional) Interaction rule for the score design used by the
 #'   \code{"distributional"} and \code{"smooth"} tests only (e.g. \code{"none"} for main effects),
 #'   allowing a smaller basis than the mean test. \code{NULL} (default) uses \code{general_params$interaction_rule}.
 #' @param centering For the distributional test, how indicators are centered: \code{"ecdf"} (default,
 #'   marginal empirical CDF — current behavior) or \code{"model"} (the fitted null model's Gaussian CDF,
-#'   \code{pnorm(t / sigma)}), which restores a product-bias/double-robustness structure at the price of
+#'   \code{pnorm(t / sigma)}), which uses a model-dependent reference and requires appropriate conditional calibration, beyond merely
 #'   assuming the null error law is Gaussian.
 #' @param standardize_residuals Logical. If TRUE, residuals are divided by the per-draw \code{sigma}
 #'   before computing indicator/rank scores, removing scale drift across MCMC draws. Default: FALSE.
@@ -45,11 +40,11 @@
 #'   (together with the first retained draw) to set the ECDF grid. Default: 1 (current behavior: first retained draw only).
 #' @param ad_weights Logical. If TRUE, the CvM-type distributional statistic uses Anderson-Darling
 #'   weights \code{1/(F(1-F))}, upweighting the tails where scale alternatives concentrate. Default: FALSE.
-#' @param null_method How the null distribution of the Rao-Blackwellized statistics is computed:
+#' @param null_method How the reference distribution of the posterior-averaged statistics is computed:
 #'   \code{"gaussian"} (default, current behavior: simulate \code{N(0, Sigma_hat)} via Cholesky of the full
 #'   covariance), \code{"multiplier"} (Gaussian multiplier bootstrap \code{t(X_s) \%*\% G} — the same law,
 #'   but never forms or factors the \code{(p*K) x (p*K)} matrix), or \code{"permutation"} (permute the
-#'   \code{Z - pihat} marks against the fitted residual scores; finite-sample-motivated, recommended with
+#'   \code{Z - pihat} marks against the fitted residual scores; an exploratory approximation without general observational or constant-CATE randomization validity; use
 #'   \code{num_null_draws = 2000}). For \code{"mean"}/\code{"variance"}, \code{"multiplier"} is equivalent
 #'   to \code{"gaussian"} and is treated as such. Ignored when \code{use_rao_blackwell = FALSE}.
 #' @param num_null_draws Number of simulation draws (or permutations) for null distributions. Default: 10000.

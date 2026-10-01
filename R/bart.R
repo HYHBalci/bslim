@@ -723,14 +723,15 @@ bart <- function(X_train, y_train, leaf_basis_train = NULL, rfx_group_ids_train 
             
             if (include_mean_forest) {
                 if (probit_outcome_model) {
-                    # Sample latent probit variable, z | -
+                    # Sample latent probit variable using the full forest-plus-offset mean.
+                    # Centre latent responses by the same offset before forest updates.
                     forest_pred <- active_forest_mean$predict(forest_dataset_train)
-                    mu0 <- forest_pred[y_train == 0]
-                    mu1 <- forest_pred[y_train == 1]
+                    mu0 <- forest_pred[y_train == 0] + y_bar_train
+                    mu1 <- forest_pred[y_train == 1] + y_bar_train
                     u0 <- runif(sum(y_train == 0), 0, pnorm(0 - mu0))
                     u1 <- runif(sum(y_train == 1), pnorm(0 - mu1), 1)
-                    resid_train[y_train==0] <- mu0 + qnorm(u0)
-                    resid_train[y_train==1] <- mu1 + qnorm(u1)
+                    resid_train[y_train==0] <- mu0 + qnorm(u0) - y_bar_train
+                    resid_train[y_train==1] <- mu1 + qnorm(u1) - y_bar_train
 
                     # Update outcome
                     outcome_train$update_data(resid_train - forest_pred)
@@ -877,14 +878,15 @@ bart <- function(X_train, y_train, leaf_basis_train = NULL, rfx_group_ids_train 
                 
                 if (include_mean_forest) {
                     if (probit_outcome_model) {
-                        # Sample latent probit variable, z | -
+                        # Sample latent probit variable using the full forest-plus-offset mean.
+                        # Centre latent responses by the same offset before forest updates.
                         forest_pred <- active_forest_mean$predict(forest_dataset_train)
-                        mu0 <- forest_pred[y_train == 0]
-                        mu1 <- forest_pred[y_train == 1]
+                        mu0 <- forest_pred[y_train == 0] + y_bar_train
+                        mu1 <- forest_pred[y_train == 1] + y_bar_train
                         u0 <- runif(sum(y_train == 0), 0, pnorm(0 - mu0))
                         u1 <- runif(sum(y_train == 1), pnorm(0 - mu1), 1)
-                        resid_train[y_train==0] <- mu0 + qnorm(u0)
-                        resid_train[y_train==1] <- mu1 + qnorm(u1)
+                        resid_train[y_train==0] <- mu0 + qnorm(u0) - y_bar_train
+                        resid_train[y_train==1] <- mu1 + qnorm(u1) - y_bar_train
 
                         # Update outcome
                         outcome_train$update_data(resid_train - forest_pred)
