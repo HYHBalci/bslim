@@ -1,5 +1,21 @@
 # stochtree 0.1.1.9004
 
+## Native tree sampler repair (2 October 2026 research branch)
+
+* Grow/prune Metropolis-Hastings ratios now use the actual move probabilities
+  in both states, the correct proposed count of leaf parents, and the reverse
+  proposal in the prune ratio. The stump uses its own reverse grow probability.
+  Deleted allocation slots are excluded when determining whether pruning
+  remains possible.
+* Split-range and nonconstancy helpers now handle negative values, descending
+  input and constant columns with independent minimum/maximum updates.
+* Nodes with exactly twice the minimum leaf count can propose a valid split;
+  a root that cannot grow has a valid structural self-loop.
+* Model priors and the grow/prune proposal family remain the same. Results
+  sampled by the earlier defective transition must be refitted before being
+  interpreted as draws from the intended posterior. Fresh correctness and
+  mixing checks are kept separately in the linked research investigation.
+
 ## Breaking Changes
 
 * `bcf_linear_probit(..., general_params = list(orthogonalize = TRUE))`

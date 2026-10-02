@@ -65,3 +65,4 @@ Config/testthat/edition: 3
 Config/VarianceFix: hchs-scoped-full-conditional-fixed-external-20261002
 Config/Orthogonalization: fixed-external-propensity-20260921
 Config/SourceBase: d7b76748daf15041c75e6150efb71e74c7f22449
+Config/TreeSamplerFix: reversible-birth-death-and-extrema-20261002
