@@ -268,3 +268,11 @@ cython_debug/
 *.exe
 *.out
 *.app
+
+# Portable project2 research release
+/.research-library/
+/research/**/local-output/
+/research/**/__pycache__/
+!/research/heterogeneity/*.json
+!/research/heterogeneity/*.csv
+!/research/heterogeneity/*.pdf

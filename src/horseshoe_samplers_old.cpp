@@ -18,16 +18,17 @@
 #include <R_ext/Random.h>
 
 namespace {
-// The cpp11 wrapper does not manage R's RNG state. Own it for this entire
-// transition, including all coefficient and shrinkage draws.
-class LinearTreatmentRNGScope {
+// Rmath RNG calls do not acquire or commit .Random.seed themselves.
+// One scope per exported old-kernel call also commits on C++ exception unwind.
+class OldLinearRNGScope {
  public:
-  LinearTreatmentRNGScope() { GetRNGstate(); }
-  ~LinearTreatmentRNGScope() { PutRNGstate(); }
-  LinearTreatmentRNGScope(const LinearTreatmentRNGScope&) = delete;
-  LinearTreatmentRNGScope& operator=(const LinearTreatmentRNGScope&) = delete;
+  OldLinearRNGScope() { GetRNGstate(); }
+  ~OldLinearRNGScope() { PutRNGstate(); }
+  OldLinearRNGScope(const OldLinearRNGScope&) = delete;
+  OldLinearRNGScope& operator=(const OldLinearRNGScope&) = delete;
 };
-}  // namespace
+}
+
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -175,7 +176,7 @@ double logPosteriorTauGlob_old(double tau_glob,
   if (tau_glob <= 0.0) return -std::numeric_limits<double>::infinity();
   
   double logPrior = 0.0;
-  if (prior_type == "half-cauchy") {
+  if (prior_type == "half-cauchy" || prior_type == "hc-hs") {
     logPrior = -safe_log(prior_scale * prior_scale + tau_glob * tau_glob);
   } else if (prior_type == "half-normal") {
     logPrior = -(tau_glob * tau_glob) / (2.0 * prior_scale * prior_scale);
@@ -277,8 +278,8 @@ cpp11::writable::list updateLinearTreatmentCpp_cpp_old(
     const std::string& propensity_seperate = "none",
     bool regularize_ATE = false,
     double hn_scale = 1.0) {
-  LinearTreatmentRNGScope rng_scope;
-  
+  OldLinearRNGScope rng_scope;
+
   // --- INITIAL SETUP ---
   int n = residual.size();
   int p_mod = X.ncol();

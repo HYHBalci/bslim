@@ -135,6 +135,9 @@ test_that("fixed orthogonalisation matches manual residualisation in GFR and MCM
         expect_identical(args$propensity_test, original_pi_test)
         expect_true(orthogonal$model_params$orthogonalize)
         expect_identical(orthogonal$model_params$orthogonalization, "fixed-external")
+        expect_true(orthogonal$model_params$hchs_variance_scope)
+        expect_identical(orthogonal$model_params$variance_update,
+                         "hchs-full-conditional-20260927")
         expect_identical(orthogonal$model_params$propensity_covariate, "none")
         expect_false(orthogonal$model_params$internal_propensity_model)
         expect_false(orthogonal$model_params$adaptive_coding)

@@ -40,6 +40,7 @@ Suggests:
     latex2exp,
     Matrix,
     mvtnorm,
+    posterior,
     rmarkdown,
     tgp
 SystemRequirements: C++17
@@ -61,6 +62,6 @@ Imports:
 URL: https://stochtree.ai/, https://github.com/StochasticTree/stochtree
 BugReports: https://github.com/StochasticTree/stochtree/issues
 Config/testthat/edition: 3
-Config/VarianceFix: hchs-full-conditional-rng-20260911
+Config/VarianceFix: hchs-scoped-full-conditional-fixed-external-20261002
 Config/Orthogonalization: fixed-external-propensity-20260921
 Config/SourceBase: d7b76748daf15041c75e6150efb71e74c7f22449

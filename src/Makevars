@@ -29,3 +29,9 @@ OBJECTS = \
     horseshoe_samplers_amr.o \
     chisel_step.o \
     shapley.o
+
+# Keep the default shared-library target when declaring an included-source dependency.
+all: $(SHLIB)
+
+# This wrapper includes the old sampler implementation directly.
+horseshoe_samplers_amr.o: horseshoe_samplers_old.cpp

@@ -86,14 +86,14 @@ treatment coding is disabled, \code{propensity_covariate} is forced to
 This mode requires \code{standardize_cov = FALSE} and \code{keep_burnin = FALSE}.
 If scaling is needed, transform covariates externally using training-data
 moments. Retained GFR draws, including GFR-only fits, are supported.
-\item \code{use_ncp}: Boolean. If \code{TRUE}, uses Non-Centered Parameterization for the linear sampler (recommended for stability).
+\item \code{use_ncp}: Boolean. If \code{TRUE}, uses Non-Centered Parameterization for the linear sampler.
 \item \code{interaction_rule}: String. Defines how interactions are created (e.g., "continuous", "continuous_or_binary").
 \item \code{regularize_ATE}: Boolean. If \code{TRUE}, the ATE (intercept) is subject to shrinkage.
 \item \code{sample_global_prior}: String. Defines the global shrinkage prior. Options:
 - \code{"half-cauchy"}: Standard horseshoe. Both main effects and interactions are shrunk locally and globally.
 - \code{"half-normal"}: Similar to half-cauchy, but global shrinkage uses a half-Normal prior (via slice sampler).
-- \code{"hc-hs"} (Half-Cauchy Horseshoe): Hybrid prior. Global shrinkage applies only to interactions. Main effects receive a marginal Cauchy prior (local shrinkage only).
-- \code{"hybrid"}: Hybrid prior. Global shrinkage applies only to interactions. Main effects receive a flat prior (no shrinkage, variance fixed to 100 * sigma^2).
+- \code{"hc-hs"} (Half-Cauchy Horseshoe): Hybrid prior. Global shrinkage applies only to interactions. Main effects have Gaussian priors with independent half-Cauchy local scales (no global multiplier).
+- \code{"hybrid"}: Hybrid prior. Global shrinkage applies only to interactions. Main effects have Gaussian priors with variance fixed to 100 * sigma^2.
 - \code{"none"} (or \code{"OLS"}): No shrinkage. \code{tau_beta} and \code{tau_glob} are fixed to constants.
 \item \code{unlink}: Boolean. If \code{TRUE}, decouples interaction shrinkage from main effects, meaning interaction terms get their own independent local shrinkage parameters (\code{tau_beta}).
 \item \code{probit_outcome_model}: Boolean. If \code{TRUE}, assumes binary outcome with probit link.
@@ -121,9 +121,31 @@ use \eqn{\mu(X) + (Z - \widehat{\pi})\tau(X)}. The supplied propensity scores
 are held fixed throughout sampling and excluded from the prognostic forest.
 The treatment-effect contrast \eqn{\tau(X)} itself is not multiplied by the
 residualised treatment. This fixed-design mode supports the corrected Gaussian
-hc-hs residual-variance update. Internal propensity coefficients are not sampled.
+hc-hs residual-variance update when the scope conditions below are met.
+Internal propensity coefficients are not sampled.
 Internal covariate standardisation and retention of burn-in coefficient
 histories are not supported in this mode. Use \code{standardize_cov = FALSE}
 and \code{keep_burnin = FALSE}; apply any covariate scaling externally using
 training-data moments for both training and evaluation rows.
+
+The corrected residual-variance full conditional is used for Gaussian,
+unlinked \code{hc-hs} with \code{gibbs = TRUE}, an unregularized ATE, and fixed treatment
+coding, including fixed external-propensity orthogonalisation. It requires
+\code{simple_prior}, \code{use_ncp}, \code{robust}, and \code{adaptive_coding} to be
+\code{FALSE}, \code{propensity_seperate = "none"},
+\code{sigma_residual = 0}, and no random effects or variance forest. Its inverse-gamma
+shape is \code{sigma2_global_shape + (n + p + q)/2}; its scale is
+\code{sigma2_global_scale + (RSS + sum(beta^2/lambda^2) +
+sum(beta_int^2/(tau_glob^2 * eta^2)))/2}. Alpha and forest leaf priors are
+independent of the residual variance. Here p and q count main and interaction
+coefficients, respectively; these quantities are on the fitted outcome scale.
+
+Other configurations retain their legacy variance updates and have not been
+validated by this correction. Inspect \code{model_params$variance_update} and
+\code{model_params$hchs_variance_scope}; the latter records eligibility even when
+the residual variance is fixed. This repair does not establish convergence,
+and does not validate probit, non-centered, robust, linked, or alternate-prior
+variants. Numerical variance floors in the existing sampler remain in place.
+The old linear C++ kernel now brackets R random draws with R RNG state access.
+A supplied nonnegative \code{random_seed} restores the caller's R RNG state on exit.
 }
