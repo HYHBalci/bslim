@@ -11,7 +11,7 @@ createBARTModelFromJsonFile(json_filename)
 \item{json_filename}{String of filepath, must end in ".json"}
 }
 \value{
-Object of type \code{bartmodel}
+Object of type \code{spbart_bartmodel}
 }
 \description{
 Convert a JSON file containing sample information on a trained BART model

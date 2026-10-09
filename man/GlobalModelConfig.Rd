@@ -3,12 +3,12 @@
 \name{GlobalModelConfig}
 \alias{GlobalModelConfig}
 \title{Object used to get / set global parameters and other global model
-configuration options in the "low-level" stochtree interface}
+configuration options in the "low-level" spbart interface}
 \value{
 Global error variance parameter
 }
 \description{
-The "low-level" stochtree interface enables a high degreee of sampler
+The "low-level" spbart interface enables a high degreee of sampler
 customization, in which users employ R wrappers around C++ objects
 like ForestDataset, Outcome, CppRng, and ForestModel to run the
 Gibbs sampler of a BART model with custom modifications.

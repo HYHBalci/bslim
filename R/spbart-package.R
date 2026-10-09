@@ -17,5 +17,5 @@
 ## usethis namespace: end
 NULL
 
-#' @useDynLib stochtree, .registration = TRUE
+#' @useDynLib spbart, .registration = TRUE
 "_PACKAGE"

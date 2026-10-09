@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(stochtree)
+library(spbart)
 
-test_check("stochtree")
+test_check("spbart")

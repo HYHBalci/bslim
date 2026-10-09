@@ -84,7 +84,7 @@ that of \code{X_train}.}
 \item{variance_forest_params}{(Optional) A list of variance forest model parameters (for heteroskedasticity).}
 }
 \value{
-A list of class \code{bcfmodel} containing sampling outputs (forests, coefficients, residuals) and model metadata.
+A list of class \code{spbart_bcfmodel} containing sampling outputs (forests, coefficients, residuals) and model metadata.
 }
 \description{
 This function implements a hybrid Bayesian Causal Forest model that combines

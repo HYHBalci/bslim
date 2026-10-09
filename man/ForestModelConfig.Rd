@@ -3,7 +3,7 @@
 \name{ForestModelConfig}
 \alias{ForestModelConfig}
 \title{Object used to get / set parameters and other model configuration options
-for a forest model in the "low-level" stochtree interface}
+for a forest model in the "low-level" spbart interface}
 \value{
 Vector of integer-coded feature types (integers where 0 = numeric, 1 = ordered categorical, 2 = unordered categorical)
 
@@ -34,7 +34,7 @@ Scale parameter for IG leaf models
 Number of unique cutpoints to consider
 }
 \description{
-The "low-level" stochtree interface enables a high degreee of sampler
+The "low-level" spbart interface enables a high degreee of sampler
 customization, in which users employ R wrappers around C++ objects
 like ForestDataset, Outcome, CppRng, and ForestModel to run the
 Gibbs sampler of a BART model with custom modifications.

@@ -1,14 +1,19 @@
-# StochTree
+# spBART
 
-[![C++ Tests](https://github.com/StochasticTree/stochtree/actions/workflows/cpp-test.yml/badge.svg)](https://github.com/StochasticTree/stochtree/actions/workflows/cpp-test.yml)
-[![Python Tests](https://github.com/StochasticTree/stochtree/actions/workflows/python-test.yml/badge.svg)](https://github.com/StochasticTree/stochtree/actions/workflows/python-test.yml)
-[![R Tests](https://github.com/StochasticTree/stochtree/actions/workflows/r-test.yml/badge.svg)](https://github.com/StochasticTree/stochtree/actions/workflows/r-test.yml)
+[![C++ Tests](https://github.com/HYHBalci/spbart/actions/workflows/cpp-test.yml/badge.svg)](https://github.com/HYHBalci/spbart/actions/workflows/cpp-test.yml)
+[![Python Tests](https://github.com/HYHBalci/spbart/actions/workflows/python-test.yml/badge.svg)](https://github.com/HYHBalci/spbart/actions/workflows/python-test.yml)
+[![R Tests](https://github.com/HYHBalci/spbart/actions/workflows/r-test.yml/badge.svg)](https://github.com/HYHBalci/spbart/actions/workflows/r-test.yml)
 
-Software for building stochastic tree ensembles (i.e. BART, XBART) for supervised learning and causal inference.
+Semi-parametric Bayesian additive regression trees for treatment effect prediction.
+
+The R package is named `spbart` so it can be installed alongside the original
+[`stochtree`](https://github.com/StochasticTree/stochtree) package. It is based on
+StochTree; the original authors, licenses and copyright notices are retained.
+The C++ core and Python interface retain their upstream names.
 
 # Getting Started
 
-`stochtree` is composed of a C++ "core" and R / Python interfaces to that core.
+This repository contains a C++ "core" and R / Python interfaces to that core.
 Details on installation and use are available below:
 
 * [Python](#python-package)
@@ -27,7 +32,7 @@ Without worrying about virtual environments (detailed further below), `stochtree
 
 ```
 pip install numpy scipy pytest pandas scikit-learn pybind11
-pip install git+https://github.com/StochasticTree/stochtree.git
+pip install git+https://github.com/HYHBalci/spbart.git
 ```
 
 ## Virtual environment installation
@@ -48,7 +53,7 @@ conda activate stochtree-dev
 Then install the package from github via pip
 
 ```{bash}
-pip install git+https://github.com/StochasticTree/stochtree.git
+pip install git+https://github.com/HYHBalci/spbart.git
 ```
 
 (*Note*: if you'd also like to run `stochtree`'s notebook examples, you will also need jupyterlab, seaborn, and matplotlib)
@@ -79,7 +84,7 @@ pip install numpy scipy pytest pandas scikit-learn pybind11
 Then install stochtree via
 
 ```{bash}
-pip install git+https://github.com/StochasticTree/stochtree.git
+pip install git+https://github.com/HYHBalci/spbart.git
 ```
 
 As above, if you'd like to run the notebook examples in the `demo/` subfolder, you will also need jupyterlab, seaborn, and matplotlib and you will have to [clone the repo](###cloning-the-repository)
@@ -90,16 +95,22 @@ pip install matplotlib seaborn jupyterlab
 
 # R Package
 
-The R package can be installed from GITHUB via
+Clone the repository with its source dependencies, then install the R package
+(R and a C++17 compiler are required; use Rtools on Windows):
 
 ```
-remotes::install_github("HYHBalci/stochtree", ref="r-dev")
+git clone --recurse-submodules https://github.com/HYHBalci/spbart.git
+cd spbart
+Rscript -e 'remotes::install_deps(".", dependencies = TRUE, upgrade = "never")'
+R CMD INSTALL .
 ```
 
-The development version of `stochtree` can be installed from Github via
+Use explicit namespaces when working with both packages in one R session:
 
 ```
-remotes::install_github("HYHBalci/stochtree", ref="r-dev")
+library(spbart)
+spbart::bcf_linear_probit
+stochtree::bcf
 ```
 
 # C++ Core
@@ -115,9 +126,9 @@ the C++ code can be compiled and unit-tested and compiled into a standalone
 To clone the repository, you must have git installed, which you can do following [these instructions](https://learn.microsoft.com/en-us/devops/develop/git/install-and-set-up-git). 
 
 Once git is available at the command line, navigate to the folder that will store this project (in bash / zsh, this is done by running `cd` followed by the path to the directory). 
-Then, clone the `stochtree` repo as a subfolder by running
+Then, clone the `spbart` repo as a subfolder by running
 ```{bash}
-git clone --recursive https://github.com/StochasticTree/stochtree.git
+git clone --recursive https://github.com/HYHBalci/spbart.git
 ```
 
 *NOTE*: this project incorporates several dependencies as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), 
@@ -132,7 +143,7 @@ The C++ project can be built independently from the R / Python packages using `c
 See [here](https://cmake.org/install/) for details on installing cmake (alternatively, 
 on MacOS, `cmake` can be installed using [homebrew](https://formulae.brew.sh/formula/cmake)).
 Once `cmake` is installed, you can build the CLI by navigating to the main 
-project directory at your command line (i.e. `cd /path/to/stochtree`) and 
+project directory at your command line (i.e. `cd /path/to/spbart`) and 
 running the following code 
 
 ```{bash}

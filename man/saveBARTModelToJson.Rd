@@ -7,7 +7,7 @@
 saveBARTModelToJson(object)
 }
 \arguments{
-\item{object}{Object of type \code{bartmodel} containing draws of a BART model and associated sampling outputs.}
+\item{object}{Object of type \code{spbart_bartmodel} containing draws of a BART model and associated sampling outputs.}
 }
 \value{
 Object of type \code{CppJson}

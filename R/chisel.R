@@ -17,7 +17,7 @@
 #' @param kappa_schedule Temperature schedule for chiseling weight intensity ("constant" or "adaptive"). Default: "constant".
 #' @param prognostic_forest_params (Optional) A list of prognostic forest model parameters.
 #' @param variance_forest_params (Optional) A list of variance forest model parameters.
-#' @return A list of class `bcfchiseler` containing posterior samples, inclusion probabilities, and boundary coefficients.
+#' @return A list of class `spbart_bcfchiseler` containing posterior samples, inclusion probabilities, and boundary coefficients.
 #' @export
 bcf_integrated_chiseler <- function(X_train, Z_train, y_train, propensity_train = NULL, 
                                     tau_c = 0.0, kappa_weight = 2.0, 
@@ -443,18 +443,18 @@ bcf_integrated_chiseler <- function(X_train, Z_train, y_train, propensity_train 
   if (include_variance_forest) result[["forests_variance"]] <- forest_samples_variance
   if (has_rfx) result[["rfx_samples"]] <- rfx_samples
   
-  class(result) <- "bcfchiseler"
+  class(result) <- "spbart_bcfchiseler"
   return(result)
 }
 
-#' Predict method for `bcfchiseler` objects
+#' Predict method for `spbart_bcfchiseler` objects
 #'
-#' @param object An object of class `bcfchiseler`.
+#' @param object An object of class `spbart_bcfchiseler`.
 #' @param X_test Matrix of covariates for test set.
 #' @param ... Additional arguments.
 #' @return A list containing posterior probabilities (`prob_smoothed`) and linear predictor draws (`boundary_linear_preds`).
 #' @export
-predict.bcfchiseler <- function(object, X_test, ...) {
+predict.spbart_bcfchiseler <- function(object, X_test, ...) {
   X_boundary_test <- cbind(1, as.matrix(X_test))
   colnames(X_boundary_test)[1] <- "Intercept"
   

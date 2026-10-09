@@ -42,7 +42,7 @@
 #' @param treatment_effect_forest_params (Optional) A list of treatment effect forest model parameters.
 #' @param variance_forest_params (Optional) A list of variance forest model parameters (for heteroskedasticity).
 #'
-#' @return A list of class `bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
+#' @return A list of class `spbart_bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
 #' @export
 
 bcf_linear_probit_amr <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_ids_train = NULL, 
@@ -1952,7 +1952,7 @@ bcf_linear_probit_amr <- function(X_train, Z_train, y_train, propensity_train = 
     result[["partial_residuals"]] = all_partial_residuals
   }
   
-  class(result) <- "bcfmodel"
+  class(result) <- "spbart_bcfmodel"
   
   # Restore global RNG state if user provided a random seed
   if (custom_rng) {
@@ -1967,7 +1967,7 @@ bcf_linear_probit_amr <- function(X_train, Z_train, y_train, propensity_train = 
 
 #' Predict from a sampled Linear Probit BCF model on new data
 #'
-#' @param object Object of type `bcfmodel` returned by `bcf_linear_probit`.
+#' @param object Object of type `spbart_bcfmodel` returned by `bcf_linear_probit`.
 #' @param X Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
 #' @param Z Treatments used for prediction.
 #' @param propensity (Optional) Propensities used for prediction.

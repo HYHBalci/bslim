@@ -12,7 +12,7 @@ computeForestLeafIndices(
 )
 }
 \arguments{
-\item{model_object}{Object of type \code{bartmodel}, \code{bcfmodel}, or \code{ForestSamples} corresponding to a BART / BCF model with at least one forest sample, or a low-level \code{ForestSamples} object.}
+\item{model_object}{Object of type \code{spbart_bartmodel}, \code{spbart_bcfmodel}, or \code{ForestSamples} corresponding to a BART / BCF model with at least one forest sample, or a low-level \code{ForestSamples} object.}
 
 \item{covariates}{Covariates to use for prediction. Must have the same dimensions / column types as the data used to train a forest.}
 

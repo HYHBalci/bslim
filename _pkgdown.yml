@@ -1,4 +1,4 @@
-url: https://stochastictree.github.io/stochtree-r/
+url: https://github.com/HYHBalci/spbart
 template:
   bootstrap: 5
 
@@ -8,14 +8,14 @@ reference:
     High-level functionality for training supervised Bayesian tree ensembles (BART, XBART)
   contents:
   - bart
-  - predict.bartmodel
+  - predict.spbart_bartmodel
 
 - title: Causal inference
   desc: >
     High-level functionality for estimating causal effects using Bayesian tree ensembles (BCF, XBCF)
   contents:
   - bcf
-  - predict.bcfmodel
+  - predict.spbart_bcfmodel
 
 - title: Low-level functionality
 
@@ -103,8 +103,8 @@ reference:
   - RandomEffectsTracker
   - createRandomEffectsTracker
   - getRandomEffectSamples
-  - getRandomEffectSamples.bartmodel
-  - getRandomEffectSamples.bcfmodel
+  - getRandomEffectSamples.spbart_bartmodel
+  - getRandomEffectSamples.spbart_bcfmodel
   - sampleGlobalErrorVarianceOneIteration
   - sampleLeafVarianceOneIteration
   - resetRandomEffectsModel
@@ -116,7 +116,7 @@ reference:
   desc: >
     High-level package details
   contents:
-  - stochtree-package
+  - spbart-package
 
 articles:
 - title: High-Level Model Fitting

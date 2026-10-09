@@ -11,7 +11,7 @@ createBARTModelFromCombinedJson(json_object_list)
 \item{json_object_list}{List of objects of type \code{CppJson} containing Json representation of a BART model}
 }
 \value{
-Object of type \code{bartmodel}
+Object of type \code{spbart_bartmodel}
 }
 \description{
 Convert a list of (in-memory) JSON representations of a BART model to a single combined BART model object

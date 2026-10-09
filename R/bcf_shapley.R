@@ -35,7 +35,7 @@
 #'   - `sigma2_global_shape` Shape parameter in the `IG(sigma2_global_shape, sigma2_global_scale)` global error variance model. Default: `0`.
 #'   - `sigma2_global_scale` Scale parameter in the `IG(sigma2_global_shape, sigma2_global_scale)` global error variance model. Default: `0`.
 #'   - `variable_weights` Numeric weights reflecting the relative probability of splitting on each variable. Does not need to sum to 1 but cannot be negative. Defaults to `rep(1/ncol(X_train), ncol(X_train))` if not set here. Note that if the propensity score is included as a covariate in either forest, its weight will default to `1/ncol(X_train)`. A workaround if you wish to provide a custom weight for the propensity score is to include it as a column in `X_train` and then set `propensity_covariate` to `'none'` adjust `keep_vars` accordingly for the `mu` or `tau` forests.
-#'   - `propensity_covariate` Whether to include the propensity score as a covariate in either or both of the forests. Enter `"none"` for neither, `"mu"` for the prognostic forest, `"tau"` for the treatment forest, and `"both"` for both forests. If this is not `"none"` and a propensity score is not provided, it will be estimated from (`X_train`, `Z_train`) using `stochtree::bart()`. Default: `"mu"`.
+#'   - `propensity_covariate` Whether to include the propensity score as a covariate in either or both of the forests. Enter `"none"` for neither, `"mu"` for the prognostic forest, `"tau"` for the treatment forest, and `"both"` for both forests. If this is not `"none"` and a propensity score is not provided, it will be estimated from (`X_train`, `Z_train`) using `spbart::bart()`. Default: `"mu"`.
 #'   - `adaptive_coding` Whether or not to use an "adaptive coding" scheme in which a binary treatment variable is not coded manually as (0,1) or (-1,1) but learned via parameters `b_0` and `b_1` that attach to the outcome model `[b_0 (1-Z) + b_1 Z] tau(X)`. This is ignored when Z is not binary. Default: `TRUE`.
 #'   - `control_coding_init` Initial value of the "control" group coding parameter. This is ignored when Z is not binary. Default: `-0.5`.
 #'   - `treated_coding_init` Initial value of the "treatment" group coding parameter. This is ignored when Z is not binary. Default: `0.5`.
@@ -1203,7 +1203,7 @@ bcf_linear_shapley <- function(X_train, Z_train, y_train, propensity_train = NUL
       # ----------------------------------------------------------------------
       if (shapley) {
         # A. Extract structure from the tree (Mu)
-        Phi_raw <- stochtree:::get_saabas_shapley_active_forest_cpp(
+        Phi_raw <- spbart:::get_saabas_shapley_active_forest_cpp(
           active_forest_mu$forest_ptr, 
           forest_dataset_train$data_ptr
         )
@@ -1658,7 +1658,7 @@ bcf_linear_shapley <- function(X_train, Z_train, y_train, propensity_train = NUL
         # ----------------------------------------------------------------------
         if (shapley) {
           # A. Extract structure from the tree (Mu)
-          Phi_raw <- stochtree:::get_saabas_shapley_active_forest_cpp(
+          Phi_raw <- spbart:::get_saabas_shapley_active_forest_cpp(
             active_forest_mu$forest_ptr, 
             forest_dataset_train$data_ptr
           )
@@ -2165,7 +2165,7 @@ bcf_linear_shapley <- function(X_train, Z_train, y_train, propensity_train = NUL
     result[["partial_residuals"]] = all_partial_residuals
   }
   
-  class(result) <- "bcfmodel"
+  class(result) <- "spbart_bcfmodel"
   
   # Restore global RNG state if user provided a random seed
   if (custom_rng) {
