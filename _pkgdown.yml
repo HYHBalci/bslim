@@ -1,4 +1,4 @@
-url: https://github.com/HYHBalci/spbart
+url: https://github.com/HYHBalci/bslim
 template:
   bootstrap: 5
 
@@ -8,14 +8,14 @@ reference:
     High-level functionality for training supervised Bayesian tree ensembles (BART, XBART)
   contents:
   - bart
-  - predict.spbart_bartmodel
+  - predict.bslim_bartmodel
 
 - title: Causal inference
   desc: >
     High-level functionality for estimating causal effects using Bayesian tree ensembles (BCF, XBCF)
   contents:
   - bcf
-  - predict.spbart_bcfmodel
+  - predict.bslim_bcfmodel
 
 - title: Low-level functionality
 
@@ -103,8 +103,8 @@ reference:
   - RandomEffectsTracker
   - createRandomEffectsTracker
   - getRandomEffectSamples
-  - getRandomEffectSamples.spbart_bartmodel
-  - getRandomEffectSamples.spbart_bcfmodel
+  - getRandomEffectSamples.bslim_bartmodel
+  - getRandomEffectSamples.bslim_bcfmodel
   - sampleGlobalErrorVarianceOneIteration
   - sampleLeafVarianceOneIteration
   - resetRandomEffectsModel
@@ -116,7 +116,7 @@ reference:
   desc: >
     High-level package details
   contents:
-  - spbart-package
+  - bslim-package
 
 articles:
 - title: High-Level Model Fitting

@@ -116,7 +116,7 @@
 #' The old linear C++ kernel now brackets R random draws with R RNG state access.
 #' A supplied nonnegative `random_seed` restores the caller's R RNG state on exit.
 #'
-#' @return A list of class `spbart_bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
+#' @return A list of class `bslim_bcfmodel` containing sampling outputs (forests, coefficients, residuals) and model metadata.
 #' @export
 
 bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_ids_train = NULL, 
@@ -2305,14 +2305,14 @@ bcf_linear_probit <- function(X_train, Z_train, y_train, propensity_train = NULL
     result[["bart_propensity_model"]] = bart_model_propensity
   } 
   
-  class(result) <- "spbart_bcfmodel"
+  class(result) <- "bslim_bcfmodel"
   
   return(result)
 }
 
 #' Predict from a sampled Linear Probit BCF model on new data
 #'
-#' @param object Object of type `spbart_bcfmodel` returned by `bcf_linear_probit`.
+#' @param object Object of type `bslim_bcfmodel` returned by `bcf_linear_probit`.
 #' @param X Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
 #' Apply the same external training-data transformations used for fitting.
 #' @param Z Treatments used for prediction.

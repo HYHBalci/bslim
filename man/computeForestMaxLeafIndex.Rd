@@ -7,7 +7,7 @@
 computeForestMaxLeafIndex(model_object, forest_type = NULL, forest_inds = NULL)
 }
 \arguments{
-\item{model_object}{Object of type \code{spbart_bartmodel}, \code{spbart_bcfmodel}, or \code{ForestSamples} corresponding to a BART / BCF model with at least one forest sample, or a low-level \code{ForestSamples} object.}
+\item{model_object}{Object of type \code{bslim_bartmodel}, \code{bslim_bcfmodel}, or \code{ForestSamples} corresponding to a BART / BCF model with at least one forest sample, or a low-level \code{ForestSamples} object.}
 
 \item{forest_type}{Which forest to use from \code{model_object}.
 Valid inputs depend on the model type, and whether or not a

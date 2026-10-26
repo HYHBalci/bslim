@@ -17,5 +17,5 @@
 ## usethis namespace: end
 NULL
 
-#' @useDynLib spbart, .registration = TRUE
+#' @useDynLib bslim, .registration = TRUE
 "_PACKAGE"

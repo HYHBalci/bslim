@@ -3,9 +3,9 @@ script<-sub('^--file=','',commandArgs(FALSE)[startsWith(commandArgs(FALSE),'--fi
 repository<-normalizePath(file.path(dirname(script),'../..'),winslash='/',mustWork=TRUE)
 args<-commandArgs(trailingOnly=TRUE)
 if(length(args)) .libPaths(c(normalizePath(args[1],winslash='/',mustWork=TRUE),.libPaths()))
-loadNamespace('spbart')
-cat('Compiled runtime:',find.package('spbart'),'\n')
-test_runtime<-new.env(parent=asNamespace('spbart'))
+loadNamespace('bslim')
+cat('Compiled runtime:',find.package('bslim'),'\n')
+test_runtime<-new.env(parent=asNamespace('bslim'))
 sys.source(file.path(repository,'R/bart.R'),test_runtime)
 sys.source(file.path(repository,'R/bcf_aipw_score_test.R'),test_runtime)
 bcf_aipw_score_test<-test_runtime$bcf_aipw_score_test

@@ -7,7 +7,7 @@
 computeForestLeafVariances(model_object, forest_type, forest_inds = NULL)
 }
 \arguments{
-\item{model_object}{Object of type \code{spbart_bartmodel} or \code{spbart_bcfmodel} corresponding to a BART / BCF model with at least one forest sample}
+\item{model_object}{Object of type \code{bslim_bartmodel} or \code{bslim_bcfmodel} corresponding to a BART / BCF model with at least one forest sample}
 
 \item{forest_type}{Which forest to use from \code{model_object}.
 Valid inputs depend on the model type, and whether or not a given forest was sampled in that model.

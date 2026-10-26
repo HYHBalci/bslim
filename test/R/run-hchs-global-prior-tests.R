@@ -1,5 +1,5 @@
 # Standalone regression check of the exact global-prior/slice helpers in live C++.
-# Uses Rcpp to compile extracted helper text; does not install or mutate spbart.
+# Uses Rcpp to compile extracted helper text; does not install or mutate bslim.
 args <- commandArgs(trailingOnly=FALSE)
 script <- sub('^--file=', '', args[grepl('^--file=',args)])
 if(length(script)!=1L)stop('Run this file using Rscript.')

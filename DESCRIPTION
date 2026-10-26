@@ -1,6 +1,6 @@
-Package: spbart
-Title: Semi-Parametric Bayesian Additive Regression Trees for Treatment Effect Prediction
-Version: 0.1.1.9004
+Package: bslim
+Title: BART Sparse Linear Interaction Model for Causal Inference
+Version: 0.1.1.9005
 Authors@R: 
   c(
     person("Yusufhan", "Balci", email = "yusufhanbalci@gmail.com", role = c("aut", "cre")),
@@ -20,8 +20,10 @@ Authors@R:
     person("Victor", "Zverovich", role = c("cph"), comment = "C++ source uses the fmt library internally, see inst/COPYRIGHTS")
   )
 Copyright: Copyright details for stochtree's C++ dependencies, which are vendored along with the core stochtree source code, are detailed in inst/COPYRIGHTS
-Description: Semi-parametric Bayesian additive regression trees for treatment effect
-    prediction, based on the 'stochtree' stochastic tree ensemble software.
+Description: BART Sparse Linear Interaction Model (B-SLIM) for causal inference,
+    combining Bayesian additive regression trees for prognosis with sparse linear
+    main effects and pairwise interactions for treatment effect heterogeneity.
+    Based on the 'stochtree' stochastic tree ensemble software.
     Robust implementations of Bayesian Additive Regression Trees (BART) 
     Chipman, George, McCulloch (2010) <doi:10.1214/09-AOAS285> 
     for supervised learning and Bayesian Causal Forests (BCF) 
@@ -61,8 +63,8 @@ Imports:
     rlang,
     purrr,
     scales
-URL: https://github.com/HYHBalci/spbart, https://github.com/StochasticTree/stochtree
-BugReports: https://github.com/HYHBalci/spbart/issues
+URL: https://github.com/HYHBalci/bslim, https://github.com/StochasticTree/stochtree
+BugReports: https://github.com/HYHBalci/bslim/issues
 Config/testthat/edition: 3
 Config/VarianceFix: hchs-scoped-full-conditional-fixed-external-20261002
 Config/Orthogonalization: fixed-external-propensity-20260921

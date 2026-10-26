@@ -7,56 +7,56 @@
 
 // R_data.cpp
 cpp11::external_pointer<StochTree::ForestDataset> create_forest_dataset_cpp();
-extern "C" SEXP _spbart_create_forest_dataset_cpp() {
+extern "C" SEXP _bslim_create_forest_dataset_cpp() {
   BEGIN_CPP11
     return cpp11::as_sexp(create_forest_dataset_cpp());
   END_CPP11
 }
 // R_data.cpp
 cpp11::external_pointer<StochTree::ForestDataset> create_uplift_forest_dataset_cpp();
-extern "C" SEXP _spbart_create_uplift_forest_dataset_cpp() {
+extern "C" SEXP _bslim_create_uplift_forest_dataset_cpp() {
   BEGIN_CPP11
     return cpp11::as_sexp(create_uplift_forest_dataset_cpp());
   END_CPP11
 }
 // R_data.cpp
 int dataset_num_rows_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_dataset_num_rows_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_dataset_num_rows_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(dataset_num_rows_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 int dataset_num_covariates_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_dataset_num_covariates_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_dataset_num_covariates_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(dataset_num_covariates_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 int dataset_num_basis_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_dataset_num_basis_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_dataset_num_basis_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(dataset_num_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 bool dataset_has_basis_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_dataset_has_basis_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_dataset_has_basis_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(dataset_has_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 bool dataset_has_variance_weights_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_dataset_has_variance_weights_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_dataset_has_variance_weights_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(dataset_has_variance_weights_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 void forest_dataset_add_covariates_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset_ptr, cpp11::doubles_matrix<> covariates);
-extern "C" SEXP _spbart_forest_dataset_add_covariates_cpp(SEXP dataset_ptr, SEXP covariates) {
+extern "C" SEXP _bslim_forest_dataset_add_covariates_cpp(SEXP dataset_ptr, SEXP covariates) {
   BEGIN_CPP11
     forest_dataset_add_covariates_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(covariates));
     return R_NilValue;
@@ -64,7 +64,7 @@ extern "C" SEXP _spbart_forest_dataset_add_covariates_cpp(SEXP dataset_ptr, SEXP
 }
 // R_data.cpp
 void forest_dataset_add_basis_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset_ptr, cpp11::doubles_matrix<> basis);
-extern "C" SEXP _spbart_forest_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basis) {
+extern "C" SEXP _bslim_forest_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basis) {
   BEGIN_CPP11
     forest_dataset_add_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(basis));
     return R_NilValue;
@@ -72,7 +72,7 @@ extern "C" SEXP _spbart_forest_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basi
 }
 // R_data.cpp
 void forest_dataset_update_basis_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset_ptr, cpp11::doubles_matrix<> basis);
-extern "C" SEXP _spbart_forest_dataset_update_basis_cpp(SEXP dataset_ptr, SEXP basis) {
+extern "C" SEXP _bslim_forest_dataset_update_basis_cpp(SEXP dataset_ptr, SEXP basis) {
   BEGIN_CPP11
     forest_dataset_update_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(basis));
     return R_NilValue;
@@ -80,7 +80,7 @@ extern "C" SEXP _spbart_forest_dataset_update_basis_cpp(SEXP dataset_ptr, SEXP b
 }
 // R_data.cpp
 void forest_dataset_add_weights_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset_ptr, cpp11::doubles weights);
-extern "C" SEXP _spbart_forest_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP weights) {
+extern "C" SEXP _bslim_forest_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP weights) {
   BEGIN_CPP11
     forest_dataset_add_weights_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(weights));
     return R_NilValue;
@@ -88,7 +88,7 @@ extern "C" SEXP _spbart_forest_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP we
 }
 // R_data.cpp
 void forest_dataset_add_treatment_cpp(cpp11::external_pointer<StochTree::ForestDataset> dataset_ptr, cpp11::integers treatment);
-extern "C" SEXP _spbart_forest_dataset_add_treatment_cpp(SEXP dataset_ptr, SEXP treatment) {
+extern "C" SEXP _bslim_forest_dataset_add_treatment_cpp(SEXP dataset_ptr, SEXP treatment) {
   BEGIN_CPP11
     forest_dataset_add_treatment_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(treatment));
     return R_NilValue;
@@ -96,14 +96,14 @@ extern "C" SEXP _spbart_forest_dataset_add_treatment_cpp(SEXP dataset_ptr, SEXP 
 }
 // R_data.cpp
 cpp11::external_pointer<StochTree::ColumnVector> create_column_vector_cpp(cpp11::doubles outcome);
-extern "C" SEXP _spbart_create_column_vector_cpp(SEXP outcome) {
+extern "C" SEXP _bslim_create_column_vector_cpp(SEXP outcome) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_column_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(outcome)));
   END_CPP11
 }
 // R_data.cpp
 void add_to_column_vector_cpp(cpp11::external_pointer<StochTree::ColumnVector> outcome, cpp11::doubles update_vector);
-extern "C" SEXP _spbart_add_to_column_vector_cpp(SEXP outcome, SEXP update_vector) {
+extern "C" SEXP _bslim_add_to_column_vector_cpp(SEXP outcome, SEXP update_vector) {
   BEGIN_CPP11
     add_to_column_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(outcome), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(update_vector));
     return R_NilValue;
@@ -111,7 +111,7 @@ extern "C" SEXP _spbart_add_to_column_vector_cpp(SEXP outcome, SEXP update_vecto
 }
 // R_data.cpp
 void subtract_from_column_vector_cpp(cpp11::external_pointer<StochTree::ColumnVector> outcome, cpp11::doubles update_vector);
-extern "C" SEXP _spbart_subtract_from_column_vector_cpp(SEXP outcome, SEXP update_vector) {
+extern "C" SEXP _bslim_subtract_from_column_vector_cpp(SEXP outcome, SEXP update_vector) {
   BEGIN_CPP11
     subtract_from_column_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(outcome), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(update_vector));
     return R_NilValue;
@@ -119,7 +119,7 @@ extern "C" SEXP _spbart_subtract_from_column_vector_cpp(SEXP outcome, SEXP updat
 }
 // R_data.cpp
 void overwrite_column_vector_cpp(cpp11::external_pointer<StochTree::ColumnVector> outcome, cpp11::doubles new_vector);
-extern "C" SEXP _spbart_overwrite_column_vector_cpp(SEXP outcome, SEXP new_vector) {
+extern "C" SEXP _bslim_overwrite_column_vector_cpp(SEXP outcome, SEXP new_vector) {
   BEGIN_CPP11
     overwrite_column_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(outcome), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(new_vector));
     return R_NilValue;
@@ -127,7 +127,7 @@ extern "C" SEXP _spbart_overwrite_column_vector_cpp(SEXP outcome, SEXP new_vecto
 }
 // R_data.cpp
 void propagate_trees_column_vector_cpp(cpp11::external_pointer<StochTree::ForestTracker> tracker, cpp11::external_pointer<StochTree::ColumnVector> residual);
-extern "C" SEXP _spbart_propagate_trees_column_vector_cpp(SEXP tracker, SEXP residual) {
+extern "C" SEXP _bslim_propagate_trees_column_vector_cpp(SEXP tracker, SEXP residual) {
   BEGIN_CPP11
     propagate_trees_column_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual));
     return R_NilValue;
@@ -135,49 +135,49 @@ extern "C" SEXP _spbart_propagate_trees_column_vector_cpp(SEXP tracker, SEXP res
 }
 // R_data.cpp
 cpp11::writable::doubles get_residual_cpp(cpp11::external_pointer<StochTree::ColumnVector> vector_ptr);
-extern "C" SEXP _spbart_get_residual_cpp(SEXP vector_ptr) {
+extern "C" SEXP _bslim_get_residual_cpp(SEXP vector_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_residual_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(vector_ptr)));
   END_CPP11
 }
 // R_data.cpp
 cpp11::external_pointer<StochTree::RandomEffectsDataset> create_rfx_dataset_cpp();
-extern "C" SEXP _spbart_create_rfx_dataset_cpp() {
+extern "C" SEXP _bslim_create_rfx_dataset_cpp() {
   BEGIN_CPP11
     return cpp11::as_sexp(create_rfx_dataset_cpp());
   END_CPP11
 }
 // R_data.cpp
 int rfx_dataset_num_rows_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset);
-extern "C" SEXP _spbart_rfx_dataset_num_rows_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_rfx_dataset_num_rows_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_dataset_num_rows_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 bool rfx_dataset_has_group_labels_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset);
-extern "C" SEXP _spbart_rfx_dataset_has_group_labels_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_rfx_dataset_has_group_labels_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_dataset_has_group_labels_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 bool rfx_dataset_has_basis_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset);
-extern "C" SEXP _spbart_rfx_dataset_has_basis_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_rfx_dataset_has_basis_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_dataset_has_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 bool rfx_dataset_has_variance_weights_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset);
-extern "C" SEXP _spbart_rfx_dataset_has_variance_weights_cpp(SEXP dataset) {
+extern "C" SEXP _bslim_rfx_dataset_has_variance_weights_cpp(SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_dataset_has_variance_weights_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset)));
   END_CPP11
 }
 // R_data.cpp
 void rfx_dataset_add_group_labels_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset_ptr, cpp11::integers group_labels);
-extern "C" SEXP _spbart_rfx_dataset_add_group_labels_cpp(SEXP dataset_ptr, SEXP group_labels) {
+extern "C" SEXP _bslim_rfx_dataset_add_group_labels_cpp(SEXP dataset_ptr, SEXP group_labels) {
   BEGIN_CPP11
     rfx_dataset_add_group_labels_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(group_labels));
     return R_NilValue;
@@ -185,7 +185,7 @@ extern "C" SEXP _spbart_rfx_dataset_add_group_labels_cpp(SEXP dataset_ptr, SEXP 
 }
 // R_data.cpp
 void rfx_dataset_add_basis_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset_ptr, cpp11::doubles_matrix<> basis);
-extern "C" SEXP _spbart_rfx_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basis) {
+extern "C" SEXP _bslim_rfx_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basis) {
   BEGIN_CPP11
     rfx_dataset_add_basis_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(basis));
     return R_NilValue;
@@ -193,7 +193,7 @@ extern "C" SEXP _spbart_rfx_dataset_add_basis_cpp(SEXP dataset_ptr, SEXP basis) 
 }
 // R_data.cpp
 void rfx_dataset_add_weights_cpp(cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset_ptr, cpp11::doubles weights);
-extern "C" SEXP _spbart_rfx_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP weights) {
+extern "C" SEXP _bslim_rfx_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP weights) {
   BEGIN_CPP11
     rfx_dataset_add_weights_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(weights));
     return R_NilValue;
@@ -201,35 +201,35 @@ extern "C" SEXP _spbart_rfx_dataset_add_weights_cpp(SEXP dataset_ptr, SEXP weigh
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_cpp(int num_components, int num_groups);
-extern "C" SEXP _spbart_rfx_container_cpp(SEXP num_components, SEXP num_groups) {
+extern "C" SEXP _bslim_rfx_container_cpp(SEXP num_components, SEXP num_groups) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_cpp(cpp11::as_cpp<cpp11::decay_t<int>>(num_components), cpp11::as_cpp<cpp11::decay_t<int>>(num_groups)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_from_json_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_container_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_container_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::LabelMapper> rfx_label_mapper_from_json_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_label_mapper_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_label_mapper_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_label_mapper_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::integers rfx_group_ids_from_json_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_group_ids_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_group_ids_from_json_cpp(SEXP json_ptr, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_group_ids_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 void rfx_container_append_from_json_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr, cpp11::external_pointer<nlohmann::json> json_ptr, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_container_append_from_json_cpp(SEXP rfx_container_ptr, SEXP json_ptr, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_container_append_from_json_cpp(SEXP rfx_container_ptr, SEXP json_ptr, SEXP rfx_label) {
   BEGIN_CPP11
     rfx_container_append_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label));
     return R_NilValue;
@@ -237,28 +237,28 @@ extern "C" SEXP _spbart_rfx_container_append_from_json_cpp(SEXP rfx_container_pt
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_from_json_string_cpp(std::string json_string, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_container_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_container_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::LabelMapper> rfx_label_mapper_from_json_string_cpp(std::string json_string, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_label_mapper_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_label_mapper_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_label_mapper_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::integers rfx_group_ids_from_json_string_cpp(std::string json_string, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_group_ids_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_group_ids_from_json_string_cpp(SEXP json_string, SEXP rfx_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_group_ids_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label)));
   END_CPP11
 }
 // R_random_effects.cpp
 void rfx_container_append_from_json_string_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr, std::string json_string, std::string rfx_label);
-extern "C" SEXP _spbart_rfx_container_append_from_json_string_cpp(SEXP rfx_container_ptr, SEXP json_string, SEXP rfx_label) {
+extern "C" SEXP _bslim_rfx_container_append_from_json_string_cpp(SEXP rfx_container_ptr, SEXP json_string, SEXP rfx_label) {
   BEGIN_CPP11
     rfx_container_append_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(rfx_label));
     return R_NilValue;
@@ -266,28 +266,28 @@ extern "C" SEXP _spbart_rfx_container_append_from_json_string_cpp(SEXP rfx_conta
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model_cpp(int num_components, int num_groups);
-extern "C" SEXP _spbart_rfx_model_cpp(SEXP num_components, SEXP num_groups) {
+extern "C" SEXP _bslim_rfx_model_cpp(SEXP num_components, SEXP num_groups) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_model_cpp(cpp11::as_cpp<cpp11::decay_t<int>>(num_components), cpp11::as_cpp<cpp11::decay_t<int>>(num_groups)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::RandomEffectsTracker> rfx_tracker_cpp(cpp11::integers group_labels);
-extern "C" SEXP _spbart_rfx_tracker_cpp(SEXP group_labels) {
+extern "C" SEXP _bslim_rfx_tracker_cpp(SEXP group_labels) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_tracker_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(group_labels)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::external_pointer<StochTree::LabelMapper> rfx_label_mapper_cpp(cpp11::external_pointer<StochTree::RandomEffectsTracker> rfx_tracker);
-extern "C" SEXP _spbart_rfx_label_mapper_cpp(SEXP rfx_tracker) {
+extern "C" SEXP _bslim_rfx_label_mapper_cpp(SEXP rfx_tracker) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_label_mapper_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(rfx_tracker)));
   END_CPP11
 }
 // R_random_effects.cpp
 void rfx_model_sample_random_effects_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::external_pointer<StochTree::RandomEffectsDataset> rfx_dataset, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::RandomEffectsTracker> rfx_tracker, cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container, bool keep_sample, double global_variance, cpp11::external_pointer<std::mt19937> rng);
-extern "C" SEXP _spbart_rfx_model_sample_random_effects_cpp(SEXP rfx_model, SEXP rfx_dataset, SEXP residual, SEXP rfx_tracker, SEXP rfx_container, SEXP keep_sample, SEXP global_variance, SEXP rng) {
+extern "C" SEXP _bslim_rfx_model_sample_random_effects_cpp(SEXP rfx_model, SEXP rfx_dataset, SEXP residual, SEXP rfx_tracker, SEXP rfx_container, SEXP keep_sample, SEXP global_variance, SEXP rng) {
   BEGIN_CPP11
     rfx_model_sample_random_effects_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(rfx_dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(rfx_tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container), cpp11::as_cpp<cpp11::decay_t<bool>>(keep_sample), cpp11::as_cpp<cpp11::decay_t<double>>(global_variance), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<std::mt19937>>>(rng));
     return R_NilValue;
@@ -295,42 +295,42 @@ extern "C" SEXP _spbart_rfx_model_sample_random_effects_cpp(SEXP rfx_model, SEXP
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_model_predict_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::external_pointer<StochTree::RandomEffectsDataset> rfx_dataset, cpp11::external_pointer<StochTree::RandomEffectsTracker> rfx_tracker);
-extern "C" SEXP _spbart_rfx_model_predict_cpp(SEXP rfx_model, SEXP rfx_dataset, SEXP rfx_tracker) {
+extern "C" SEXP _bslim_rfx_model_predict_cpp(SEXP rfx_model, SEXP rfx_dataset, SEXP rfx_tracker) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_model_predict_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(rfx_dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(rfx_tracker)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_container_predict_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container, cpp11::external_pointer<StochTree::RandomEffectsDataset> rfx_dataset, cpp11::external_pointer<StochTree::LabelMapper> label_mapper);
-extern "C" SEXP _spbart_rfx_container_predict_cpp(SEXP rfx_container, SEXP rfx_dataset, SEXP label_mapper) {
+extern "C" SEXP _bslim_rfx_container_predict_cpp(SEXP rfx_container, SEXP rfx_dataset, SEXP label_mapper) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_predict_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(rfx_dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::LabelMapper>>>(label_mapper)));
   END_CPP11
 }
 // R_random_effects.cpp
 int rfx_container_num_samples_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container);
-extern "C" SEXP _spbart_rfx_container_num_samples_cpp(SEXP rfx_container) {
+extern "C" SEXP _bslim_rfx_container_num_samples_cpp(SEXP rfx_container) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_num_samples_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container)));
   END_CPP11
 }
 // R_random_effects.cpp
 int rfx_container_num_components_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container);
-extern "C" SEXP _spbart_rfx_container_num_components_cpp(SEXP rfx_container) {
+extern "C" SEXP _bslim_rfx_container_num_components_cpp(SEXP rfx_container) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_num_components_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container)));
   END_CPP11
 }
 // R_random_effects.cpp
 int rfx_container_num_groups_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container);
-extern "C" SEXP _spbart_rfx_container_num_groups_cpp(SEXP rfx_container) {
+extern "C" SEXP _bslim_rfx_container_num_groups_cpp(SEXP rfx_container) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_num_groups_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container)));
   END_CPP11
 }
 // R_random_effects.cpp
 void rfx_container_delete_sample_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container, int sample_num);
-extern "C" SEXP _spbart_rfx_container_delete_sample_cpp(SEXP rfx_container, SEXP sample_num) {
+extern "C" SEXP _bslim_rfx_container_delete_sample_cpp(SEXP rfx_container, SEXP sample_num) {
   BEGIN_CPP11
     rfx_container_delete_sample_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container), cpp11::as_cpp<cpp11::decay_t<int>>(sample_num));
     return R_NilValue;
@@ -338,7 +338,7 @@ extern "C" SEXP _spbart_rfx_container_delete_sample_cpp(SEXP rfx_container, SEXP
 }
 // R_random_effects.cpp
 void rfx_model_set_working_parameter_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::doubles working_param_init);
-extern "C" SEXP _spbart_rfx_model_set_working_parameter_cpp(SEXP rfx_model, SEXP working_param_init) {
+extern "C" SEXP _bslim_rfx_model_set_working_parameter_cpp(SEXP rfx_model, SEXP working_param_init) {
   BEGIN_CPP11
     rfx_model_set_working_parameter_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(working_param_init));
     return R_NilValue;
@@ -346,7 +346,7 @@ extern "C" SEXP _spbart_rfx_model_set_working_parameter_cpp(SEXP rfx_model, SEXP
 }
 // R_random_effects.cpp
 void rfx_model_set_group_parameters_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::doubles_matrix<> group_params_init);
-extern "C" SEXP _spbart_rfx_model_set_group_parameters_cpp(SEXP rfx_model, SEXP group_params_init) {
+extern "C" SEXP _bslim_rfx_model_set_group_parameters_cpp(SEXP rfx_model, SEXP group_params_init) {
   BEGIN_CPP11
     rfx_model_set_group_parameters_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(group_params_init));
     return R_NilValue;
@@ -354,7 +354,7 @@ extern "C" SEXP _spbart_rfx_model_set_group_parameters_cpp(SEXP rfx_model, SEXP 
 }
 // R_random_effects.cpp
 void rfx_model_set_working_parameter_covariance_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::doubles_matrix<> working_param_cov_init);
-extern "C" SEXP _spbart_rfx_model_set_working_parameter_covariance_cpp(SEXP rfx_model, SEXP working_param_cov_init) {
+extern "C" SEXP _bslim_rfx_model_set_working_parameter_covariance_cpp(SEXP rfx_model, SEXP working_param_cov_init) {
   BEGIN_CPP11
     rfx_model_set_working_parameter_covariance_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(working_param_cov_init));
     return R_NilValue;
@@ -362,7 +362,7 @@ extern "C" SEXP _spbart_rfx_model_set_working_parameter_covariance_cpp(SEXP rfx_
 }
 // R_random_effects.cpp
 void rfx_model_set_group_parameter_covariance_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::doubles_matrix<> group_param_cov_init);
-extern "C" SEXP _spbart_rfx_model_set_group_parameter_covariance_cpp(SEXP rfx_model, SEXP group_param_cov_init) {
+extern "C" SEXP _bslim_rfx_model_set_group_parameter_covariance_cpp(SEXP rfx_model, SEXP group_param_cov_init) {
   BEGIN_CPP11
     rfx_model_set_group_parameter_covariance_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(group_param_cov_init));
     return R_NilValue;
@@ -370,7 +370,7 @@ extern "C" SEXP _spbart_rfx_model_set_group_parameter_covariance_cpp(SEXP rfx_mo
 }
 // R_random_effects.cpp
 void rfx_model_set_variance_prior_shape_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, double shape);
-extern "C" SEXP _spbart_rfx_model_set_variance_prior_shape_cpp(SEXP rfx_model, SEXP shape) {
+extern "C" SEXP _bslim_rfx_model_set_variance_prior_shape_cpp(SEXP rfx_model, SEXP shape) {
   BEGIN_CPP11
     rfx_model_set_variance_prior_shape_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<double>>(shape));
     return R_NilValue;
@@ -378,7 +378,7 @@ extern "C" SEXP _spbart_rfx_model_set_variance_prior_shape_cpp(SEXP rfx_model, S
 }
 // R_random_effects.cpp
 void rfx_model_set_variance_prior_scale_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, double scale);
-extern "C" SEXP _spbart_rfx_model_set_variance_prior_scale_cpp(SEXP rfx_model, SEXP scale) {
+extern "C" SEXP _bslim_rfx_model_set_variance_prior_scale_cpp(SEXP rfx_model, SEXP scale) {
   BEGIN_CPP11
     rfx_model_set_variance_prior_scale_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<double>>(scale));
     return R_NilValue;
@@ -386,49 +386,49 @@ extern "C" SEXP _spbart_rfx_model_set_variance_prior_scale_cpp(SEXP rfx_model, S
 }
 // R_random_effects.cpp
 cpp11::writable::integers rfx_tracker_get_unique_group_ids_cpp(cpp11::external_pointer<StochTree::RandomEffectsTracker> rfx_tracker);
-extern "C" SEXP _spbart_rfx_tracker_get_unique_group_ids_cpp(SEXP rfx_tracker) {
+extern "C" SEXP _bslim_rfx_tracker_get_unique_group_ids_cpp(SEXP rfx_tracker) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_tracker_get_unique_group_ids_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(rfx_tracker)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_container_get_beta_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr);
-extern "C" SEXP _spbart_rfx_container_get_beta_cpp(SEXP rfx_container_ptr) {
+extern "C" SEXP _bslim_rfx_container_get_beta_cpp(SEXP rfx_container_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_get_beta_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_container_get_alpha_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr);
-extern "C" SEXP _spbart_rfx_container_get_alpha_cpp(SEXP rfx_container_ptr) {
+extern "C" SEXP _bslim_rfx_container_get_alpha_cpp(SEXP rfx_container_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_get_alpha_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_container_get_xi_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr);
-extern "C" SEXP _spbart_rfx_container_get_xi_cpp(SEXP rfx_container_ptr) {
+extern "C" SEXP _bslim_rfx_container_get_xi_cpp(SEXP rfx_container_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_get_xi_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::writable::doubles rfx_container_get_sigma_cpp(cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container_ptr);
-extern "C" SEXP _spbart_rfx_container_get_sigma_cpp(SEXP rfx_container_ptr) {
+extern "C" SEXP _bslim_rfx_container_get_sigma_cpp(SEXP rfx_container_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_container_get_sigma_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container_ptr)));
   END_CPP11
 }
 // R_random_effects.cpp
 cpp11::list rfx_label_mapper_to_list_cpp(cpp11::external_pointer<StochTree::LabelMapper> label_mapper_ptr);
-extern "C" SEXP _spbart_rfx_label_mapper_to_list_cpp(SEXP label_mapper_ptr) {
+extern "C" SEXP _bslim_rfx_label_mapper_to_list_cpp(SEXP label_mapper_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(rfx_label_mapper_to_list_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::LabelMapper>>>(label_mapper_ptr)));
   END_CPP11
 }
 // R_random_effects.cpp
 void reset_rfx_model_cpp(cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model, cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_container, int sample_num);
-extern "C" SEXP _spbart_reset_rfx_model_cpp(SEXP rfx_model, SEXP rfx_container, SEXP sample_num) {
+extern "C" SEXP _bslim_reset_rfx_model_cpp(SEXP rfx_model, SEXP rfx_container, SEXP sample_num) {
   BEGIN_CPP11
     reset_rfx_model_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_container), cpp11::as_cpp<cpp11::decay_t<int>>(sample_num));
     return R_NilValue;
@@ -436,7 +436,7 @@ extern "C" SEXP _spbart_reset_rfx_model_cpp(SEXP rfx_model, SEXP rfx_container, 
 }
 // R_random_effects.cpp
 void reset_rfx_tracker_cpp(cpp11::external_pointer<StochTree::RandomEffectsTracker> tracker, cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model);
-extern "C" SEXP _spbart_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, SEXP residual, SEXP rfx_model) {
+extern "C" SEXP _bslim_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, SEXP residual, SEXP rfx_model) {
   BEGIN_CPP11
     reset_rfx_tracker_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model));
     return R_NilValue;
@@ -444,7 +444,7 @@ extern "C" SEXP _spbart_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, SEXP r
 }
 // R_random_effects.cpp
 void root_reset_rfx_tracker_cpp(cpp11::external_pointer<StochTree::RandomEffectsTracker> tracker, cpp11::external_pointer<StochTree::RandomEffectsDataset> dataset, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel> rfx_model);
-extern "C" SEXP _spbart_root_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, SEXP residual, SEXP rfx_model) {
+extern "C" SEXP _bslim_root_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, SEXP residual, SEXP rfx_model) {
   BEGIN_CPP11
     root_reset_rfx_tracker_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsDataset>>>(dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::MultivariateRegressionRandomEffectsModel>>>(rfx_model));
     return R_NilValue;
@@ -452,42 +452,42 @@ extern "C" SEXP _spbart_root_reset_rfx_tracker_cpp(SEXP tracker, SEXP dataset, S
 }
 // chisel_step.cpp
 writable::list horseshoe_probit_step_cpp(const doubles_matrix<>& X, const integers& y_star, const doubles& weights, const doubles& beta_in, const doubles& lambda_sq_in, double tau_sq, const doubles& nu_in, double xi);
-extern "C" SEXP _spbart_horseshoe_probit_step_cpp(SEXP X, SEXP y_star, SEXP weights, SEXP beta_in, SEXP lambda_sq_in, SEXP tau_sq, SEXP nu_in, SEXP xi) {
+extern "C" SEXP _bslim_horseshoe_probit_step_cpp(SEXP X, SEXP y_star, SEXP weights, SEXP beta_in, SEXP lambda_sq_in, SEXP tau_sq, SEXP nu_in, SEXP xi) {
   BEGIN_CPP11
     return cpp11::as_sexp(horseshoe_probit_step_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const integers&>>(y_star), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_in), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(lambda_sq_in), cpp11::as_cpp<cpp11::decay_t<double>>(tau_sq), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(nu_in), cpp11::as_cpp<cpp11::decay_t<double>>(xi)));
   END_CPP11
 }
 // chisel_step.cpp
 writable::list horseshoe_logit_step_cpp(const doubles_matrix<>& X, const integers& y_star, const doubles& weights, const doubles& omega_in, const doubles& beta_in, const doubles& lambda_sq_in, double tau_sq, const doubles& nu_in, double xi);
-extern "C" SEXP _spbart_horseshoe_logit_step_cpp(SEXP X, SEXP y_star, SEXP weights, SEXP omega_in, SEXP beta_in, SEXP lambda_sq_in, SEXP tau_sq, SEXP nu_in, SEXP xi) {
+extern "C" SEXP _bslim_horseshoe_logit_step_cpp(SEXP X, SEXP y_star, SEXP weights, SEXP omega_in, SEXP beta_in, SEXP lambda_sq_in, SEXP tau_sq, SEXP nu_in, SEXP xi) {
   BEGIN_CPP11
     return cpp11::as_sexp(horseshoe_logit_step_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const integers&>>(y_star), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(omega_in), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_in), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(lambda_sq_in), cpp11::as_cpp<cpp11::decay_t<double>>(tau_sq), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(nu_in), cpp11::as_cpp<cpp11::decay_t<double>>(xi)));
   END_CPP11
 }
 // forest.cpp
 cpp11::external_pointer<StochTree::TreeEnsemble> active_forest_cpp(int num_trees, int output_dimension, bool is_leaf_constant, bool is_exponentiated);
-extern "C" SEXP _spbart_active_forest_cpp(SEXP num_trees, SEXP output_dimension, SEXP is_leaf_constant, SEXP is_exponentiated) {
+extern "C" SEXP _bslim_active_forest_cpp(SEXP num_trees, SEXP output_dimension, SEXP is_leaf_constant, SEXP is_exponentiated) {
   BEGIN_CPP11
     return cpp11::as_sexp(active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<int>>(num_trees), cpp11::as_cpp<cpp11::decay_t<int>>(output_dimension), cpp11::as_cpp<cpp11::decay_t<bool>>(is_leaf_constant), cpp11::as_cpp<cpp11::decay_t<bool>>(is_exponentiated)));
   END_CPP11
 }
 // forest.cpp
 cpp11::external_pointer<StochTree::ForestContainer> forest_container_cpp(int num_trees, int output_dimension, bool is_leaf_constant, bool is_exponentiated);
-extern "C" SEXP _spbart_forest_container_cpp(SEXP num_trees, SEXP output_dimension, SEXP is_leaf_constant, SEXP is_exponentiated) {
+extern "C" SEXP _bslim_forest_container_cpp(SEXP num_trees, SEXP output_dimension, SEXP is_leaf_constant, SEXP is_exponentiated) {
   BEGIN_CPP11
     return cpp11::as_sexp(forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<int>>(num_trees), cpp11::as_cpp<cpp11::decay_t<int>>(output_dimension), cpp11::as_cpp<cpp11::decay_t<bool>>(is_leaf_constant), cpp11::as_cpp<cpp11::decay_t<bool>>(is_exponentiated)));
   END_CPP11
 }
 // forest.cpp
 cpp11::external_pointer<StochTree::ForestContainer> forest_container_from_json_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string forest_label);
-extern "C" SEXP _spbart_forest_container_from_json_cpp(SEXP json_ptr, SEXP forest_label) {
+extern "C" SEXP _bslim_forest_container_from_json_cpp(SEXP json_ptr, SEXP forest_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(forest_container_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(forest_label)));
   END_CPP11
 }
 // forest.cpp
 void forest_container_append_from_json_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_sample_ptr, cpp11::external_pointer<nlohmann::json> json_ptr, std::string forest_label);
-extern "C" SEXP _spbart_forest_container_append_from_json_cpp(SEXP forest_sample_ptr, SEXP json_ptr, SEXP forest_label) {
+extern "C" SEXP _bslim_forest_container_append_from_json_cpp(SEXP forest_sample_ptr, SEXP json_ptr, SEXP forest_label) {
   BEGIN_CPP11
     forest_container_append_from_json_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_sample_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(forest_label));
     return R_NilValue;
@@ -495,14 +495,14 @@ extern "C" SEXP _spbart_forest_container_append_from_json_cpp(SEXP forest_sample
 }
 // forest.cpp
 cpp11::external_pointer<StochTree::ForestContainer> forest_container_from_json_string_cpp(std::string json_string, std::string forest_label);
-extern "C" SEXP _spbart_forest_container_from_json_string_cpp(SEXP json_string, SEXP forest_label) {
+extern "C" SEXP _bslim_forest_container_from_json_string_cpp(SEXP json_string, SEXP forest_label) {
   BEGIN_CPP11
     return cpp11::as_sexp(forest_container_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(forest_label)));
   END_CPP11
 }
 // forest.cpp
 void forest_container_append_from_json_string_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_sample_ptr, std::string json_string, std::string forest_label);
-extern "C" SEXP _spbart_forest_container_append_from_json_string_cpp(SEXP forest_sample_ptr, SEXP json_string, SEXP forest_label) {
+extern "C" SEXP _bslim_forest_container_append_from_json_string_cpp(SEXP forest_sample_ptr, SEXP json_string, SEXP forest_label) {
   BEGIN_CPP11
     forest_container_append_from_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_sample_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string), cpp11::as_cpp<cpp11::decay_t<std::string>>(forest_label));
     return R_NilValue;
@@ -510,56 +510,56 @@ extern "C" SEXP _spbart_forest_container_append_from_json_string_cpp(SEXP forest
 }
 // forest.cpp
 int num_samples_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_num_samples_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_num_samples_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_samples_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 int ensemble_tree_max_depth_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int ensemble_num, int tree_num);
-extern "C" SEXP _spbart_ensemble_tree_max_depth_forest_container_cpp(SEXP forest_samples, SEXP ensemble_num, SEXP tree_num) {
+extern "C" SEXP _bslim_ensemble_tree_max_depth_forest_container_cpp(SEXP forest_samples, SEXP ensemble_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(ensemble_tree_max_depth_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(ensemble_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 double ensemble_average_max_depth_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int ensemble_num);
-extern "C" SEXP _spbart_ensemble_average_max_depth_forest_container_cpp(SEXP forest_samples, SEXP ensemble_num) {
+extern "C" SEXP _bslim_ensemble_average_max_depth_forest_container_cpp(SEXP forest_samples, SEXP ensemble_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(ensemble_average_max_depth_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(ensemble_num)));
   END_CPP11
 }
 // forest.cpp
 double average_max_depth_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_average_max_depth_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_average_max_depth_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(average_max_depth_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 int num_leaves_ensemble_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num);
-extern "C" SEXP _spbart_num_leaves_ensemble_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
+extern "C" SEXP _bslim_num_leaves_ensemble_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_leaves_ensemble_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num)));
   END_CPP11
 }
 // forest.cpp
 double sum_leaves_squared_ensemble_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num);
-extern "C" SEXP _spbart_sum_leaves_squared_ensemble_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
+extern "C" SEXP _bslim_sum_leaves_squared_ensemble_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(sum_leaves_squared_ensemble_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num)));
   END_CPP11
 }
 // forest.cpp
 int num_trees_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_num_trees_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_num_trees_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_trees_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 void json_save_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, std::string json_filename);
-extern "C" SEXP _spbart_json_save_forest_container_cpp(SEXP forest_samples, SEXP json_filename) {
+extern "C" SEXP _bslim_json_save_forest_container_cpp(SEXP forest_samples, SEXP json_filename) {
   BEGIN_CPP11
     json_save_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<std::string>>(json_filename));
     return R_NilValue;
@@ -567,7 +567,7 @@ extern "C" SEXP _spbart_json_save_forest_container_cpp(SEXP forest_samples, SEXP
 }
 // forest.cpp
 void json_load_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, std::string json_filename);
-extern "C" SEXP _spbart_json_load_forest_container_cpp(SEXP forest_samples, SEXP json_filename) {
+extern "C" SEXP _bslim_json_load_forest_container_cpp(SEXP forest_samples, SEXP json_filename) {
   BEGIN_CPP11
     json_load_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<std::string>>(json_filename));
     return R_NilValue;
@@ -575,35 +575,35 @@ extern "C" SEXP _spbart_json_load_forest_container_cpp(SEXP forest_samples, SEXP
 }
 // forest.cpp
 int leaf_dimension_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_leaf_dimension_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_leaf_dimension_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(leaf_dimension_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 int is_leaf_constant_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_is_leaf_constant_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_is_leaf_constant_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_leaf_constant_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 int is_exponentiated_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_is_exponentiated_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_is_exponentiated_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_exponentiated_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // forest.cpp
 bool all_roots_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num);
-extern "C" SEXP _spbart_all_roots_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
+extern "C" SEXP _bslim_all_roots_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(all_roots_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num)));
   END_CPP11
 }
 // forest.cpp
 void add_sample_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_add_sample_forest_container_cpp(SEXP forest_samples) {
+extern "C" SEXP _bslim_add_sample_forest_container_cpp(SEXP forest_samples) {
   BEGIN_CPP11
     add_sample_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples));
     return R_NilValue;
@@ -611,7 +611,7 @@ extern "C" SEXP _spbart_add_sample_forest_container_cpp(SEXP forest_samples) {
 }
 // forest.cpp
 void set_leaf_value_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, double leaf_value);
-extern "C" SEXP _spbart_set_leaf_value_forest_container_cpp(SEXP forest_samples, SEXP leaf_value) {
+extern "C" SEXP _bslim_set_leaf_value_forest_container_cpp(SEXP forest_samples, SEXP leaf_value) {
   BEGIN_CPP11
     set_leaf_value_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<double>>(leaf_value));
     return R_NilValue;
@@ -619,7 +619,7 @@ extern "C" SEXP _spbart_set_leaf_value_forest_container_cpp(SEXP forest_samples,
 }
 // forest.cpp
 void add_sample_value_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, double leaf_value);
-extern "C" SEXP _spbart_add_sample_value_forest_container_cpp(SEXP forest_samples, SEXP leaf_value) {
+extern "C" SEXP _bslim_add_sample_value_forest_container_cpp(SEXP forest_samples, SEXP leaf_value) {
   BEGIN_CPP11
     add_sample_value_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<double>>(leaf_value));
     return R_NilValue;
@@ -627,7 +627,7 @@ extern "C" SEXP _spbart_add_sample_value_forest_container_cpp(SEXP forest_sample
 }
 // forest.cpp
 void add_sample_vector_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::doubles leaf_vector);
-extern "C" SEXP _spbart_add_sample_vector_forest_container_cpp(SEXP forest_samples, SEXP leaf_vector) {
+extern "C" SEXP _bslim_add_sample_vector_forest_container_cpp(SEXP forest_samples, SEXP leaf_vector) {
   BEGIN_CPP11
     add_sample_vector_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(leaf_vector));
     return R_NilValue;
@@ -635,7 +635,7 @@ extern "C" SEXP _spbart_add_sample_vector_forest_container_cpp(SEXP forest_sampl
 }
 // forest.cpp
 void add_numeric_split_tree_value_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int leaf_num, int feature_num, double split_threshold, double left_leaf_value, double right_leaf_value);
-extern "C" SEXP _spbart_add_numeric_split_tree_value_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_value, SEXP right_leaf_value) {
+extern "C" SEXP _bslim_add_numeric_split_tree_value_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_value, SEXP right_leaf_value) {
   BEGIN_CPP11
     add_numeric_split_tree_value_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_num), cpp11::as_cpp<cpp11::decay_t<int>>(feature_num), cpp11::as_cpp<cpp11::decay_t<double>>(split_threshold), cpp11::as_cpp<cpp11::decay_t<double>>(left_leaf_value), cpp11::as_cpp<cpp11::decay_t<double>>(right_leaf_value));
     return R_NilValue;
@@ -643,7 +643,7 @@ extern "C" SEXP _spbart_add_numeric_split_tree_value_forest_container_cpp(SEXP f
 }
 // forest.cpp
 void add_numeric_split_tree_vector_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int leaf_num, int feature_num, double split_threshold, cpp11::doubles left_leaf_vector, cpp11::doubles right_leaf_vector);
-extern "C" SEXP _spbart_add_numeric_split_tree_vector_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_vector, SEXP right_leaf_vector) {
+extern "C" SEXP _bslim_add_numeric_split_tree_vector_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_vector, SEXP right_leaf_vector) {
   BEGIN_CPP11
     add_numeric_split_tree_vector_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_num), cpp11::as_cpp<cpp11::decay_t<int>>(feature_num), cpp11::as_cpp<cpp11::decay_t<double>>(split_threshold), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(left_leaf_vector), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(right_leaf_vector));
     return R_NilValue;
@@ -651,42 +651,42 @@ extern "C" SEXP _spbart_add_numeric_split_tree_vector_forest_container_cpp(SEXP 
 }
 // forest.cpp
 cpp11::writable::integers get_tree_leaves_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_get_tree_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_get_tree_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_tree_leaves_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_tree_split_counts_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int num_features);
-extern "C" SEXP _spbart_get_tree_split_counts_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP num_features) {
+extern "C" SEXP _bslim_get_tree_split_counts_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_tree_split_counts_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_forest_split_counts_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int num_features);
-extern "C" SEXP _spbart_get_forest_split_counts_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP num_features) {
+extern "C" SEXP _bslim_get_forest_split_counts_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_forest_split_counts_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_overall_split_counts_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int num_features);
-extern "C" SEXP _spbart_get_overall_split_counts_forest_container_cpp(SEXP forest_samples, SEXP num_features) {
+extern "C" SEXP _bslim_get_overall_split_counts_forest_container_cpp(SEXP forest_samples, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_overall_split_counts_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_granular_split_count_array_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int num_features);
-extern "C" SEXP _spbart_get_granular_split_count_array_forest_container_cpp(SEXP forest_samples, SEXP num_features) {
+extern "C" SEXP _bslim_get_granular_split_count_array_forest_container_cpp(SEXP forest_samples, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_granular_split_count_array_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 void set_leaf_vector_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::doubles leaf_vector);
-extern "C" SEXP _spbart_set_leaf_vector_forest_container_cpp(SEXP forest_samples, SEXP leaf_vector) {
+extern "C" SEXP _bslim_set_leaf_vector_forest_container_cpp(SEXP forest_samples, SEXP leaf_vector) {
   BEGIN_CPP11
     set_leaf_vector_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(leaf_vector));
     return R_NilValue;
@@ -694,126 +694,126 @@ extern "C" SEXP _spbart_set_leaf_vector_forest_container_cpp(SEXP forest_samples
 }
 // forest.cpp
 bool is_leaf_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_is_leaf_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_is_leaf_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_leaf_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 bool is_numeric_split_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_is_numeric_split_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_is_numeric_split_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_numeric_split_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 bool is_categorical_split_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_is_categorical_split_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_is_categorical_split_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_categorical_split_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int parent_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_parent_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_parent_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(parent_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int left_child_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_left_child_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_left_child_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(left_child_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int right_child_node_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_right_child_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_right_child_node_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(right_child_node_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int node_depth_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_node_depth_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_node_depth_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_depth_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int split_index_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_split_index_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_split_index_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(split_index_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 double split_theshold_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_split_theshold_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_split_theshold_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(split_theshold_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers split_categories_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_split_categories_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_split_categories_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(split_categories_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles leaf_values_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num, int node_id);
-extern "C" SEXP _spbart_leaf_values_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
+extern "C" SEXP _bslim_leaf_values_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num, SEXP node_id) {
   BEGIN_CPP11
     return cpp11::as_sexp(leaf_values_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(node_id)));
   END_CPP11
 }
 // forest.cpp
 int num_nodes_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_num_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_num_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_nodes_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 int num_leaves_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_num_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_num_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_leaves_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 int num_leaf_parents_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_num_leaf_parents_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_num_leaf_parents_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_leaf_parents_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 int num_split_nodes_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_num_split_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_num_split_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_split_nodes_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers nodes_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_nodes_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(nodes_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers leaves_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num, int tree_num);
-extern "C" SEXP _spbart_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_leaves_forest_container_cpp(SEXP forest_samples, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(leaves_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 void initialize_forest_model_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestTracker> tracker, cpp11::doubles init_values, int leaf_model_int);
-extern "C" SEXP _spbart_initialize_forest_model_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP init_values, SEXP leaf_model_int) {
+extern "C" SEXP _bslim_initialize_forest_model_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP init_values, SEXP leaf_model_int) {
   BEGIN_CPP11
     initialize_forest_model_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(init_values), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_model_int));
     return R_NilValue;
@@ -821,7 +821,7 @@ extern "C" SEXP _spbart_initialize_forest_model_cpp(SEXP data, SEXP residual, SE
 }
 // forest.cpp
 void adjust_residual_forest_container_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestTracker> tracker, bool requires_basis, int forest_num, bool add);
-extern "C" SEXP _spbart_adjust_residual_forest_container_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP requires_basis, SEXP forest_num, SEXP add) {
+extern "C" SEXP _bslim_adjust_residual_forest_container_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP requires_basis, SEXP forest_num, SEXP add) {
   BEGIN_CPP11
     adjust_residual_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<bool>>(requires_basis), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<bool>>(add));
     return R_NilValue;
@@ -829,7 +829,7 @@ extern "C" SEXP _spbart_adjust_residual_forest_container_cpp(SEXP data, SEXP res
 }
 // forest.cpp
 void propagate_basis_update_forest_container_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestTracker> tracker, int forest_num);
-extern "C" SEXP _spbart_propagate_basis_update_forest_container_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP forest_num) {
+extern "C" SEXP _bslim_propagate_basis_update_forest_container_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP tracker, SEXP forest_num) {
   BEGIN_CPP11
     propagate_basis_update_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num));
     return R_NilValue;
@@ -837,7 +837,7 @@ extern "C" SEXP _spbart_propagate_basis_update_forest_container_cpp(SEXP data, S
 }
 // forest.cpp
 void remove_sample_forest_container_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num);
-extern "C" SEXP _spbart_remove_sample_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
+extern "C" SEXP _bslim_remove_sample_forest_container_cpp(SEXP forest_samples, SEXP forest_num) {
   BEGIN_CPP11
     remove_sample_forest_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num));
     return R_NilValue;
@@ -845,98 +845,98 @@ extern "C" SEXP _spbart_remove_sample_forest_container_cpp(SEXP forest_samples, 
 }
 // forest.cpp
 cpp11::writable::doubles_matrix<> predict_forest_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_predict_forest_cpp(SEXP forest_samples, SEXP dataset) {
+extern "C" SEXP _bslim_predict_forest_cpp(SEXP forest_samples, SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles predict_forest_raw_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_predict_forest_raw_cpp(SEXP forest_samples, SEXP dataset) {
+extern "C" SEXP _bslim_predict_forest_raw_cpp(SEXP forest_samples, SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_forest_raw_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles_matrix<> predict_forest_raw_single_forest_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestDataset> dataset, int forest_num);
-extern "C" SEXP _spbart_predict_forest_raw_single_forest_cpp(SEXP forest_samples, SEXP dataset, SEXP forest_num) {
+extern "C" SEXP _bslim_predict_forest_raw_single_forest_cpp(SEXP forest_samples, SEXP dataset, SEXP forest_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_forest_raw_single_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles_matrix<> predict_forest_raw_single_tree_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::ForestDataset> dataset, int forest_num, int tree_num);
-extern "C" SEXP _spbart_predict_forest_raw_single_tree_cpp(SEXP forest_samples, SEXP dataset, SEXP forest_num, SEXP tree_num) {
+extern "C" SEXP _bslim_predict_forest_raw_single_tree_cpp(SEXP forest_samples, SEXP dataset, SEXP forest_num, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_forest_raw_single_tree_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles predict_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_predict_active_forest_cpp(SEXP active_forest, SEXP dataset) {
+extern "C" SEXP _bslim_predict_active_forest_cpp(SEXP active_forest, SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::doubles predict_raw_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_predict_raw_active_forest_cpp(SEXP active_forest, SEXP dataset) {
+extern "C" SEXP _bslim_predict_raw_active_forest_cpp(SEXP active_forest, SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(predict_raw_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
 }
 // forest.cpp
 int leaf_dimension_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_leaf_dimension_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_leaf_dimension_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(leaf_dimension_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 double average_max_depth_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_average_max_depth_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_average_max_depth_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(average_max_depth_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 int num_trees_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_num_trees_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_num_trees_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(num_trees_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 int ensemble_tree_max_depth_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int tree_num);
-extern "C" SEXP _spbart_ensemble_tree_max_depth_active_forest_cpp(SEXP active_forest, SEXP tree_num) {
+extern "C" SEXP _bslim_ensemble_tree_max_depth_active_forest_cpp(SEXP active_forest, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(ensemble_tree_max_depth_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 int is_leaf_constant_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_is_leaf_constant_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_is_leaf_constant_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_leaf_constant_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 int is_exponentiated_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_is_exponentiated_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_is_exponentiated_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_exponentiated_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 bool all_roots_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_all_roots_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_all_roots_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     return cpp11::as_sexp(all_roots_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest)));
   END_CPP11
 }
 // forest.cpp
 void set_leaf_value_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, double leaf_value);
-extern "C" SEXP _spbart_set_leaf_value_active_forest_cpp(SEXP active_forest, SEXP leaf_value) {
+extern "C" SEXP _bslim_set_leaf_value_active_forest_cpp(SEXP active_forest, SEXP leaf_value) {
   BEGIN_CPP11
     set_leaf_value_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<double>>(leaf_value));
     return R_NilValue;
@@ -944,7 +944,7 @@ extern "C" SEXP _spbart_set_leaf_value_active_forest_cpp(SEXP active_forest, SEX
 }
 // forest.cpp
 void set_leaf_vector_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::doubles leaf_vector);
-extern "C" SEXP _spbart_set_leaf_vector_active_forest_cpp(SEXP active_forest, SEXP leaf_vector) {
+extern "C" SEXP _bslim_set_leaf_vector_active_forest_cpp(SEXP active_forest, SEXP leaf_vector) {
   BEGIN_CPP11
     set_leaf_vector_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(leaf_vector));
     return R_NilValue;
@@ -952,7 +952,7 @@ extern "C" SEXP _spbart_set_leaf_vector_active_forest_cpp(SEXP active_forest, SE
 }
 // forest.cpp
 void add_numeric_split_tree_value_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int tree_num, int leaf_num, int feature_num, double split_threshold, double left_leaf_value, double right_leaf_value);
-extern "C" SEXP _spbart_add_numeric_split_tree_value_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_value, SEXP right_leaf_value) {
+extern "C" SEXP _bslim_add_numeric_split_tree_value_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_value, SEXP right_leaf_value) {
   BEGIN_CPP11
     add_numeric_split_tree_value_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_num), cpp11::as_cpp<cpp11::decay_t<int>>(feature_num), cpp11::as_cpp<cpp11::decay_t<double>>(split_threshold), cpp11::as_cpp<cpp11::decay_t<double>>(left_leaf_value), cpp11::as_cpp<cpp11::decay_t<double>>(right_leaf_value));
     return R_NilValue;
@@ -960,7 +960,7 @@ extern "C" SEXP _spbart_add_numeric_split_tree_value_active_forest_cpp(SEXP acti
 }
 // forest.cpp
 void add_numeric_split_tree_vector_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int tree_num, int leaf_num, int feature_num, double split_threshold, cpp11::doubles left_leaf_vector, cpp11::doubles right_leaf_vector);
-extern "C" SEXP _spbart_add_numeric_split_tree_vector_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_vector, SEXP right_leaf_vector) {
+extern "C" SEXP _bslim_add_numeric_split_tree_vector_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP leaf_num, SEXP feature_num, SEXP split_threshold, SEXP left_leaf_vector, SEXP right_leaf_vector) {
   BEGIN_CPP11
     add_numeric_split_tree_vector_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_num), cpp11::as_cpp<cpp11::decay_t<int>>(feature_num), cpp11::as_cpp<cpp11::decay_t<double>>(split_threshold), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(left_leaf_vector), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(right_leaf_vector));
     return R_NilValue;
@@ -968,35 +968,35 @@ extern "C" SEXP _spbart_add_numeric_split_tree_vector_active_forest_cpp(SEXP act
 }
 // forest.cpp
 cpp11::writable::integers get_tree_leaves_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int tree_num);
-extern "C" SEXP _spbart_get_tree_leaves_active_forest_cpp(SEXP active_forest, SEXP tree_num) {
+extern "C" SEXP _bslim_get_tree_leaves_active_forest_cpp(SEXP active_forest, SEXP tree_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_tree_leaves_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_tree_split_counts_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int tree_num, int num_features);
-extern "C" SEXP _spbart_get_tree_split_counts_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP num_features) {
+extern "C" SEXP _bslim_get_tree_split_counts_active_forest_cpp(SEXP active_forest, SEXP tree_num, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_tree_split_counts_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(tree_num), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_overall_split_counts_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int num_features);
-extern "C" SEXP _spbart_get_overall_split_counts_active_forest_cpp(SEXP active_forest, SEXP num_features) {
+extern "C" SEXP _bslim_get_overall_split_counts_active_forest_cpp(SEXP active_forest, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_overall_split_counts_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 cpp11::writable::integers get_granular_split_count_array_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, int num_features);
-extern "C" SEXP _spbart_get_granular_split_count_array_active_forest_cpp(SEXP active_forest, SEXP num_features) {
+extern "C" SEXP _bslim_get_granular_split_count_array_active_forest_cpp(SEXP active_forest, SEXP num_features) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_granular_split_count_array_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<int>>(num_features)));
   END_CPP11
 }
 // forest.cpp
 void initialize_forest_model_active_forest_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestTracker> tracker, cpp11::doubles init_values, int leaf_model_int);
-extern "C" SEXP _spbart_initialize_forest_model_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker, SEXP init_values, SEXP leaf_model_int) {
+extern "C" SEXP _bslim_initialize_forest_model_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker, SEXP init_values, SEXP leaf_model_int) {
   BEGIN_CPP11
     initialize_forest_model_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(init_values), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_model_int));
     return R_NilValue;
@@ -1004,7 +1004,7 @@ extern "C" SEXP _spbart_initialize_forest_model_active_forest_cpp(SEXP data, SEX
 }
 // forest.cpp
 void adjust_residual_active_forest_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestTracker> tracker, bool requires_basis, bool add);
-extern "C" SEXP _spbart_adjust_residual_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker, SEXP requires_basis, SEXP add) {
+extern "C" SEXP _bslim_adjust_residual_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker, SEXP requires_basis, SEXP add) {
   BEGIN_CPP11
     adjust_residual_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<bool>>(requires_basis), cpp11::as_cpp<cpp11::decay_t<bool>>(add));
     return R_NilValue;
@@ -1012,7 +1012,7 @@ extern "C" SEXP _spbart_adjust_residual_active_forest_cpp(SEXP data, SEXP residu
 }
 // forest.cpp
 void propagate_basis_update_active_forest_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestTracker> tracker);
-extern "C" SEXP _spbart_propagate_basis_update_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker) {
+extern "C" SEXP _bslim_propagate_basis_update_active_forest_cpp(SEXP data, SEXP residual, SEXP active_forest, SEXP tracker) {
   BEGIN_CPP11
     propagate_basis_update_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker));
     return R_NilValue;
@@ -1020,7 +1020,7 @@ extern "C" SEXP _spbart_propagate_basis_update_active_forest_cpp(SEXP data, SEXP
 }
 // forest.cpp
 void reset_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, int forest_num);
-extern "C" SEXP _spbart_reset_active_forest_cpp(SEXP active_forest, SEXP forest_samples, SEXP forest_num) {
+extern "C" SEXP _bslim_reset_active_forest_cpp(SEXP active_forest, SEXP forest_samples, SEXP forest_num) {
   BEGIN_CPP11
     reset_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num));
     return R_NilValue;
@@ -1028,7 +1028,7 @@ extern "C" SEXP _spbart_reset_active_forest_cpp(SEXP active_forest, SEXP forest_
 }
 // forest.cpp
 void reset_forest_model_cpp(cpp11::external_pointer<StochTree::ForestTracker> forest_tracker, cpp11::external_pointer<StochTree::TreeEnsemble> forest, cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, bool is_mean_model);
-extern "C" SEXP _spbart_reset_forest_model_cpp(SEXP forest_tracker, SEXP forest, SEXP data, SEXP residual, SEXP is_mean_model) {
+extern "C" SEXP _bslim_reset_forest_model_cpp(SEXP forest_tracker, SEXP forest, SEXP data, SEXP residual, SEXP is_mean_model) {
   BEGIN_CPP11
     reset_forest_model_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(forest_tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<bool>>(is_mean_model));
     return R_NilValue;
@@ -1036,7 +1036,7 @@ extern "C" SEXP _spbart_reset_forest_model_cpp(SEXP forest_tracker, SEXP forest,
 }
 // forest.cpp
 void root_reset_active_forest_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest);
-extern "C" SEXP _spbart_root_reset_active_forest_cpp(SEXP active_forest) {
+extern "C" SEXP _bslim_root_reset_active_forest_cpp(SEXP active_forest) {
   BEGIN_CPP11
     root_reset_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest));
     return R_NilValue;
@@ -1044,77 +1044,77 @@ extern "C" SEXP _spbart_root_reset_active_forest_cpp(SEXP active_forest) {
 }
 // horseshoe_samplers.cpp
 writable::list updateLinearTreatmentCpp_cpp(const doubles_matrix<>& X_design, const doubles_matrix<>& XtX_design, const doubles_matrix<>& X, const doubles& Z, const doubles& propensity_train, writable::doubles residual, const cpp11::integers& are_continuous, double alpha, writable::doubles beta, writable::doubles beta_int, writable::doubles tau_beta, writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_cpp(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_cpp(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(beta), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(beta_int), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // horseshoe_samplers.cpp
 writable::list updateLinearTreatmentCpp_NCP_cpp(const doubles_matrix<>& X_design, const doubles_matrix<>& XtX_design, const doubles_matrix<>& X, const doubles& Z, const doubles& propensity_train, writable::doubles residual, const cpp11::integers& are_continuous, double alpha_tilde, writable::doubles beta_tilde, writable::doubles beta_int_tilde, writable::doubles tau_beta, writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_NCP_cpp(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_NCP_cpp(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_NCP_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_tilde), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(beta_tilde), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(beta_int_tilde), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // horseshoe_samplers.cpp
 writable::list run_ltr_mse_cpp(const doubles& tau_tilde, const doubles_matrix<>& X, const integers& are_continuous, int M, double epsilon, const doubles& beta_init, const doubles& beta_int_init, const doubles& tau_beta_init, const doubles& nu_init, double tau_int_init, double tau_glob_init, double xi_init, double sigma2_rank_init, bool unlink, int n_iter, int burn_in);
-extern "C" SEXP _spbart_run_ltr_mse_cpp(SEXP tau_tilde, SEXP X, SEXP are_continuous, SEXP M, SEXP epsilon, SEXP beta_init, SEXP beta_int_init, SEXP tau_beta_init, SEXP nu_init, SEXP tau_int_init, SEXP tau_glob_init, SEXP xi_init, SEXP sigma2_rank_init, SEXP unlink, SEXP n_iter, SEXP burn_in) {
+extern "C" SEXP _bslim_run_ltr_mse_cpp(SEXP tau_tilde, SEXP X, SEXP are_continuous, SEXP M, SEXP epsilon, SEXP beta_init, SEXP beta_int_init, SEXP tau_beta_init, SEXP nu_init, SEXP tau_int_init, SEXP tau_glob_init, SEXP xi_init, SEXP sigma2_rank_init, SEXP unlink, SEXP n_iter, SEXP burn_in) {
   BEGIN_CPP11
     return cpp11::as_sexp(run_ltr_mse_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles&>>(tau_tilde), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const integers&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<int>>(M), cpp11::as_cpp<cpp11::decay_t<double>>(epsilon), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_int_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(tau_beta_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(nu_init), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int_init), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob_init), cpp11::as_cpp<cpp11::decay_t<double>>(xi_init), cpp11::as_cpp<cpp11::decay_t<double>>(sigma2_rank_init), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<int>>(n_iter), cpp11::as_cpp<cpp11::decay_t<int>>(burn_in)));
   END_CPP11
 }
 // horseshoe_samplers.cpp
 writable::list run_ltr_pg_cpp(const doubles& tau_tilde, const doubles_matrix<>& X, const integers& are_continuous, int M, double epsilon, const doubles& beta_init, const doubles& beta_int_init, const doubles& tau_beta_init, const doubles& nu_init, double tau_int_init, double tau_glob_init, double xi_init, bool unlink, int n_iter, int burn_in);
-extern "C" SEXP _spbart_run_ltr_pg_cpp(SEXP tau_tilde, SEXP X, SEXP are_continuous, SEXP M, SEXP epsilon, SEXP beta_init, SEXP beta_int_init, SEXP tau_beta_init, SEXP nu_init, SEXP tau_int_init, SEXP tau_glob_init, SEXP xi_init, SEXP unlink, SEXP n_iter, SEXP burn_in) {
+extern "C" SEXP _bslim_run_ltr_pg_cpp(SEXP tau_tilde, SEXP X, SEXP are_continuous, SEXP M, SEXP epsilon, SEXP beta_init, SEXP beta_int_init, SEXP tau_beta_init, SEXP nu_init, SEXP tau_int_init, SEXP tau_glob_init, SEXP xi_init, SEXP unlink, SEXP n_iter, SEXP burn_in) {
   BEGIN_CPP11
     return cpp11::as_sexp(run_ltr_pg_cpp(cpp11::as_cpp<cpp11::decay_t<const doubles&>>(tau_tilde), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const integers&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<int>>(M), cpp11::as_cpp<cpp11::decay_t<double>>(epsilon), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(beta_int_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(tau_beta_init), cpp11::as_cpp<cpp11::decay_t<const doubles&>>(nu_init), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int_init), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob_init), cpp11::as_cpp<cpp11::decay_t<double>>(xi_init), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<int>>(n_iter), cpp11::as_cpp<cpp11::decay_t<int>>(burn_in)));
   END_CPP11
 }
 // horseshoe_samplers_amr.cpp
 cpp11::writable::list updateLinearTreatmentCpp_amr(const cpp11::doubles& obs_weights, const cpp11::doubles_matrix<>& X_design, const cpp11::doubles_matrix<>& XtX_design, const cpp11::doubles_matrix<>& X, const cpp11::doubles& Z, const cpp11::doubles& propensity_train, cpp11::writable::doubles residual, const cpp11::r_vector<int>& are_continuous, double alpha, cpp11::writable::doubles beta, cpp11::writable::doubles beta_int, cpp11::writable::doubles tau_beta, cpp11::writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_amr(SEXP obs_weights, SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_amr(SEXP obs_weights, SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_amr(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(obs_weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::r_vector<int>&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_int), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // horseshoe_samplers_amr.cpp
 cpp11::writable::list updateLinearTreatmentCpp_NCP_amr(const cpp11::doubles_matrix<>& X_design, const cpp11::doubles_matrix<>& XtX_design, const cpp11::doubles_matrix<>& X, const cpp11::doubles& Z, const cpp11::doubles& propensity_train, cpp11::writable::doubles residual, const cpp11::doubles& obs_weights, const cpp11::r_vector<int>& are_continuous, double alpha_tilde, cpp11::writable::doubles beta_tilde, cpp11::writable::doubles beta_int_tilde, cpp11::writable::doubles tau_beta, cpp11::writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_NCP_amr(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP obs_weights, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_NCP_amr(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP obs_weights, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_NCP_amr(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(obs_weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::r_vector<int>&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_int_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // horseshoe_samplers_old.cpp
 cpp11::writable::list updateLinearTreatmentCpp_cpp_old(const cpp11::doubles_matrix<>& X_design, const cpp11::doubles_matrix<>& XtX_design, const cpp11::doubles_matrix<>& X, const cpp11::doubles& Z, const cpp11::doubles& propensity_train, cpp11::writable::doubles residual, const cpp11::r_vector<int>& are_continuous, double alpha, cpp11::writable::doubles beta, cpp11::writable::doubles beta_int, cpp11::writable::doubles tau_beta, cpp11::writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_cpp_old(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_cpp_old(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha, SEXP beta, SEXP beta_int, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_cpp_old(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::r_vector<int>&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_int), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // horseshoe_samplers_old.cpp
 cpp11::writable::list updateLinearTreatmentCpp_NCP_cpp_old(const cpp11::doubles_matrix<>& X_design, const cpp11::doubles_matrix<>& XtX_design, const cpp11::doubles_matrix<>& X, const cpp11::doubles& Z, const cpp11::doubles& propensity_train, cpp11::writable::doubles residual, const cpp11::r_vector<int>& are_continuous, double alpha_tilde, cpp11::writable::doubles beta_tilde, cpp11::writable::doubles beta_int_tilde, cpp11::writable::doubles tau_beta, cpp11::writable::doubles nu, double xi, double tau_int, double sigma, double alpha_prior_sd, double tau_glob, const std::string& sample_global_prior, bool unlink, bool gibbs, bool save_output, int index, int max_steps, double step_out, const std::string& propensity_seperate, bool regularize_ATE, double hn_scale);
-extern "C" SEXP _spbart_updateLinearTreatmentCpp_NCP_cpp_old(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
+extern "C" SEXP _bslim_updateLinearTreatmentCpp_NCP_cpp_old(SEXP X_design, SEXP XtX_design, SEXP X, SEXP Z, SEXP propensity_train, SEXP residual, SEXP are_continuous, SEXP alpha_tilde, SEXP beta_tilde, SEXP beta_int_tilde, SEXP tau_beta, SEXP nu, SEXP xi, SEXP tau_int, SEXP sigma, SEXP alpha_prior_sd, SEXP tau_glob, SEXP sample_global_prior, SEXP unlink, SEXP gibbs, SEXP save_output, SEXP index, SEXP max_steps, SEXP step_out, SEXP propensity_seperate, SEXP regularize_ATE, SEXP hn_scale) {
   BEGIN_CPP11
     return cpp11::as_sexp(updateLinearTreatmentCpp_NCP_cpp_old(cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(XtX_design), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles_matrix<>&>>(X), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(Z), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(propensity_train), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(residual), cpp11::as_cpp<cpp11::decay_t<const cpp11::r_vector<int>&>>(are_continuous), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(beta_int_tilde), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(tau_beta), cpp11::as_cpp<cpp11::decay_t<cpp11::writable::doubles>>(nu), cpp11::as_cpp<cpp11::decay_t<double>>(xi), cpp11::as_cpp<cpp11::decay_t<double>>(tau_int), cpp11::as_cpp<cpp11::decay_t<double>>(sigma), cpp11::as_cpp<cpp11::decay_t<double>>(alpha_prior_sd), cpp11::as_cpp<cpp11::decay_t<double>>(tau_glob), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(sample_global_prior), cpp11::as_cpp<cpp11::decay_t<bool>>(unlink), cpp11::as_cpp<cpp11::decay_t<bool>>(gibbs), cpp11::as_cpp<cpp11::decay_t<bool>>(save_output), cpp11::as_cpp<cpp11::decay_t<int>>(index), cpp11::as_cpp<cpp11::decay_t<int>>(max_steps), cpp11::as_cpp<cpp11::decay_t<double>>(step_out), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(propensity_seperate), cpp11::as_cpp<cpp11::decay_t<bool>>(regularize_ATE), cpp11::as_cpp<cpp11::decay_t<double>>(hn_scale)));
   END_CPP11
 }
 // kernel.cpp
 int forest_container_get_max_leaf_index_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_container, int forest_num);
-extern "C" SEXP _spbart_forest_container_get_max_leaf_index_cpp(SEXP forest_container, SEXP forest_num) {
+extern "C" SEXP _bslim_forest_container_get_max_leaf_index_cpp(SEXP forest_container, SEXP forest_num) {
   BEGIN_CPP11
     return cpp11::as_sexp(forest_container_get_max_leaf_index_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_container), cpp11::as_cpp<cpp11::decay_t<int>>(forest_num)));
   END_CPP11
 }
 // kernel.cpp
 cpp11::writable::integers_matrix<> compute_leaf_indices_cpp(cpp11::external_pointer<StochTree::ForestContainer> forest_container, cpp11::doubles_matrix<> covariates, cpp11::integers forest_nums);
-extern "C" SEXP _spbart_compute_leaf_indices_cpp(SEXP forest_container, SEXP covariates, SEXP forest_nums) {
+extern "C" SEXP _bslim_compute_leaf_indices_cpp(SEXP forest_container, SEXP covariates, SEXP forest_nums) {
   BEGIN_CPP11
     return cpp11::as_sexp(compute_leaf_indices_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_container), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(covariates), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(forest_nums)));
   END_CPP11
 }
 // sampler.cpp
 void sample_gfr_one_iteration_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestTracker> tracker, cpp11::external_pointer<StochTree::TreePrior> split_prior, cpp11::external_pointer<std::mt19937> rng, cpp11::integers feature_types, int cutpoint_grid_size, cpp11::doubles_matrix<> leaf_model_scale_input, cpp11::doubles variable_weights, double a_forest, double b_forest, double global_variance, int leaf_model_int, bool keep_forest);
-extern "C" SEXP _spbart_sample_gfr_one_iteration_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP active_forest, SEXP tracker, SEXP split_prior, SEXP rng, SEXP feature_types, SEXP cutpoint_grid_size, SEXP leaf_model_scale_input, SEXP variable_weights, SEXP a_forest, SEXP b_forest, SEXP global_variance, SEXP leaf_model_int, SEXP keep_forest) {
+extern "C" SEXP _bslim_sample_gfr_one_iteration_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP active_forest, SEXP tracker, SEXP split_prior, SEXP rng, SEXP feature_types, SEXP cutpoint_grid_size, SEXP leaf_model_scale_input, SEXP variable_weights, SEXP a_forest, SEXP b_forest, SEXP global_variance, SEXP leaf_model_int, SEXP keep_forest) {
   BEGIN_CPP11
     sample_gfr_one_iteration_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(split_prior), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<std::mt19937>>>(rng), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(feature_types), cpp11::as_cpp<cpp11::decay_t<int>>(cutpoint_grid_size), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(leaf_model_scale_input), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(variable_weights), cpp11::as_cpp<cpp11::decay_t<double>>(a_forest), cpp11::as_cpp<cpp11::decay_t<double>>(b_forest), cpp11::as_cpp<cpp11::decay_t<double>>(global_variance), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_model_int), cpp11::as_cpp<cpp11::decay_t<bool>>(keep_forest));
     return R_NilValue;
@@ -1122,7 +1122,7 @@ extern "C" SEXP _spbart_sample_gfr_one_iteration_cpp(SEXP data, SEXP residual, S
 }
 // sampler.cpp
 void sample_mcmc_one_iteration_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestContainer> forest_samples, cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<StochTree::ForestTracker> tracker, cpp11::external_pointer<StochTree::TreePrior> split_prior, cpp11::external_pointer<std::mt19937> rng, cpp11::integers feature_types, int cutpoint_grid_size, cpp11::doubles_matrix<> leaf_model_scale_input, cpp11::doubles variable_weights, double a_forest, double b_forest, double global_variance, int leaf_model_int, bool keep_forest);
-extern "C" SEXP _spbart_sample_mcmc_one_iteration_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP active_forest, SEXP tracker, SEXP split_prior, SEXP rng, SEXP feature_types, SEXP cutpoint_grid_size, SEXP leaf_model_scale_input, SEXP variable_weights, SEXP a_forest, SEXP b_forest, SEXP global_variance, SEXP leaf_model_int, SEXP keep_forest) {
+extern "C" SEXP _bslim_sample_mcmc_one_iteration_cpp(SEXP data, SEXP residual, SEXP forest_samples, SEXP active_forest, SEXP tracker, SEXP split_prior, SEXP rng, SEXP feature_types, SEXP cutpoint_grid_size, SEXP leaf_model_scale_input, SEXP variable_weights, SEXP a_forest, SEXP b_forest, SEXP global_variance, SEXP leaf_model_int, SEXP keep_forest) {
   BEGIN_CPP11
     sample_mcmc_one_iteration_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestTracker>>>(tracker), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(split_prior), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<std::mt19937>>>(rng), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(feature_types), cpp11::as_cpp<cpp11::decay_t<int>>(cutpoint_grid_size), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles_matrix<>>>(leaf_model_scale_input), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(variable_weights), cpp11::as_cpp<cpp11::decay_t<double>>(a_forest), cpp11::as_cpp<cpp11::decay_t<double>>(b_forest), cpp11::as_cpp<cpp11::decay_t<double>>(global_variance), cpp11::as_cpp<cpp11::decay_t<int>>(leaf_model_int), cpp11::as_cpp<cpp11::decay_t<bool>>(keep_forest));
     return R_NilValue;
@@ -1130,35 +1130,35 @@ extern "C" SEXP _spbart_sample_mcmc_one_iteration_cpp(SEXP data, SEXP residual, 
 }
 // sampler.cpp
 double sample_sigma2_one_iteration_cpp(cpp11::external_pointer<StochTree::ColumnVector> residual, cpp11::external_pointer<StochTree::ForestDataset> dataset, cpp11::external_pointer<std::mt19937> rng, double a, double b);
-extern "C" SEXP _spbart_sample_sigma2_one_iteration_cpp(SEXP residual, SEXP dataset, SEXP rng, SEXP a, SEXP b) {
+extern "C" SEXP _bslim_sample_sigma2_one_iteration_cpp(SEXP residual, SEXP dataset, SEXP rng, SEXP a, SEXP b) {
   BEGIN_CPP11
     return cpp11::as_sexp(sample_sigma2_one_iteration_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ColumnVector>>>(residual), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(dataset), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<std::mt19937>>>(rng), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
   END_CPP11
 }
 // sampler.cpp
 double sample_tau_one_iteration_cpp(cpp11::external_pointer<StochTree::TreeEnsemble> active_forest, cpp11::external_pointer<std::mt19937> rng, double a, double b);
-extern "C" SEXP _spbart_sample_tau_one_iteration_cpp(SEXP active_forest, SEXP rng, SEXP a, SEXP b) {
+extern "C" SEXP _bslim_sample_tau_one_iteration_cpp(SEXP active_forest, SEXP rng, SEXP a, SEXP b) {
   BEGIN_CPP11
     return cpp11::as_sexp(sample_tau_one_iteration_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<std::mt19937>>>(rng), cpp11::as_cpp<cpp11::decay_t<double>>(a), cpp11::as_cpp<cpp11::decay_t<double>>(b)));
   END_CPP11
 }
 // sampler.cpp
 cpp11::external_pointer<std::mt19937> rng_cpp(int random_seed);
-extern "C" SEXP _spbart_rng_cpp(SEXP random_seed) {
+extern "C" SEXP _bslim_rng_cpp(SEXP random_seed) {
   BEGIN_CPP11
     return cpp11::as_sexp(rng_cpp(cpp11::as_cpp<cpp11::decay_t<int>>(random_seed)));
   END_CPP11
 }
 // sampler.cpp
 cpp11::external_pointer<StochTree::TreePrior> tree_prior_cpp(double alpha, double beta, int min_samples_leaf, int max_depth);
-extern "C" SEXP _spbart_tree_prior_cpp(SEXP alpha, SEXP beta, SEXP min_samples_leaf, SEXP max_depth) {
+extern "C" SEXP _bslim_tree_prior_cpp(SEXP alpha, SEXP beta, SEXP min_samples_leaf, SEXP max_depth) {
   BEGIN_CPP11
     return cpp11::as_sexp(tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<double>>(alpha), cpp11::as_cpp<cpp11::decay_t<double>>(beta), cpp11::as_cpp<cpp11::decay_t<int>>(min_samples_leaf), cpp11::as_cpp<cpp11::decay_t<int>>(max_depth)));
   END_CPP11
 }
 // sampler.cpp
 void update_alpha_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr, double alpha);
-extern "C" SEXP _spbart_update_alpha_tree_prior_cpp(SEXP tree_prior_ptr, SEXP alpha) {
+extern "C" SEXP _bslim_update_alpha_tree_prior_cpp(SEXP tree_prior_ptr, SEXP alpha) {
   BEGIN_CPP11
     update_alpha_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr), cpp11::as_cpp<cpp11::decay_t<double>>(alpha));
     return R_NilValue;
@@ -1166,7 +1166,7 @@ extern "C" SEXP _spbart_update_alpha_tree_prior_cpp(SEXP tree_prior_ptr, SEXP al
 }
 // sampler.cpp
 void update_beta_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr, double beta);
-extern "C" SEXP _spbart_update_beta_tree_prior_cpp(SEXP tree_prior_ptr, SEXP beta) {
+extern "C" SEXP _bslim_update_beta_tree_prior_cpp(SEXP tree_prior_ptr, SEXP beta) {
   BEGIN_CPP11
     update_beta_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr), cpp11::as_cpp<cpp11::decay_t<double>>(beta));
     return R_NilValue;
@@ -1174,7 +1174,7 @@ extern "C" SEXP _spbart_update_beta_tree_prior_cpp(SEXP tree_prior_ptr, SEXP bet
 }
 // sampler.cpp
 void update_min_samples_leaf_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr, int min_samples_leaf);
-extern "C" SEXP _spbart_update_min_samples_leaf_tree_prior_cpp(SEXP tree_prior_ptr, SEXP min_samples_leaf) {
+extern "C" SEXP _bslim_update_min_samples_leaf_tree_prior_cpp(SEXP tree_prior_ptr, SEXP min_samples_leaf) {
   BEGIN_CPP11
     update_min_samples_leaf_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr), cpp11::as_cpp<cpp11::decay_t<int>>(min_samples_leaf));
     return R_NilValue;
@@ -1182,7 +1182,7 @@ extern "C" SEXP _spbart_update_min_samples_leaf_tree_prior_cpp(SEXP tree_prior_p
 }
 // sampler.cpp
 void update_max_depth_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr, int max_depth);
-extern "C" SEXP _spbart_update_max_depth_tree_prior_cpp(SEXP tree_prior_ptr, SEXP max_depth) {
+extern "C" SEXP _bslim_update_max_depth_tree_prior_cpp(SEXP tree_prior_ptr, SEXP max_depth) {
   BEGIN_CPP11
     update_max_depth_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr), cpp11::as_cpp<cpp11::decay_t<int>>(max_depth));
     return R_NilValue;
@@ -1190,49 +1190,49 @@ extern "C" SEXP _spbart_update_max_depth_tree_prior_cpp(SEXP tree_prior_ptr, SEX
 }
 // sampler.cpp
 double get_alpha_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr);
-extern "C" SEXP _spbart_get_alpha_tree_prior_cpp(SEXP tree_prior_ptr) {
+extern "C" SEXP _bslim_get_alpha_tree_prior_cpp(SEXP tree_prior_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_alpha_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr)));
   END_CPP11
 }
 // sampler.cpp
 double get_beta_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr);
-extern "C" SEXP _spbart_get_beta_tree_prior_cpp(SEXP tree_prior_ptr) {
+extern "C" SEXP _bslim_get_beta_tree_prior_cpp(SEXP tree_prior_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_beta_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr)));
   END_CPP11
 }
 // sampler.cpp
 int get_min_samples_leaf_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr);
-extern "C" SEXP _spbart_get_min_samples_leaf_tree_prior_cpp(SEXP tree_prior_ptr) {
+extern "C" SEXP _bslim_get_min_samples_leaf_tree_prior_cpp(SEXP tree_prior_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_min_samples_leaf_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr)));
   END_CPP11
 }
 // sampler.cpp
 int get_max_depth_tree_prior_cpp(cpp11::external_pointer<StochTree::TreePrior> tree_prior_ptr);
-extern "C" SEXP _spbart_get_max_depth_tree_prior_cpp(SEXP tree_prior_ptr) {
+extern "C" SEXP _bslim_get_max_depth_tree_prior_cpp(SEXP tree_prior_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_max_depth_tree_prior_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::TreePrior>>>(tree_prior_ptr)));
   END_CPP11
 }
 // sampler.cpp
 cpp11::external_pointer<StochTree::ForestTracker> forest_tracker_cpp(cpp11::external_pointer<StochTree::ForestDataset> data, cpp11::integers feature_types, int num_trees, StochTree::data_size_t n);
-extern "C" SEXP _spbart_forest_tracker_cpp(SEXP data, SEXP feature_types, SEXP num_trees, SEXP n) {
+extern "C" SEXP _bslim_forest_tracker_cpp(SEXP data, SEXP feature_types, SEXP num_trees, SEXP n) {
   BEGIN_CPP11
     return cpp11::as_sexp(forest_tracker_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestDataset>>>(data), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(feature_types), cpp11::as_cpp<cpp11::decay_t<int>>(num_trees), cpp11::as_cpp<cpp11::decay_t<StochTree::data_size_t>>(n)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::external_pointer<nlohmann::json> init_json_cpp();
-extern "C" SEXP _spbart_init_json_cpp() {
+extern "C" SEXP _bslim_init_json_cpp() {
   BEGIN_CPP11
     return cpp11::as_sexp(init_json_cpp());
   END_CPP11
 }
 // serialization.cpp
 void json_add_double_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, double field_value);
-extern "C" SEXP _spbart_json_add_double_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_double_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_double_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<double>>(field_value));
     return R_NilValue;
@@ -1240,7 +1240,7 @@ extern "C" SEXP _spbart_json_add_double_subfolder_cpp(SEXP json_ptr, SEXP subfol
 }
 // serialization.cpp
 void json_add_double_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, double field_value);
-extern "C" SEXP _spbart_json_add_double_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_double_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_double_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<double>>(field_value));
     return R_NilValue;
@@ -1248,7 +1248,7 @@ extern "C" SEXP _spbart_json_add_double_cpp(SEXP json_ptr, SEXP field_name, SEXP
 }
 // serialization.cpp
 void json_add_integer_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, int field_value);
-extern "C" SEXP _spbart_json_add_integer_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_integer_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_integer_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<int>>(field_value));
     return R_NilValue;
@@ -1256,7 +1256,7 @@ extern "C" SEXP _spbart_json_add_integer_subfolder_cpp(SEXP json_ptr, SEXP subfo
 }
 // serialization.cpp
 void json_add_integer_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, int field_value);
-extern "C" SEXP _spbart_json_add_integer_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_integer_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_integer_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<int>>(field_value));
     return R_NilValue;
@@ -1264,7 +1264,7 @@ extern "C" SEXP _spbart_json_add_integer_cpp(SEXP json_ptr, SEXP field_name, SEX
 }
 // serialization.cpp
 void json_add_bool_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, bool field_value);
-extern "C" SEXP _spbart_json_add_bool_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_bool_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_bool_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<bool>>(field_value));
     return R_NilValue;
@@ -1272,7 +1272,7 @@ extern "C" SEXP _spbart_json_add_bool_subfolder_cpp(SEXP json_ptr, SEXP subfolde
 }
 // serialization.cpp
 void json_add_bool_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, bool field_value);
-extern "C" SEXP _spbart_json_add_bool_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_bool_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_bool_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<bool>>(field_value));
     return R_NilValue;
@@ -1280,7 +1280,7 @@ extern "C" SEXP _spbart_json_add_bool_cpp(SEXP json_ptr, SEXP field_name, SEXP f
 }
 // serialization.cpp
 void json_add_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, cpp11::doubles field_vector);
-extern "C" SEXP _spbart_json_add_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(field_vector));
     return R_NilValue;
@@ -1288,7 +1288,7 @@ extern "C" SEXP _spbart_json_add_vector_subfolder_cpp(SEXP json_ptr, SEXP subfol
 }
 // serialization.cpp
 void json_add_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, cpp11::doubles field_vector);
-extern "C" SEXP _spbart_json_add_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(field_vector));
     return R_NilValue;
@@ -1296,7 +1296,7 @@ extern "C" SEXP _spbart_json_add_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP
 }
 // serialization.cpp
 void json_add_integer_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, cpp11::integers field_vector);
-extern "C" SEXP _spbart_json_add_integer_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_integer_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_integer_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(field_vector));
     return R_NilValue;
@@ -1304,7 +1304,7 @@ extern "C" SEXP _spbart_json_add_integer_vector_subfolder_cpp(SEXP json_ptr, SEX
 }
 // serialization.cpp
 void json_add_integer_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, cpp11::integers field_vector);
-extern "C" SEXP _spbart_json_add_integer_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_integer_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_integer_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(field_vector));
     return R_NilValue;
@@ -1312,7 +1312,7 @@ extern "C" SEXP _spbart_json_add_integer_vector_cpp(SEXP json_ptr, SEXP field_na
 }
 // serialization.cpp
 void json_add_string_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, cpp11::strings field_vector);
-extern "C" SEXP _spbart_json_add_string_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_string_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_string_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(field_vector));
     return R_NilValue;
@@ -1320,7 +1320,7 @@ extern "C" SEXP _spbart_json_add_string_vector_subfolder_cpp(SEXP json_ptr, SEXP
 }
 // serialization.cpp
 void json_add_string_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, cpp11::strings field_vector);
-extern "C" SEXP _spbart_json_add_string_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
+extern "C" SEXP _bslim_json_add_string_vector_cpp(SEXP json_ptr, SEXP field_name, SEXP field_vector) {
   BEGIN_CPP11
     json_add_string_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(field_vector));
     return R_NilValue;
@@ -1328,7 +1328,7 @@ extern "C" SEXP _spbart_json_add_string_vector_cpp(SEXP json_ptr, SEXP field_nam
 }
 // serialization.cpp
 void json_add_string_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name, std::string field_value);
-extern "C" SEXP _spbart_json_add_string_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_string_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_string_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_value));
     return R_NilValue;
@@ -1336,7 +1336,7 @@ extern "C" SEXP _spbart_json_add_string_subfolder_cpp(SEXP json_ptr, SEXP subfol
 }
 // serialization.cpp
 void json_add_string_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name, std::string field_value);
-extern "C" SEXP _spbart_json_add_string_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
+extern "C" SEXP _bslim_json_add_string_cpp(SEXP json_ptr, SEXP field_name, SEXP field_value) {
   BEGIN_CPP11
     json_add_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_value));
     return R_NilValue;
@@ -1344,126 +1344,126 @@ extern "C" SEXP _spbart_json_add_string_cpp(SEXP json_ptr, SEXP field_name, SEXP
 }
 // serialization.cpp
 bool json_contains_field_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_contains_field_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_contains_field_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_contains_field_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 bool json_contains_field_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_contains_field_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_contains_field_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_contains_field_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 double json_extract_double_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_double_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_double_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_double_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 double json_extract_double_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_double_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_double_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_double_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 int json_extract_integer_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_integer_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_integer_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_integer_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 int json_extract_integer_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_integer_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_integer_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_integer_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 bool json_extract_bool_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_bool_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_bool_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_bool_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 bool json_extract_bool_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_bool_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_bool_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_bool_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 std::string json_extract_string_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_string_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_string_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_string_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 std::string json_extract_string_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_string_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_string_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::doubles json_extract_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::doubles json_extract_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_vector_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_vector_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::integers json_extract_integer_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_integer_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_integer_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_integer_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::integers json_extract_integer_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_integer_vector_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_integer_vector_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_integer_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::strings json_extract_string_vector_subfolder_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string subfolder_name, std::string field_name);
-extern "C" SEXP _spbart_json_extract_string_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_string_vector_subfolder_cpp(SEXP json_ptr, SEXP subfolder_name, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_string_vector_subfolder_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(subfolder_name), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 cpp11::writable::strings json_extract_string_vector_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string field_name);
-extern "C" SEXP _spbart_json_extract_string_vector_cpp(SEXP json_ptr, SEXP field_name) {
+extern "C" SEXP _bslim_json_extract_string_vector_cpp(SEXP json_ptr, SEXP field_name) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_extract_string_vector_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(field_name)));
   END_CPP11
 }
 // serialization.cpp
 std::string json_add_forest_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, cpp11::external_pointer<StochTree::ForestContainer> forest_samples);
-extern "C" SEXP _spbart_json_add_forest_cpp(SEXP json_ptr, SEXP forest_samples) {
+extern "C" SEXP _bslim_json_add_forest_cpp(SEXP json_ptr, SEXP forest_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_add_forest_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::ForestContainer>>>(forest_samples)));
   END_CPP11
 }
 // serialization.cpp
 void json_increment_rfx_count_cpp(cpp11::external_pointer<nlohmann::json> json_ptr);
-extern "C" SEXP _spbart_json_increment_rfx_count_cpp(SEXP json_ptr) {
+extern "C" SEXP _bslim_json_increment_rfx_count_cpp(SEXP json_ptr) {
   BEGIN_CPP11
     json_increment_rfx_count_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr));
     return R_NilValue;
@@ -1471,35 +1471,35 @@ extern "C" SEXP _spbart_json_increment_rfx_count_cpp(SEXP json_ptr) {
 }
 // serialization.cpp
 std::string json_add_rfx_container_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, cpp11::external_pointer<StochTree::RandomEffectsContainer> rfx_samples);
-extern "C" SEXP _spbart_json_add_rfx_container_cpp(SEXP json_ptr, SEXP rfx_samples) {
+extern "C" SEXP _bslim_json_add_rfx_container_cpp(SEXP json_ptr, SEXP rfx_samples) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_add_rfx_container_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::RandomEffectsContainer>>>(rfx_samples)));
   END_CPP11
 }
 // serialization.cpp
 std::string json_add_rfx_label_mapper_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, cpp11::external_pointer<StochTree::LabelMapper> label_mapper);
-extern "C" SEXP _spbart_json_add_rfx_label_mapper_cpp(SEXP json_ptr, SEXP label_mapper) {
+extern "C" SEXP _bslim_json_add_rfx_label_mapper_cpp(SEXP json_ptr, SEXP label_mapper) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_add_rfx_label_mapper_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<StochTree::LabelMapper>>>(label_mapper)));
   END_CPP11
 }
 // serialization.cpp
 std::string json_add_rfx_groupids_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, cpp11::integers groupids);
-extern "C" SEXP _spbart_json_add_rfx_groupids_cpp(SEXP json_ptr, SEXP groupids) {
+extern "C" SEXP _bslim_json_add_rfx_groupids_cpp(SEXP json_ptr, SEXP groupids) {
   BEGIN_CPP11
     return cpp11::as_sexp(json_add_rfx_groupids_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(groupids)));
   END_CPP11
 }
 // serialization.cpp
 std::string get_json_string_cpp(cpp11::external_pointer<nlohmann::json> json_ptr);
-extern "C" SEXP _spbart_get_json_string_cpp(SEXP json_ptr) {
+extern "C" SEXP _bslim_get_json_string_cpp(SEXP json_ptr) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_json_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr)));
   END_CPP11
 }
 // serialization.cpp
 void json_save_file_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string filename);
-extern "C" SEXP _spbart_json_save_file_cpp(SEXP json_ptr, SEXP filename) {
+extern "C" SEXP _bslim_json_save_file_cpp(SEXP json_ptr, SEXP filename) {
   BEGIN_CPP11
     json_save_file_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename));
     return R_NilValue;
@@ -1507,7 +1507,7 @@ extern "C" SEXP _spbart_json_save_file_cpp(SEXP json_ptr, SEXP filename) {
 }
 // serialization.cpp
 void json_load_file_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string filename);
-extern "C" SEXP _spbart_json_load_file_cpp(SEXP json_ptr, SEXP filename) {
+extern "C" SEXP _bslim_json_load_file_cpp(SEXP json_ptr, SEXP filename) {
   BEGIN_CPP11
     json_load_file_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(filename));
     return R_NilValue;
@@ -1515,7 +1515,7 @@ extern "C" SEXP _spbart_json_load_file_cpp(SEXP json_ptr, SEXP filename) {
 }
 // serialization.cpp
 void json_load_string_cpp(cpp11::external_pointer<nlohmann::json> json_ptr, std::string json_string);
-extern "C" SEXP _spbart_json_load_string_cpp(SEXP json_ptr, SEXP json_string) {
+extern "C" SEXP _bslim_json_load_string_cpp(SEXP json_ptr, SEXP json_string) {
   BEGIN_CPP11
     json_load_string_cpp(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<nlohmann::json>>>(json_ptr), cpp11::as_cpp<cpp11::decay_t<std::string>>(json_string));
     return R_NilValue;
@@ -1523,7 +1523,7 @@ extern "C" SEXP _spbart_json_load_string_cpp(SEXP json_ptr, SEXP json_string) {
 }
 // shapley.cpp
 writable::doubles_matrix<> get_saabas_shapley_active_forest_cpp(external_pointer<StochTree::TreeEnsemble> active_forest, external_pointer<StochTree::ForestDataset> dataset);
-extern "C" SEXP _spbart_get_saabas_shapley_active_forest_cpp(SEXP active_forest, SEXP dataset) {
+extern "C" SEXP _bslim_get_saabas_shapley_active_forest_cpp(SEXP active_forest, SEXP dataset) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_saabas_shapley_active_forest_cpp(cpp11::as_cpp<cpp11::decay_t<external_pointer<StochTree::TreeEnsemble>>>(active_forest), cpp11::as_cpp<cpp11::decay_t<external_pointer<StochTree::ForestDataset>>>(dataset)));
   END_CPP11
@@ -1531,218 +1531,218 @@ extern "C" SEXP _spbart_get_saabas_shapley_active_forest_cpp(SEXP active_forest,
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_spbart_active_forest_cpp",                                   (DL_FUNC) &_spbart_active_forest_cpp,                                    4},
-    {"_spbart_add_numeric_split_tree_value_active_forest_cpp",      (DL_FUNC) &_spbart_add_numeric_split_tree_value_active_forest_cpp,       7},
-    {"_spbart_add_numeric_split_tree_value_forest_container_cpp",   (DL_FUNC) &_spbart_add_numeric_split_tree_value_forest_container_cpp,    8},
-    {"_spbart_add_numeric_split_tree_vector_active_forest_cpp",     (DL_FUNC) &_spbart_add_numeric_split_tree_vector_active_forest_cpp,      7},
-    {"_spbart_add_numeric_split_tree_vector_forest_container_cpp",  (DL_FUNC) &_spbart_add_numeric_split_tree_vector_forest_container_cpp,   8},
-    {"_spbart_add_sample_forest_container_cpp",                     (DL_FUNC) &_spbart_add_sample_forest_container_cpp,                      1},
-    {"_spbart_add_sample_value_forest_container_cpp",               (DL_FUNC) &_spbart_add_sample_value_forest_container_cpp,                2},
-    {"_spbart_add_sample_vector_forest_container_cpp",              (DL_FUNC) &_spbart_add_sample_vector_forest_container_cpp,               2},
-    {"_spbart_add_to_column_vector_cpp",                            (DL_FUNC) &_spbart_add_to_column_vector_cpp,                             2},
-    {"_spbart_adjust_residual_active_forest_cpp",                   (DL_FUNC) &_spbart_adjust_residual_active_forest_cpp,                    6},
-    {"_spbart_adjust_residual_forest_container_cpp",                (DL_FUNC) &_spbart_adjust_residual_forest_container_cpp,                 7},
-    {"_spbart_all_roots_active_forest_cpp",                         (DL_FUNC) &_spbart_all_roots_active_forest_cpp,                          1},
-    {"_spbart_all_roots_forest_container_cpp",                      (DL_FUNC) &_spbart_all_roots_forest_container_cpp,                       2},
-    {"_spbart_average_max_depth_active_forest_cpp",                 (DL_FUNC) &_spbart_average_max_depth_active_forest_cpp,                  1},
-    {"_spbart_average_max_depth_forest_container_cpp",              (DL_FUNC) &_spbart_average_max_depth_forest_container_cpp,               1},
-    {"_spbart_compute_leaf_indices_cpp",                            (DL_FUNC) &_spbart_compute_leaf_indices_cpp,                             3},
-    {"_spbart_create_column_vector_cpp",                            (DL_FUNC) &_spbart_create_column_vector_cpp,                             1},
-    {"_spbart_create_forest_dataset_cpp",                           (DL_FUNC) &_spbart_create_forest_dataset_cpp,                            0},
-    {"_spbart_create_rfx_dataset_cpp",                              (DL_FUNC) &_spbart_create_rfx_dataset_cpp,                               0},
-    {"_spbart_create_uplift_forest_dataset_cpp",                    (DL_FUNC) &_spbart_create_uplift_forest_dataset_cpp,                     0},
-    {"_spbart_dataset_has_basis_cpp",                               (DL_FUNC) &_spbart_dataset_has_basis_cpp,                                1},
-    {"_spbart_dataset_has_variance_weights_cpp",                    (DL_FUNC) &_spbart_dataset_has_variance_weights_cpp,                     1},
-    {"_spbart_dataset_num_basis_cpp",                               (DL_FUNC) &_spbart_dataset_num_basis_cpp,                                1},
-    {"_spbart_dataset_num_covariates_cpp",                          (DL_FUNC) &_spbart_dataset_num_covariates_cpp,                           1},
-    {"_spbart_dataset_num_rows_cpp",                                (DL_FUNC) &_spbart_dataset_num_rows_cpp,                                 1},
-    {"_spbart_ensemble_average_max_depth_forest_container_cpp",     (DL_FUNC) &_spbart_ensemble_average_max_depth_forest_container_cpp,      2},
-    {"_spbart_ensemble_tree_max_depth_active_forest_cpp",           (DL_FUNC) &_spbart_ensemble_tree_max_depth_active_forest_cpp,            2},
-    {"_spbart_ensemble_tree_max_depth_forest_container_cpp",        (DL_FUNC) &_spbart_ensemble_tree_max_depth_forest_container_cpp,         3},
-    {"_spbart_forest_container_append_from_json_cpp",               (DL_FUNC) &_spbart_forest_container_append_from_json_cpp,                3},
-    {"_spbart_forest_container_append_from_json_string_cpp",        (DL_FUNC) &_spbart_forest_container_append_from_json_string_cpp,         3},
-    {"_spbart_forest_container_cpp",                                (DL_FUNC) &_spbart_forest_container_cpp,                                 4},
-    {"_spbart_forest_container_from_json_cpp",                      (DL_FUNC) &_spbart_forest_container_from_json_cpp,                       2},
-    {"_spbart_forest_container_from_json_string_cpp",               (DL_FUNC) &_spbart_forest_container_from_json_string_cpp,                2},
-    {"_spbart_forest_container_get_max_leaf_index_cpp",             (DL_FUNC) &_spbart_forest_container_get_max_leaf_index_cpp,              2},
-    {"_spbart_forest_dataset_add_basis_cpp",                        (DL_FUNC) &_spbart_forest_dataset_add_basis_cpp,                         2},
-    {"_spbart_forest_dataset_add_covariates_cpp",                   (DL_FUNC) &_spbart_forest_dataset_add_covariates_cpp,                    2},
-    {"_spbart_forest_dataset_add_treatment_cpp",                    (DL_FUNC) &_spbart_forest_dataset_add_treatment_cpp,                     2},
-    {"_spbart_forest_dataset_add_weights_cpp",                      (DL_FUNC) &_spbart_forest_dataset_add_weights_cpp,                       2},
-    {"_spbart_forest_dataset_update_basis_cpp",                     (DL_FUNC) &_spbart_forest_dataset_update_basis_cpp,                      2},
-    {"_spbart_forest_tracker_cpp",                                  (DL_FUNC) &_spbart_forest_tracker_cpp,                                   4},
-    {"_spbart_get_alpha_tree_prior_cpp",                            (DL_FUNC) &_spbart_get_alpha_tree_prior_cpp,                             1},
-    {"_spbart_get_beta_tree_prior_cpp",                             (DL_FUNC) &_spbart_get_beta_tree_prior_cpp,                              1},
-    {"_spbart_get_forest_split_counts_forest_container_cpp",        (DL_FUNC) &_spbart_get_forest_split_counts_forest_container_cpp,         3},
-    {"_spbart_get_granular_split_count_array_active_forest_cpp",    (DL_FUNC) &_spbart_get_granular_split_count_array_active_forest_cpp,     2},
-    {"_spbart_get_granular_split_count_array_forest_container_cpp", (DL_FUNC) &_spbart_get_granular_split_count_array_forest_container_cpp,  2},
-    {"_spbart_get_json_string_cpp",                                 (DL_FUNC) &_spbart_get_json_string_cpp,                                  1},
-    {"_spbart_get_max_depth_tree_prior_cpp",                        (DL_FUNC) &_spbart_get_max_depth_tree_prior_cpp,                         1},
-    {"_spbart_get_min_samples_leaf_tree_prior_cpp",                 (DL_FUNC) &_spbart_get_min_samples_leaf_tree_prior_cpp,                  1},
-    {"_spbart_get_overall_split_counts_active_forest_cpp",          (DL_FUNC) &_spbart_get_overall_split_counts_active_forest_cpp,           2},
-    {"_spbart_get_overall_split_counts_forest_container_cpp",       (DL_FUNC) &_spbart_get_overall_split_counts_forest_container_cpp,        2},
-    {"_spbart_get_residual_cpp",                                    (DL_FUNC) &_spbart_get_residual_cpp,                                     1},
-    {"_spbart_get_saabas_shapley_active_forest_cpp",                (DL_FUNC) &_spbart_get_saabas_shapley_active_forest_cpp,                 2},
-    {"_spbart_get_tree_leaves_active_forest_cpp",                   (DL_FUNC) &_spbart_get_tree_leaves_active_forest_cpp,                    2},
-    {"_spbart_get_tree_leaves_forest_container_cpp",                (DL_FUNC) &_spbart_get_tree_leaves_forest_container_cpp,                 3},
-    {"_spbart_get_tree_split_counts_active_forest_cpp",             (DL_FUNC) &_spbart_get_tree_split_counts_active_forest_cpp,              3},
-    {"_spbart_get_tree_split_counts_forest_container_cpp",          (DL_FUNC) &_spbart_get_tree_split_counts_forest_container_cpp,           4},
-    {"_spbart_horseshoe_logit_step_cpp",                            (DL_FUNC) &_spbart_horseshoe_logit_step_cpp,                             9},
-    {"_spbart_horseshoe_probit_step_cpp",                           (DL_FUNC) &_spbart_horseshoe_probit_step_cpp,                            8},
-    {"_spbart_init_json_cpp",                                       (DL_FUNC) &_spbart_init_json_cpp,                                        0},
-    {"_spbart_initialize_forest_model_active_forest_cpp",           (DL_FUNC) &_spbart_initialize_forest_model_active_forest_cpp,            6},
-    {"_spbart_initialize_forest_model_cpp",                         (DL_FUNC) &_spbart_initialize_forest_model_cpp,                          6},
-    {"_spbart_is_categorical_split_node_forest_container_cpp",      (DL_FUNC) &_spbart_is_categorical_split_node_forest_container_cpp,       4},
-    {"_spbart_is_exponentiated_active_forest_cpp",                  (DL_FUNC) &_spbart_is_exponentiated_active_forest_cpp,                   1},
-    {"_spbart_is_exponentiated_forest_container_cpp",               (DL_FUNC) &_spbart_is_exponentiated_forest_container_cpp,                1},
-    {"_spbart_is_leaf_constant_active_forest_cpp",                  (DL_FUNC) &_spbart_is_leaf_constant_active_forest_cpp,                   1},
-    {"_spbart_is_leaf_constant_forest_container_cpp",               (DL_FUNC) &_spbart_is_leaf_constant_forest_container_cpp,                1},
-    {"_spbart_is_leaf_node_forest_container_cpp",                   (DL_FUNC) &_spbart_is_leaf_node_forest_container_cpp,                    4},
-    {"_spbart_is_numeric_split_node_forest_container_cpp",          (DL_FUNC) &_spbart_is_numeric_split_node_forest_container_cpp,           4},
-    {"_spbart_json_add_bool_cpp",                                   (DL_FUNC) &_spbart_json_add_bool_cpp,                                    3},
-    {"_spbart_json_add_bool_subfolder_cpp",                         (DL_FUNC) &_spbart_json_add_bool_subfolder_cpp,                          4},
-    {"_spbart_json_add_double_cpp",                                 (DL_FUNC) &_spbart_json_add_double_cpp,                                  3},
-    {"_spbart_json_add_double_subfolder_cpp",                       (DL_FUNC) &_spbart_json_add_double_subfolder_cpp,                        4},
-    {"_spbart_json_add_forest_cpp",                                 (DL_FUNC) &_spbart_json_add_forest_cpp,                                  2},
-    {"_spbart_json_add_integer_cpp",                                (DL_FUNC) &_spbart_json_add_integer_cpp,                                 3},
-    {"_spbart_json_add_integer_subfolder_cpp",                      (DL_FUNC) &_spbart_json_add_integer_subfolder_cpp,                       4},
-    {"_spbart_json_add_integer_vector_cpp",                         (DL_FUNC) &_spbart_json_add_integer_vector_cpp,                          3},
-    {"_spbart_json_add_integer_vector_subfolder_cpp",               (DL_FUNC) &_spbart_json_add_integer_vector_subfolder_cpp,                4},
-    {"_spbart_json_add_rfx_container_cpp",                          (DL_FUNC) &_spbart_json_add_rfx_container_cpp,                           2},
-    {"_spbart_json_add_rfx_groupids_cpp",                           (DL_FUNC) &_spbart_json_add_rfx_groupids_cpp,                            2},
-    {"_spbart_json_add_rfx_label_mapper_cpp",                       (DL_FUNC) &_spbart_json_add_rfx_label_mapper_cpp,                        2},
-    {"_spbart_json_add_string_cpp",                                 (DL_FUNC) &_spbart_json_add_string_cpp,                                  3},
-    {"_spbart_json_add_string_subfolder_cpp",                       (DL_FUNC) &_spbart_json_add_string_subfolder_cpp,                        4},
-    {"_spbart_json_add_string_vector_cpp",                          (DL_FUNC) &_spbart_json_add_string_vector_cpp,                           3},
-    {"_spbart_json_add_string_vector_subfolder_cpp",                (DL_FUNC) &_spbart_json_add_string_vector_subfolder_cpp,                 4},
-    {"_spbart_json_add_vector_cpp",                                 (DL_FUNC) &_spbart_json_add_vector_cpp,                                  3},
-    {"_spbart_json_add_vector_subfolder_cpp",                       (DL_FUNC) &_spbart_json_add_vector_subfolder_cpp,                        4},
-    {"_spbart_json_contains_field_cpp",                             (DL_FUNC) &_spbart_json_contains_field_cpp,                              2},
-    {"_spbart_json_contains_field_subfolder_cpp",                   (DL_FUNC) &_spbart_json_contains_field_subfolder_cpp,                    3},
-    {"_spbart_json_extract_bool_cpp",                               (DL_FUNC) &_spbart_json_extract_bool_cpp,                                2},
-    {"_spbart_json_extract_bool_subfolder_cpp",                     (DL_FUNC) &_spbart_json_extract_bool_subfolder_cpp,                      3},
-    {"_spbart_json_extract_double_cpp",                             (DL_FUNC) &_spbart_json_extract_double_cpp,                              2},
-    {"_spbart_json_extract_double_subfolder_cpp",                   (DL_FUNC) &_spbart_json_extract_double_subfolder_cpp,                    3},
-    {"_spbart_json_extract_integer_cpp",                            (DL_FUNC) &_spbart_json_extract_integer_cpp,                             2},
-    {"_spbart_json_extract_integer_subfolder_cpp",                  (DL_FUNC) &_spbart_json_extract_integer_subfolder_cpp,                   3},
-    {"_spbart_json_extract_integer_vector_cpp",                     (DL_FUNC) &_spbart_json_extract_integer_vector_cpp,                      2},
-    {"_spbart_json_extract_integer_vector_subfolder_cpp",           (DL_FUNC) &_spbart_json_extract_integer_vector_subfolder_cpp,            3},
-    {"_spbart_json_extract_string_cpp",                             (DL_FUNC) &_spbart_json_extract_string_cpp,                              2},
-    {"_spbart_json_extract_string_subfolder_cpp",                   (DL_FUNC) &_spbart_json_extract_string_subfolder_cpp,                    3},
-    {"_spbart_json_extract_string_vector_cpp",                      (DL_FUNC) &_spbart_json_extract_string_vector_cpp,                       2},
-    {"_spbart_json_extract_string_vector_subfolder_cpp",            (DL_FUNC) &_spbart_json_extract_string_vector_subfolder_cpp,             3},
-    {"_spbart_json_extract_vector_cpp",                             (DL_FUNC) &_spbart_json_extract_vector_cpp,                              2},
-    {"_spbart_json_extract_vector_subfolder_cpp",                   (DL_FUNC) &_spbart_json_extract_vector_subfolder_cpp,                    3},
-    {"_spbart_json_increment_rfx_count_cpp",                        (DL_FUNC) &_spbart_json_increment_rfx_count_cpp,                         1},
-    {"_spbart_json_load_file_cpp",                                  (DL_FUNC) &_spbart_json_load_file_cpp,                                   2},
-    {"_spbart_json_load_forest_container_cpp",                      (DL_FUNC) &_spbart_json_load_forest_container_cpp,                       2},
-    {"_spbart_json_load_string_cpp",                                (DL_FUNC) &_spbart_json_load_string_cpp,                                 2},
-    {"_spbart_json_save_file_cpp",                                  (DL_FUNC) &_spbart_json_save_file_cpp,                                   2},
-    {"_spbart_json_save_forest_container_cpp",                      (DL_FUNC) &_spbart_json_save_forest_container_cpp,                       2},
-    {"_spbart_leaf_dimension_active_forest_cpp",                    (DL_FUNC) &_spbart_leaf_dimension_active_forest_cpp,                     1},
-    {"_spbart_leaf_dimension_forest_container_cpp",                 (DL_FUNC) &_spbart_leaf_dimension_forest_container_cpp,                  1},
-    {"_spbart_leaf_values_forest_container_cpp",                    (DL_FUNC) &_spbart_leaf_values_forest_container_cpp,                     4},
-    {"_spbart_leaves_forest_container_cpp",                         (DL_FUNC) &_spbart_leaves_forest_container_cpp,                          3},
-    {"_spbart_left_child_node_forest_container_cpp",                (DL_FUNC) &_spbart_left_child_node_forest_container_cpp,                 4},
-    {"_spbart_node_depth_forest_container_cpp",                     (DL_FUNC) &_spbart_node_depth_forest_container_cpp,                      4},
-    {"_spbart_nodes_forest_container_cpp",                          (DL_FUNC) &_spbart_nodes_forest_container_cpp,                           3},
-    {"_spbart_num_leaf_parents_forest_container_cpp",               (DL_FUNC) &_spbart_num_leaf_parents_forest_container_cpp,                3},
-    {"_spbart_num_leaves_ensemble_forest_container_cpp",            (DL_FUNC) &_spbart_num_leaves_ensemble_forest_container_cpp,             2},
-    {"_spbart_num_leaves_forest_container_cpp",                     (DL_FUNC) &_spbart_num_leaves_forest_container_cpp,                      3},
-    {"_spbart_num_nodes_forest_container_cpp",                      (DL_FUNC) &_spbart_num_nodes_forest_container_cpp,                       3},
-    {"_spbart_num_samples_forest_container_cpp",                    (DL_FUNC) &_spbart_num_samples_forest_container_cpp,                     1},
-    {"_spbart_num_split_nodes_forest_container_cpp",                (DL_FUNC) &_spbart_num_split_nodes_forest_container_cpp,                 3},
-    {"_spbart_num_trees_active_forest_cpp",                         (DL_FUNC) &_spbart_num_trees_active_forest_cpp,                          1},
-    {"_spbart_num_trees_forest_container_cpp",                      (DL_FUNC) &_spbart_num_trees_forest_container_cpp,                       1},
-    {"_spbart_overwrite_column_vector_cpp",                         (DL_FUNC) &_spbart_overwrite_column_vector_cpp,                          2},
-    {"_spbart_parent_node_forest_container_cpp",                    (DL_FUNC) &_spbart_parent_node_forest_container_cpp,                     4},
-    {"_spbart_predict_active_forest_cpp",                           (DL_FUNC) &_spbart_predict_active_forest_cpp,                            2},
-    {"_spbart_predict_forest_cpp",                                  (DL_FUNC) &_spbart_predict_forest_cpp,                                   2},
-    {"_spbart_predict_forest_raw_cpp",                              (DL_FUNC) &_spbart_predict_forest_raw_cpp,                               2},
-    {"_spbart_predict_forest_raw_single_forest_cpp",                (DL_FUNC) &_spbart_predict_forest_raw_single_forest_cpp,                 3},
-    {"_spbart_predict_forest_raw_single_tree_cpp",                  (DL_FUNC) &_spbart_predict_forest_raw_single_tree_cpp,                   4},
-    {"_spbart_predict_raw_active_forest_cpp",                       (DL_FUNC) &_spbart_predict_raw_active_forest_cpp,                        2},
-    {"_spbart_propagate_basis_update_active_forest_cpp",            (DL_FUNC) &_spbart_propagate_basis_update_active_forest_cpp,             4},
-    {"_spbart_propagate_basis_update_forest_container_cpp",         (DL_FUNC) &_spbart_propagate_basis_update_forest_container_cpp,          5},
-    {"_spbart_propagate_trees_column_vector_cpp",                   (DL_FUNC) &_spbart_propagate_trees_column_vector_cpp,                    2},
-    {"_spbart_remove_sample_forest_container_cpp",                  (DL_FUNC) &_spbart_remove_sample_forest_container_cpp,                   2},
-    {"_spbart_reset_active_forest_cpp",                             (DL_FUNC) &_spbart_reset_active_forest_cpp,                              3},
-    {"_spbart_reset_forest_model_cpp",                              (DL_FUNC) &_spbart_reset_forest_model_cpp,                               5},
-    {"_spbart_reset_rfx_model_cpp",                                 (DL_FUNC) &_spbart_reset_rfx_model_cpp,                                  3},
-    {"_spbart_reset_rfx_tracker_cpp",                               (DL_FUNC) &_spbart_reset_rfx_tracker_cpp,                                4},
-    {"_spbart_rfx_container_append_from_json_cpp",                  (DL_FUNC) &_spbart_rfx_container_append_from_json_cpp,                   3},
-    {"_spbart_rfx_container_append_from_json_string_cpp",           (DL_FUNC) &_spbart_rfx_container_append_from_json_string_cpp,            3},
-    {"_spbart_rfx_container_cpp",                                   (DL_FUNC) &_spbart_rfx_container_cpp,                                    2},
-    {"_spbart_rfx_container_delete_sample_cpp",                     (DL_FUNC) &_spbart_rfx_container_delete_sample_cpp,                      2},
-    {"_spbart_rfx_container_from_json_cpp",                         (DL_FUNC) &_spbart_rfx_container_from_json_cpp,                          2},
-    {"_spbart_rfx_container_from_json_string_cpp",                  (DL_FUNC) &_spbart_rfx_container_from_json_string_cpp,                   2},
-    {"_spbart_rfx_container_get_alpha_cpp",                         (DL_FUNC) &_spbart_rfx_container_get_alpha_cpp,                          1},
-    {"_spbart_rfx_container_get_beta_cpp",                          (DL_FUNC) &_spbart_rfx_container_get_beta_cpp,                           1},
-    {"_spbart_rfx_container_get_sigma_cpp",                         (DL_FUNC) &_spbart_rfx_container_get_sigma_cpp,                          1},
-    {"_spbart_rfx_container_get_xi_cpp",                            (DL_FUNC) &_spbart_rfx_container_get_xi_cpp,                             1},
-    {"_spbart_rfx_container_num_components_cpp",                    (DL_FUNC) &_spbart_rfx_container_num_components_cpp,                     1},
-    {"_spbart_rfx_container_num_groups_cpp",                        (DL_FUNC) &_spbart_rfx_container_num_groups_cpp,                         1},
-    {"_spbart_rfx_container_num_samples_cpp",                       (DL_FUNC) &_spbart_rfx_container_num_samples_cpp,                        1},
-    {"_spbart_rfx_container_predict_cpp",                           (DL_FUNC) &_spbart_rfx_container_predict_cpp,                            3},
-    {"_spbart_rfx_dataset_add_basis_cpp",                           (DL_FUNC) &_spbart_rfx_dataset_add_basis_cpp,                            2},
-    {"_spbart_rfx_dataset_add_group_labels_cpp",                    (DL_FUNC) &_spbart_rfx_dataset_add_group_labels_cpp,                     2},
-    {"_spbart_rfx_dataset_add_weights_cpp",                         (DL_FUNC) &_spbart_rfx_dataset_add_weights_cpp,                          2},
-    {"_spbart_rfx_dataset_has_basis_cpp",                           (DL_FUNC) &_spbart_rfx_dataset_has_basis_cpp,                            1},
-    {"_spbart_rfx_dataset_has_group_labels_cpp",                    (DL_FUNC) &_spbart_rfx_dataset_has_group_labels_cpp,                     1},
-    {"_spbart_rfx_dataset_has_variance_weights_cpp",                (DL_FUNC) &_spbart_rfx_dataset_has_variance_weights_cpp,                 1},
-    {"_spbart_rfx_dataset_num_rows_cpp",                            (DL_FUNC) &_spbart_rfx_dataset_num_rows_cpp,                             1},
-    {"_spbart_rfx_group_ids_from_json_cpp",                         (DL_FUNC) &_spbart_rfx_group_ids_from_json_cpp,                          2},
-    {"_spbart_rfx_group_ids_from_json_string_cpp",                  (DL_FUNC) &_spbart_rfx_group_ids_from_json_string_cpp,                   2},
-    {"_spbart_rfx_label_mapper_cpp",                                (DL_FUNC) &_spbart_rfx_label_mapper_cpp,                                 1},
-    {"_spbart_rfx_label_mapper_from_json_cpp",                      (DL_FUNC) &_spbart_rfx_label_mapper_from_json_cpp,                       2},
-    {"_spbart_rfx_label_mapper_from_json_string_cpp",               (DL_FUNC) &_spbart_rfx_label_mapper_from_json_string_cpp,                2},
-    {"_spbart_rfx_label_mapper_to_list_cpp",                        (DL_FUNC) &_spbart_rfx_label_mapper_to_list_cpp,                         1},
-    {"_spbart_rfx_model_cpp",                                       (DL_FUNC) &_spbart_rfx_model_cpp,                                        2},
-    {"_spbart_rfx_model_predict_cpp",                               (DL_FUNC) &_spbart_rfx_model_predict_cpp,                                3},
-    {"_spbart_rfx_model_sample_random_effects_cpp",                 (DL_FUNC) &_spbart_rfx_model_sample_random_effects_cpp,                  8},
-    {"_spbart_rfx_model_set_group_parameter_covariance_cpp",        (DL_FUNC) &_spbart_rfx_model_set_group_parameter_covariance_cpp,         2},
-    {"_spbart_rfx_model_set_group_parameters_cpp",                  (DL_FUNC) &_spbart_rfx_model_set_group_parameters_cpp,                   2},
-    {"_spbart_rfx_model_set_variance_prior_scale_cpp",              (DL_FUNC) &_spbart_rfx_model_set_variance_prior_scale_cpp,               2},
-    {"_spbart_rfx_model_set_variance_prior_shape_cpp",              (DL_FUNC) &_spbart_rfx_model_set_variance_prior_shape_cpp,               2},
-    {"_spbart_rfx_model_set_working_parameter_covariance_cpp",      (DL_FUNC) &_spbart_rfx_model_set_working_parameter_covariance_cpp,       2},
-    {"_spbart_rfx_model_set_working_parameter_cpp",                 (DL_FUNC) &_spbart_rfx_model_set_working_parameter_cpp,                  2},
-    {"_spbart_rfx_tracker_cpp",                                     (DL_FUNC) &_spbart_rfx_tracker_cpp,                                      1},
-    {"_spbart_rfx_tracker_get_unique_group_ids_cpp",                (DL_FUNC) &_spbart_rfx_tracker_get_unique_group_ids_cpp,                 1},
-    {"_spbart_right_child_node_forest_container_cpp",               (DL_FUNC) &_spbart_right_child_node_forest_container_cpp,                4},
-    {"_spbart_rng_cpp",                                             (DL_FUNC) &_spbart_rng_cpp,                                              1},
-    {"_spbart_root_reset_active_forest_cpp",                        (DL_FUNC) &_spbart_root_reset_active_forest_cpp,                         1},
-    {"_spbart_root_reset_rfx_tracker_cpp",                          (DL_FUNC) &_spbart_root_reset_rfx_tracker_cpp,                           4},
-    {"_spbart_run_ltr_mse_cpp",                                     (DL_FUNC) &_spbart_run_ltr_mse_cpp,                                     16},
-    {"_spbart_run_ltr_pg_cpp",                                      (DL_FUNC) &_spbart_run_ltr_pg_cpp,                                      15},
-    {"_spbart_sample_gfr_one_iteration_cpp",                        (DL_FUNC) &_spbart_sample_gfr_one_iteration_cpp,                        16},
-    {"_spbart_sample_mcmc_one_iteration_cpp",                       (DL_FUNC) &_spbart_sample_mcmc_one_iteration_cpp,                       16},
-    {"_spbart_sample_sigma2_one_iteration_cpp",                     (DL_FUNC) &_spbart_sample_sigma2_one_iteration_cpp,                      5},
-    {"_spbart_sample_tau_one_iteration_cpp",                        (DL_FUNC) &_spbart_sample_tau_one_iteration_cpp,                         4},
-    {"_spbart_set_leaf_value_active_forest_cpp",                    (DL_FUNC) &_spbart_set_leaf_value_active_forest_cpp,                     2},
-    {"_spbart_set_leaf_value_forest_container_cpp",                 (DL_FUNC) &_spbart_set_leaf_value_forest_container_cpp,                  2},
-    {"_spbart_set_leaf_vector_active_forest_cpp",                   (DL_FUNC) &_spbart_set_leaf_vector_active_forest_cpp,                    2},
-    {"_spbart_set_leaf_vector_forest_container_cpp",                (DL_FUNC) &_spbart_set_leaf_vector_forest_container_cpp,                 2},
-    {"_spbart_split_categories_forest_container_cpp",               (DL_FUNC) &_spbart_split_categories_forest_container_cpp,                4},
-    {"_spbart_split_index_forest_container_cpp",                    (DL_FUNC) &_spbart_split_index_forest_container_cpp,                     4},
-    {"_spbart_split_theshold_forest_container_cpp",                 (DL_FUNC) &_spbart_split_theshold_forest_container_cpp,                  4},
-    {"_spbart_subtract_from_column_vector_cpp",                     (DL_FUNC) &_spbart_subtract_from_column_vector_cpp,                      2},
-    {"_spbart_sum_leaves_squared_ensemble_forest_container_cpp",    (DL_FUNC) &_spbart_sum_leaves_squared_ensemble_forest_container_cpp,     2},
-    {"_spbart_tree_prior_cpp",                                      (DL_FUNC) &_spbart_tree_prior_cpp,                                       4},
-    {"_spbart_updateLinearTreatmentCpp_NCP_amr",                    (DL_FUNC) &_spbart_updateLinearTreatmentCpp_NCP_amr,                    28},
-    {"_spbart_updateLinearTreatmentCpp_NCP_cpp",                    (DL_FUNC) &_spbart_updateLinearTreatmentCpp_NCP_cpp,                    27},
-    {"_spbart_updateLinearTreatmentCpp_NCP_cpp_old",                (DL_FUNC) &_spbart_updateLinearTreatmentCpp_NCP_cpp_old,                27},
-    {"_spbart_updateLinearTreatmentCpp_amr",                        (DL_FUNC) &_spbart_updateLinearTreatmentCpp_amr,                        28},
-    {"_spbart_updateLinearTreatmentCpp_cpp",                        (DL_FUNC) &_spbart_updateLinearTreatmentCpp_cpp,                        27},
-    {"_spbart_updateLinearTreatmentCpp_cpp_old",                    (DL_FUNC) &_spbart_updateLinearTreatmentCpp_cpp_old,                    27},
-    {"_spbart_update_alpha_tree_prior_cpp",                         (DL_FUNC) &_spbart_update_alpha_tree_prior_cpp,                          2},
-    {"_spbart_update_beta_tree_prior_cpp",                          (DL_FUNC) &_spbart_update_beta_tree_prior_cpp,                           2},
-    {"_spbart_update_max_depth_tree_prior_cpp",                     (DL_FUNC) &_spbart_update_max_depth_tree_prior_cpp,                      2},
-    {"_spbart_update_min_samples_leaf_tree_prior_cpp",              (DL_FUNC) &_spbart_update_min_samples_leaf_tree_prior_cpp,               2},
+    {"_bslim_active_forest_cpp",                                   (DL_FUNC) &_bslim_active_forest_cpp,                                    4},
+    {"_bslim_add_numeric_split_tree_value_active_forest_cpp",      (DL_FUNC) &_bslim_add_numeric_split_tree_value_active_forest_cpp,       7},
+    {"_bslim_add_numeric_split_tree_value_forest_container_cpp",   (DL_FUNC) &_bslim_add_numeric_split_tree_value_forest_container_cpp,    8},
+    {"_bslim_add_numeric_split_tree_vector_active_forest_cpp",     (DL_FUNC) &_bslim_add_numeric_split_tree_vector_active_forest_cpp,      7},
+    {"_bslim_add_numeric_split_tree_vector_forest_container_cpp",  (DL_FUNC) &_bslim_add_numeric_split_tree_vector_forest_container_cpp,   8},
+    {"_bslim_add_sample_forest_container_cpp",                     (DL_FUNC) &_bslim_add_sample_forest_container_cpp,                      1},
+    {"_bslim_add_sample_value_forest_container_cpp",               (DL_FUNC) &_bslim_add_sample_value_forest_container_cpp,                2},
+    {"_bslim_add_sample_vector_forest_container_cpp",              (DL_FUNC) &_bslim_add_sample_vector_forest_container_cpp,               2},
+    {"_bslim_add_to_column_vector_cpp",                            (DL_FUNC) &_bslim_add_to_column_vector_cpp,                             2},
+    {"_bslim_adjust_residual_active_forest_cpp",                   (DL_FUNC) &_bslim_adjust_residual_active_forest_cpp,                    6},
+    {"_bslim_adjust_residual_forest_container_cpp",                (DL_FUNC) &_bslim_adjust_residual_forest_container_cpp,                 7},
+    {"_bslim_all_roots_active_forest_cpp",                         (DL_FUNC) &_bslim_all_roots_active_forest_cpp,                          1},
+    {"_bslim_all_roots_forest_container_cpp",                      (DL_FUNC) &_bslim_all_roots_forest_container_cpp,                       2},
+    {"_bslim_average_max_depth_active_forest_cpp",                 (DL_FUNC) &_bslim_average_max_depth_active_forest_cpp,                  1},
+    {"_bslim_average_max_depth_forest_container_cpp",              (DL_FUNC) &_bslim_average_max_depth_forest_container_cpp,               1},
+    {"_bslim_compute_leaf_indices_cpp",                            (DL_FUNC) &_bslim_compute_leaf_indices_cpp,                             3},
+    {"_bslim_create_column_vector_cpp",                            (DL_FUNC) &_bslim_create_column_vector_cpp,                             1},
+    {"_bslim_create_forest_dataset_cpp",                           (DL_FUNC) &_bslim_create_forest_dataset_cpp,                            0},
+    {"_bslim_create_rfx_dataset_cpp",                              (DL_FUNC) &_bslim_create_rfx_dataset_cpp,                               0},
+    {"_bslim_create_uplift_forest_dataset_cpp",                    (DL_FUNC) &_bslim_create_uplift_forest_dataset_cpp,                     0},
+    {"_bslim_dataset_has_basis_cpp",                               (DL_FUNC) &_bslim_dataset_has_basis_cpp,                                1},
+    {"_bslim_dataset_has_variance_weights_cpp",                    (DL_FUNC) &_bslim_dataset_has_variance_weights_cpp,                     1},
+    {"_bslim_dataset_num_basis_cpp",                               (DL_FUNC) &_bslim_dataset_num_basis_cpp,                                1},
+    {"_bslim_dataset_num_covariates_cpp",                          (DL_FUNC) &_bslim_dataset_num_covariates_cpp,                           1},
+    {"_bslim_dataset_num_rows_cpp",                                (DL_FUNC) &_bslim_dataset_num_rows_cpp,                                 1},
+    {"_bslim_ensemble_average_max_depth_forest_container_cpp",     (DL_FUNC) &_bslim_ensemble_average_max_depth_forest_container_cpp,      2},
+    {"_bslim_ensemble_tree_max_depth_active_forest_cpp",           (DL_FUNC) &_bslim_ensemble_tree_max_depth_active_forest_cpp,            2},
+    {"_bslim_ensemble_tree_max_depth_forest_container_cpp",        (DL_FUNC) &_bslim_ensemble_tree_max_depth_forest_container_cpp,         3},
+    {"_bslim_forest_container_append_from_json_cpp",               (DL_FUNC) &_bslim_forest_container_append_from_json_cpp,                3},
+    {"_bslim_forest_container_append_from_json_string_cpp",        (DL_FUNC) &_bslim_forest_container_append_from_json_string_cpp,         3},
+    {"_bslim_forest_container_cpp",                                (DL_FUNC) &_bslim_forest_container_cpp,                                 4},
+    {"_bslim_forest_container_from_json_cpp",                      (DL_FUNC) &_bslim_forest_container_from_json_cpp,                       2},
+    {"_bslim_forest_container_from_json_string_cpp",               (DL_FUNC) &_bslim_forest_container_from_json_string_cpp,                2},
+    {"_bslim_forest_container_get_max_leaf_index_cpp",             (DL_FUNC) &_bslim_forest_container_get_max_leaf_index_cpp,              2},
+    {"_bslim_forest_dataset_add_basis_cpp",                        (DL_FUNC) &_bslim_forest_dataset_add_basis_cpp,                         2},
+    {"_bslim_forest_dataset_add_covariates_cpp",                   (DL_FUNC) &_bslim_forest_dataset_add_covariates_cpp,                    2},
+    {"_bslim_forest_dataset_add_treatment_cpp",                    (DL_FUNC) &_bslim_forest_dataset_add_treatment_cpp,                     2},
+    {"_bslim_forest_dataset_add_weights_cpp",                      (DL_FUNC) &_bslim_forest_dataset_add_weights_cpp,                       2},
+    {"_bslim_forest_dataset_update_basis_cpp",                     (DL_FUNC) &_bslim_forest_dataset_update_basis_cpp,                      2},
+    {"_bslim_forest_tracker_cpp",                                  (DL_FUNC) &_bslim_forest_tracker_cpp,                                   4},
+    {"_bslim_get_alpha_tree_prior_cpp",                            (DL_FUNC) &_bslim_get_alpha_tree_prior_cpp,                             1},
+    {"_bslim_get_beta_tree_prior_cpp",                             (DL_FUNC) &_bslim_get_beta_tree_prior_cpp,                              1},
+    {"_bslim_get_forest_split_counts_forest_container_cpp",        (DL_FUNC) &_bslim_get_forest_split_counts_forest_container_cpp,         3},
+    {"_bslim_get_granular_split_count_array_active_forest_cpp",    (DL_FUNC) &_bslim_get_granular_split_count_array_active_forest_cpp,     2},
+    {"_bslim_get_granular_split_count_array_forest_container_cpp", (DL_FUNC) &_bslim_get_granular_split_count_array_forest_container_cpp,  2},
+    {"_bslim_get_json_string_cpp",                                 (DL_FUNC) &_bslim_get_json_string_cpp,                                  1},
+    {"_bslim_get_max_depth_tree_prior_cpp",                        (DL_FUNC) &_bslim_get_max_depth_tree_prior_cpp,                         1},
+    {"_bslim_get_min_samples_leaf_tree_prior_cpp",                 (DL_FUNC) &_bslim_get_min_samples_leaf_tree_prior_cpp,                  1},
+    {"_bslim_get_overall_split_counts_active_forest_cpp",          (DL_FUNC) &_bslim_get_overall_split_counts_active_forest_cpp,           2},
+    {"_bslim_get_overall_split_counts_forest_container_cpp",       (DL_FUNC) &_bslim_get_overall_split_counts_forest_container_cpp,        2},
+    {"_bslim_get_residual_cpp",                                    (DL_FUNC) &_bslim_get_residual_cpp,                                     1},
+    {"_bslim_get_saabas_shapley_active_forest_cpp",                (DL_FUNC) &_bslim_get_saabas_shapley_active_forest_cpp,                 2},
+    {"_bslim_get_tree_leaves_active_forest_cpp",                   (DL_FUNC) &_bslim_get_tree_leaves_active_forest_cpp,                    2},
+    {"_bslim_get_tree_leaves_forest_container_cpp",                (DL_FUNC) &_bslim_get_tree_leaves_forest_container_cpp,                 3},
+    {"_bslim_get_tree_split_counts_active_forest_cpp",             (DL_FUNC) &_bslim_get_tree_split_counts_active_forest_cpp,              3},
+    {"_bslim_get_tree_split_counts_forest_container_cpp",          (DL_FUNC) &_bslim_get_tree_split_counts_forest_container_cpp,           4},
+    {"_bslim_horseshoe_logit_step_cpp",                            (DL_FUNC) &_bslim_horseshoe_logit_step_cpp,                             9},
+    {"_bslim_horseshoe_probit_step_cpp",                           (DL_FUNC) &_bslim_horseshoe_probit_step_cpp,                            8},
+    {"_bslim_init_json_cpp",                                       (DL_FUNC) &_bslim_init_json_cpp,                                        0},
+    {"_bslim_initialize_forest_model_active_forest_cpp",           (DL_FUNC) &_bslim_initialize_forest_model_active_forest_cpp,            6},
+    {"_bslim_initialize_forest_model_cpp",                         (DL_FUNC) &_bslim_initialize_forest_model_cpp,                          6},
+    {"_bslim_is_categorical_split_node_forest_container_cpp",      (DL_FUNC) &_bslim_is_categorical_split_node_forest_container_cpp,       4},
+    {"_bslim_is_exponentiated_active_forest_cpp",                  (DL_FUNC) &_bslim_is_exponentiated_active_forest_cpp,                   1},
+    {"_bslim_is_exponentiated_forest_container_cpp",               (DL_FUNC) &_bslim_is_exponentiated_forest_container_cpp,                1},
+    {"_bslim_is_leaf_constant_active_forest_cpp",                  (DL_FUNC) &_bslim_is_leaf_constant_active_forest_cpp,                   1},
+    {"_bslim_is_leaf_constant_forest_container_cpp",               (DL_FUNC) &_bslim_is_leaf_constant_forest_container_cpp,                1},
+    {"_bslim_is_leaf_node_forest_container_cpp",                   (DL_FUNC) &_bslim_is_leaf_node_forest_container_cpp,                    4},
+    {"_bslim_is_numeric_split_node_forest_container_cpp",          (DL_FUNC) &_bslim_is_numeric_split_node_forest_container_cpp,           4},
+    {"_bslim_json_add_bool_cpp",                                   (DL_FUNC) &_bslim_json_add_bool_cpp,                                    3},
+    {"_bslim_json_add_bool_subfolder_cpp",                         (DL_FUNC) &_bslim_json_add_bool_subfolder_cpp,                          4},
+    {"_bslim_json_add_double_cpp",                                 (DL_FUNC) &_bslim_json_add_double_cpp,                                  3},
+    {"_bslim_json_add_double_subfolder_cpp",                       (DL_FUNC) &_bslim_json_add_double_subfolder_cpp,                        4},
+    {"_bslim_json_add_forest_cpp",                                 (DL_FUNC) &_bslim_json_add_forest_cpp,                                  2},
+    {"_bslim_json_add_integer_cpp",                                (DL_FUNC) &_bslim_json_add_integer_cpp,                                 3},
+    {"_bslim_json_add_integer_subfolder_cpp",                      (DL_FUNC) &_bslim_json_add_integer_subfolder_cpp,                       4},
+    {"_bslim_json_add_integer_vector_cpp",                         (DL_FUNC) &_bslim_json_add_integer_vector_cpp,                          3},
+    {"_bslim_json_add_integer_vector_subfolder_cpp",               (DL_FUNC) &_bslim_json_add_integer_vector_subfolder_cpp,                4},
+    {"_bslim_json_add_rfx_container_cpp",                          (DL_FUNC) &_bslim_json_add_rfx_container_cpp,                           2},
+    {"_bslim_json_add_rfx_groupids_cpp",                           (DL_FUNC) &_bslim_json_add_rfx_groupids_cpp,                            2},
+    {"_bslim_json_add_rfx_label_mapper_cpp",                       (DL_FUNC) &_bslim_json_add_rfx_label_mapper_cpp,                        2},
+    {"_bslim_json_add_string_cpp",                                 (DL_FUNC) &_bslim_json_add_string_cpp,                                  3},
+    {"_bslim_json_add_string_subfolder_cpp",                       (DL_FUNC) &_bslim_json_add_string_subfolder_cpp,                        4},
+    {"_bslim_json_add_string_vector_cpp",                          (DL_FUNC) &_bslim_json_add_string_vector_cpp,                           3},
+    {"_bslim_json_add_string_vector_subfolder_cpp",                (DL_FUNC) &_bslim_json_add_string_vector_subfolder_cpp,                 4},
+    {"_bslim_json_add_vector_cpp",                                 (DL_FUNC) &_bslim_json_add_vector_cpp,                                  3},
+    {"_bslim_json_add_vector_subfolder_cpp",                       (DL_FUNC) &_bslim_json_add_vector_subfolder_cpp,                        4},
+    {"_bslim_json_contains_field_cpp",                             (DL_FUNC) &_bslim_json_contains_field_cpp,                              2},
+    {"_bslim_json_contains_field_subfolder_cpp",                   (DL_FUNC) &_bslim_json_contains_field_subfolder_cpp,                    3},
+    {"_bslim_json_extract_bool_cpp",                               (DL_FUNC) &_bslim_json_extract_bool_cpp,                                2},
+    {"_bslim_json_extract_bool_subfolder_cpp",                     (DL_FUNC) &_bslim_json_extract_bool_subfolder_cpp,                      3},
+    {"_bslim_json_extract_double_cpp",                             (DL_FUNC) &_bslim_json_extract_double_cpp,                              2},
+    {"_bslim_json_extract_double_subfolder_cpp",                   (DL_FUNC) &_bslim_json_extract_double_subfolder_cpp,                    3},
+    {"_bslim_json_extract_integer_cpp",                            (DL_FUNC) &_bslim_json_extract_integer_cpp,                             2},
+    {"_bslim_json_extract_integer_subfolder_cpp",                  (DL_FUNC) &_bslim_json_extract_integer_subfolder_cpp,                   3},
+    {"_bslim_json_extract_integer_vector_cpp",                     (DL_FUNC) &_bslim_json_extract_integer_vector_cpp,                      2},
+    {"_bslim_json_extract_integer_vector_subfolder_cpp",           (DL_FUNC) &_bslim_json_extract_integer_vector_subfolder_cpp,            3},
+    {"_bslim_json_extract_string_cpp",                             (DL_FUNC) &_bslim_json_extract_string_cpp,                              2},
+    {"_bslim_json_extract_string_subfolder_cpp",                   (DL_FUNC) &_bslim_json_extract_string_subfolder_cpp,                    3},
+    {"_bslim_json_extract_string_vector_cpp",                      (DL_FUNC) &_bslim_json_extract_string_vector_cpp,                       2},
+    {"_bslim_json_extract_string_vector_subfolder_cpp",            (DL_FUNC) &_bslim_json_extract_string_vector_subfolder_cpp,             3},
+    {"_bslim_json_extract_vector_cpp",                             (DL_FUNC) &_bslim_json_extract_vector_cpp,                              2},
+    {"_bslim_json_extract_vector_subfolder_cpp",                   (DL_FUNC) &_bslim_json_extract_vector_subfolder_cpp,                    3},
+    {"_bslim_json_increment_rfx_count_cpp",                        (DL_FUNC) &_bslim_json_increment_rfx_count_cpp,                         1},
+    {"_bslim_json_load_file_cpp",                                  (DL_FUNC) &_bslim_json_load_file_cpp,                                   2},
+    {"_bslim_json_load_forest_container_cpp",                      (DL_FUNC) &_bslim_json_load_forest_container_cpp,                       2},
+    {"_bslim_json_load_string_cpp",                                (DL_FUNC) &_bslim_json_load_string_cpp,                                 2},
+    {"_bslim_json_save_file_cpp",                                  (DL_FUNC) &_bslim_json_save_file_cpp,                                   2},
+    {"_bslim_json_save_forest_container_cpp",                      (DL_FUNC) &_bslim_json_save_forest_container_cpp,                       2},
+    {"_bslim_leaf_dimension_active_forest_cpp",                    (DL_FUNC) &_bslim_leaf_dimension_active_forest_cpp,                     1},
+    {"_bslim_leaf_dimension_forest_container_cpp",                 (DL_FUNC) &_bslim_leaf_dimension_forest_container_cpp,                  1},
+    {"_bslim_leaf_values_forest_container_cpp",                    (DL_FUNC) &_bslim_leaf_values_forest_container_cpp,                     4},
+    {"_bslim_leaves_forest_container_cpp",                         (DL_FUNC) &_bslim_leaves_forest_container_cpp,                          3},
+    {"_bslim_left_child_node_forest_container_cpp",                (DL_FUNC) &_bslim_left_child_node_forest_container_cpp,                 4},
+    {"_bslim_node_depth_forest_container_cpp",                     (DL_FUNC) &_bslim_node_depth_forest_container_cpp,                      4},
+    {"_bslim_nodes_forest_container_cpp",                          (DL_FUNC) &_bslim_nodes_forest_container_cpp,                           3},
+    {"_bslim_num_leaf_parents_forest_container_cpp",               (DL_FUNC) &_bslim_num_leaf_parents_forest_container_cpp,                3},
+    {"_bslim_num_leaves_ensemble_forest_container_cpp",            (DL_FUNC) &_bslim_num_leaves_ensemble_forest_container_cpp,             2},
+    {"_bslim_num_leaves_forest_container_cpp",                     (DL_FUNC) &_bslim_num_leaves_forest_container_cpp,                      3},
+    {"_bslim_num_nodes_forest_container_cpp",                      (DL_FUNC) &_bslim_num_nodes_forest_container_cpp,                       3},
+    {"_bslim_num_samples_forest_container_cpp",                    (DL_FUNC) &_bslim_num_samples_forest_container_cpp,                     1},
+    {"_bslim_num_split_nodes_forest_container_cpp",                (DL_FUNC) &_bslim_num_split_nodes_forest_container_cpp,                 3},
+    {"_bslim_num_trees_active_forest_cpp",                         (DL_FUNC) &_bslim_num_trees_active_forest_cpp,                          1},
+    {"_bslim_num_trees_forest_container_cpp",                      (DL_FUNC) &_bslim_num_trees_forest_container_cpp,                       1},
+    {"_bslim_overwrite_column_vector_cpp",                         (DL_FUNC) &_bslim_overwrite_column_vector_cpp,                          2},
+    {"_bslim_parent_node_forest_container_cpp",                    (DL_FUNC) &_bslim_parent_node_forest_container_cpp,                     4},
+    {"_bslim_predict_active_forest_cpp",                           (DL_FUNC) &_bslim_predict_active_forest_cpp,                            2},
+    {"_bslim_predict_forest_cpp",                                  (DL_FUNC) &_bslim_predict_forest_cpp,                                   2},
+    {"_bslim_predict_forest_raw_cpp",                              (DL_FUNC) &_bslim_predict_forest_raw_cpp,                               2},
+    {"_bslim_predict_forest_raw_single_forest_cpp",                (DL_FUNC) &_bslim_predict_forest_raw_single_forest_cpp,                 3},
+    {"_bslim_predict_forest_raw_single_tree_cpp",                  (DL_FUNC) &_bslim_predict_forest_raw_single_tree_cpp,                   4},
+    {"_bslim_predict_raw_active_forest_cpp",                       (DL_FUNC) &_bslim_predict_raw_active_forest_cpp,                        2},
+    {"_bslim_propagate_basis_update_active_forest_cpp",            (DL_FUNC) &_bslim_propagate_basis_update_active_forest_cpp,             4},
+    {"_bslim_propagate_basis_update_forest_container_cpp",         (DL_FUNC) &_bslim_propagate_basis_update_forest_container_cpp,          5},
+    {"_bslim_propagate_trees_column_vector_cpp",                   (DL_FUNC) &_bslim_propagate_trees_column_vector_cpp,                    2},
+    {"_bslim_remove_sample_forest_container_cpp",                  (DL_FUNC) &_bslim_remove_sample_forest_container_cpp,                   2},
+    {"_bslim_reset_active_forest_cpp",                             (DL_FUNC) &_bslim_reset_active_forest_cpp,                              3},
+    {"_bslim_reset_forest_model_cpp",                              (DL_FUNC) &_bslim_reset_forest_model_cpp,                               5},
+    {"_bslim_reset_rfx_model_cpp",                                 (DL_FUNC) &_bslim_reset_rfx_model_cpp,                                  3},
+    {"_bslim_reset_rfx_tracker_cpp",                               (DL_FUNC) &_bslim_reset_rfx_tracker_cpp,                                4},
+    {"_bslim_rfx_container_append_from_json_cpp",                  (DL_FUNC) &_bslim_rfx_container_append_from_json_cpp,                   3},
+    {"_bslim_rfx_container_append_from_json_string_cpp",           (DL_FUNC) &_bslim_rfx_container_append_from_json_string_cpp,            3},
+    {"_bslim_rfx_container_cpp",                                   (DL_FUNC) &_bslim_rfx_container_cpp,                                    2},
+    {"_bslim_rfx_container_delete_sample_cpp",                     (DL_FUNC) &_bslim_rfx_container_delete_sample_cpp,                      2},
+    {"_bslim_rfx_container_from_json_cpp",                         (DL_FUNC) &_bslim_rfx_container_from_json_cpp,                          2},
+    {"_bslim_rfx_container_from_json_string_cpp",                  (DL_FUNC) &_bslim_rfx_container_from_json_string_cpp,                   2},
+    {"_bslim_rfx_container_get_alpha_cpp",                         (DL_FUNC) &_bslim_rfx_container_get_alpha_cpp,                          1},
+    {"_bslim_rfx_container_get_beta_cpp",                          (DL_FUNC) &_bslim_rfx_container_get_beta_cpp,                           1},
+    {"_bslim_rfx_container_get_sigma_cpp",                         (DL_FUNC) &_bslim_rfx_container_get_sigma_cpp,                          1},
+    {"_bslim_rfx_container_get_xi_cpp",                            (DL_FUNC) &_bslim_rfx_container_get_xi_cpp,                             1},
+    {"_bslim_rfx_container_num_components_cpp",                    (DL_FUNC) &_bslim_rfx_container_num_components_cpp,                     1},
+    {"_bslim_rfx_container_num_groups_cpp",                        (DL_FUNC) &_bslim_rfx_container_num_groups_cpp,                         1},
+    {"_bslim_rfx_container_num_samples_cpp",                       (DL_FUNC) &_bslim_rfx_container_num_samples_cpp,                        1},
+    {"_bslim_rfx_container_predict_cpp",                           (DL_FUNC) &_bslim_rfx_container_predict_cpp,                            3},
+    {"_bslim_rfx_dataset_add_basis_cpp",                           (DL_FUNC) &_bslim_rfx_dataset_add_basis_cpp,                            2},
+    {"_bslim_rfx_dataset_add_group_labels_cpp",                    (DL_FUNC) &_bslim_rfx_dataset_add_group_labels_cpp,                     2},
+    {"_bslim_rfx_dataset_add_weights_cpp",                         (DL_FUNC) &_bslim_rfx_dataset_add_weights_cpp,                          2},
+    {"_bslim_rfx_dataset_has_basis_cpp",                           (DL_FUNC) &_bslim_rfx_dataset_has_basis_cpp,                            1},
+    {"_bslim_rfx_dataset_has_group_labels_cpp",                    (DL_FUNC) &_bslim_rfx_dataset_has_group_labels_cpp,                     1},
+    {"_bslim_rfx_dataset_has_variance_weights_cpp",                (DL_FUNC) &_bslim_rfx_dataset_has_variance_weights_cpp,                 1},
+    {"_bslim_rfx_dataset_num_rows_cpp",                            (DL_FUNC) &_bslim_rfx_dataset_num_rows_cpp,                             1},
+    {"_bslim_rfx_group_ids_from_json_cpp",                         (DL_FUNC) &_bslim_rfx_group_ids_from_json_cpp,                          2},
+    {"_bslim_rfx_group_ids_from_json_string_cpp",                  (DL_FUNC) &_bslim_rfx_group_ids_from_json_string_cpp,                   2},
+    {"_bslim_rfx_label_mapper_cpp",                                (DL_FUNC) &_bslim_rfx_label_mapper_cpp,                                 1},
+    {"_bslim_rfx_label_mapper_from_json_cpp",                      (DL_FUNC) &_bslim_rfx_label_mapper_from_json_cpp,                       2},
+    {"_bslim_rfx_label_mapper_from_json_string_cpp",               (DL_FUNC) &_bslim_rfx_label_mapper_from_json_string_cpp,                2},
+    {"_bslim_rfx_label_mapper_to_list_cpp",                        (DL_FUNC) &_bslim_rfx_label_mapper_to_list_cpp,                         1},
+    {"_bslim_rfx_model_cpp",                                       (DL_FUNC) &_bslim_rfx_model_cpp,                                        2},
+    {"_bslim_rfx_model_predict_cpp",                               (DL_FUNC) &_bslim_rfx_model_predict_cpp,                                3},
+    {"_bslim_rfx_model_sample_random_effects_cpp",                 (DL_FUNC) &_bslim_rfx_model_sample_random_effects_cpp,                  8},
+    {"_bslim_rfx_model_set_group_parameter_covariance_cpp",        (DL_FUNC) &_bslim_rfx_model_set_group_parameter_covariance_cpp,         2},
+    {"_bslim_rfx_model_set_group_parameters_cpp",                  (DL_FUNC) &_bslim_rfx_model_set_group_parameters_cpp,                   2},
+    {"_bslim_rfx_model_set_variance_prior_scale_cpp",              (DL_FUNC) &_bslim_rfx_model_set_variance_prior_scale_cpp,               2},
+    {"_bslim_rfx_model_set_variance_prior_shape_cpp",              (DL_FUNC) &_bslim_rfx_model_set_variance_prior_shape_cpp,               2},
+    {"_bslim_rfx_model_set_working_parameter_covariance_cpp",      (DL_FUNC) &_bslim_rfx_model_set_working_parameter_covariance_cpp,       2},
+    {"_bslim_rfx_model_set_working_parameter_cpp",                 (DL_FUNC) &_bslim_rfx_model_set_working_parameter_cpp,                  2},
+    {"_bslim_rfx_tracker_cpp",                                     (DL_FUNC) &_bslim_rfx_tracker_cpp,                                      1},
+    {"_bslim_rfx_tracker_get_unique_group_ids_cpp",                (DL_FUNC) &_bslim_rfx_tracker_get_unique_group_ids_cpp,                 1},
+    {"_bslim_right_child_node_forest_container_cpp",               (DL_FUNC) &_bslim_right_child_node_forest_container_cpp,                4},
+    {"_bslim_rng_cpp",                                             (DL_FUNC) &_bslim_rng_cpp,                                              1},
+    {"_bslim_root_reset_active_forest_cpp",                        (DL_FUNC) &_bslim_root_reset_active_forest_cpp,                         1},
+    {"_bslim_root_reset_rfx_tracker_cpp",                          (DL_FUNC) &_bslim_root_reset_rfx_tracker_cpp,                           4},
+    {"_bslim_run_ltr_mse_cpp",                                     (DL_FUNC) &_bslim_run_ltr_mse_cpp,                                     16},
+    {"_bslim_run_ltr_pg_cpp",                                      (DL_FUNC) &_bslim_run_ltr_pg_cpp,                                      15},
+    {"_bslim_sample_gfr_one_iteration_cpp",                        (DL_FUNC) &_bslim_sample_gfr_one_iteration_cpp,                        16},
+    {"_bslim_sample_mcmc_one_iteration_cpp",                       (DL_FUNC) &_bslim_sample_mcmc_one_iteration_cpp,                       16},
+    {"_bslim_sample_sigma2_one_iteration_cpp",                     (DL_FUNC) &_bslim_sample_sigma2_one_iteration_cpp,                      5},
+    {"_bslim_sample_tau_one_iteration_cpp",                        (DL_FUNC) &_bslim_sample_tau_one_iteration_cpp,                         4},
+    {"_bslim_set_leaf_value_active_forest_cpp",                    (DL_FUNC) &_bslim_set_leaf_value_active_forest_cpp,                     2},
+    {"_bslim_set_leaf_value_forest_container_cpp",                 (DL_FUNC) &_bslim_set_leaf_value_forest_container_cpp,                  2},
+    {"_bslim_set_leaf_vector_active_forest_cpp",                   (DL_FUNC) &_bslim_set_leaf_vector_active_forest_cpp,                    2},
+    {"_bslim_set_leaf_vector_forest_container_cpp",                (DL_FUNC) &_bslim_set_leaf_vector_forest_container_cpp,                 2},
+    {"_bslim_split_categories_forest_container_cpp",               (DL_FUNC) &_bslim_split_categories_forest_container_cpp,                4},
+    {"_bslim_split_index_forest_container_cpp",                    (DL_FUNC) &_bslim_split_index_forest_container_cpp,                     4},
+    {"_bslim_split_theshold_forest_container_cpp",                 (DL_FUNC) &_bslim_split_theshold_forest_container_cpp,                  4},
+    {"_bslim_subtract_from_column_vector_cpp",                     (DL_FUNC) &_bslim_subtract_from_column_vector_cpp,                      2},
+    {"_bslim_sum_leaves_squared_ensemble_forest_container_cpp",    (DL_FUNC) &_bslim_sum_leaves_squared_ensemble_forest_container_cpp,     2},
+    {"_bslim_tree_prior_cpp",                                      (DL_FUNC) &_bslim_tree_prior_cpp,                                       4},
+    {"_bslim_updateLinearTreatmentCpp_NCP_amr",                    (DL_FUNC) &_bslim_updateLinearTreatmentCpp_NCP_amr,                    28},
+    {"_bslim_updateLinearTreatmentCpp_NCP_cpp",                    (DL_FUNC) &_bslim_updateLinearTreatmentCpp_NCP_cpp,                    27},
+    {"_bslim_updateLinearTreatmentCpp_NCP_cpp_old",                (DL_FUNC) &_bslim_updateLinearTreatmentCpp_NCP_cpp_old,                27},
+    {"_bslim_updateLinearTreatmentCpp_amr",                        (DL_FUNC) &_bslim_updateLinearTreatmentCpp_amr,                        28},
+    {"_bslim_updateLinearTreatmentCpp_cpp",                        (DL_FUNC) &_bslim_updateLinearTreatmentCpp_cpp,                        27},
+    {"_bslim_updateLinearTreatmentCpp_cpp_old",                    (DL_FUNC) &_bslim_updateLinearTreatmentCpp_cpp_old,                    27},
+    {"_bslim_update_alpha_tree_prior_cpp",                         (DL_FUNC) &_bslim_update_alpha_tree_prior_cpp,                          2},
+    {"_bslim_update_beta_tree_prior_cpp",                          (DL_FUNC) &_bslim_update_beta_tree_prior_cpp,                           2},
+    {"_bslim_update_max_depth_tree_prior_cpp",                     (DL_FUNC) &_bslim_update_max_depth_tree_prior_cpp,                      2},
+    {"_bslim_update_min_samples_leaf_tree_prior_cpp",              (DL_FUNC) &_bslim_update_min_samples_leaf_tree_prior_cpp,               2},
     {NULL, NULL, 0}
 };
 }
 
-extern "C" attribute_visible void R_init_spbart(DllInfo* dll){
+extern "C" attribute_visible void R_init_bslim(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);

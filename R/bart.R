@@ -1041,7 +1041,7 @@ bart <- function(X_train, y_train, leaf_basis_train = NULL, rfx_group_ids_train 
         result[["rfx_unique_group_ids"]] = levels(group_ids_factor)
     }
     if ((has_rfx_test) && (has_test)) result[["rfx_preds_test"]] = rfx_preds_test
-    class(result) <- "spbart_bartmodel"
+    class(result) <- "bslim_bartmodel"
     
     # Clean up classes with external pointers to C++ data structures
     if (include_mean_forest) rm(forest_model_mean)
@@ -1094,7 +1094,7 @@ bart <- function(X_train, y_train, leaf_basis_train = NULL, rfx_group_ids_train 
 #' bart_model <- bart(X_train = X_train, y_train = y_train, 
 #'                    num_gfr = 10, num_burnin = 0, num_mcmc = 10)
 #' y_hat_test <- predict(bart_model, X_test)$y_hat
-predict.spbart_bartmodel <- function(object, X, leaf_basis = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...){
+predict.bslim_bartmodel <- function(object, X, leaf_basis = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...){
     # Preprocess covariates
     if ((!is.data.frame(X)) && (!is.matrix(X))) {
         stop("X must be a matrix or dataframe")
@@ -1206,7 +1206,7 @@ predict.spbart_bartmodel <- function(object, X, leaf_basis = NULL, rfx_group_ids
 
 #' Extract raw sample values for each of the random effect parameter terms.
 #'
-#' @param object Object of type `spbart_bartmodel` containing draws of a BART model and associated sampling outputs.
+#' @param object Object of type `bslim_bartmodel` containing draws of a BART model and associated sampling outputs.
 #' @param ... Other parameters to be used in random effects extraction
 #' @return List of arrays. The alpha array has dimension (`num_components`, `num_samples`) and is simply a vector if `num_components = 1`.
 #' The xi and beta arrays have dimension (`num_components`, `num_groups`, `num_samples`) and is simply a matrix if `num_components = 1`.
@@ -1252,7 +1252,7 @@ predict.spbart_bartmodel <- function(object, X, leaf_basis = NULL, rfx_group_ids
 #'                    rfx_basis_test = rfx_basis_test, 
 #'                    num_gfr = 10, num_burnin = 0, num_mcmc = 10)
 #' rfx_samples <- getRandomEffectSamples(bart_model)
-getRandomEffectSamples.spbart_bartmodel <- function(object, ...){
+getRandomEffectSamples.bslim_bartmodel <- function(object, ...){
     result = list()
     
     if (!object$model_params$has_rfx) {
@@ -1274,7 +1274,7 @@ getRandomEffectSamples.spbart_bartmodel <- function(object, ...){
 
 #' Convert the persistent aspects of a BART model to (in-memory) JSON
 #'
-#' @param object Object of type `spbart_bartmodel` containing draws of a BART model and associated sampling outputs.
+#' @param object Object of type `bslim_bartmodel` containing draws of a BART model and associated sampling outputs.
 #'
 #' @return Object of type `CppJson`
 #' @export
@@ -1306,7 +1306,7 @@ getRandomEffectSamples.spbart_bartmodel <- function(object, ...){
 saveBARTModelToJson <- function(object){
     jsonobj <- createCppJson()
     
-    if (!inherits(object, "spbart_bartmodel")) {
+    if (!inherits(object, "bslim_bartmodel")) {
         stop("`object` must be a BART model")
     }
     
@@ -1384,7 +1384,7 @@ saveBARTModelToJson <- function(object){
 
 #' Convert the persistent aspects of a BART model to (in-memory) JSON and save to a file
 #'
-#' @param object Object of type `spbart_bartmodel` containing draws of a BART model and associated sampling outputs.
+#' @param object Object of type `bslim_bartmodel` containing draws of a BART model and associated sampling outputs.
 #' @param filename String of filepath, must end in ".json"
 #'
 #' @return None
@@ -1426,7 +1426,7 @@ saveBARTModelToJsonFile <- function(object, filename){
 
 #' Convert the persistent aspects of a BART model to (in-memory) JSON string
 #'
-#' @param object Object of type `spbart_bartmodel` containing draws of a BART model and associated sampling outputs.
+#' @param object Object of type `bslim_bartmodel` containing draws of a BART model and associated sampling outputs.
 #' @return in-memory JSON string
 #' @export
 #'
@@ -1467,7 +1467,7 @@ saveBARTModelToJsonString <- function(object){
 #'
 #' @param json_object Object of type `CppJson` containing Json representation of a BART model
 #'
-#' @return Object of type `spbart_bartmodel`
+#' @return Object of type `bslim_bartmodel`
 #' @export
 #'
 #' @examples
@@ -1575,7 +1575,7 @@ createBARTModelFromJson <- function(json_object){
         preprocessor_metadata_string
     )
     
-    class(output) <- "spbart_bartmodel"
+    class(output) <- "bslim_bartmodel"
     return(output)
 }
 
@@ -1584,7 +1584,7 @@ createBARTModelFromJson <- function(json_object){
 #'
 #' @param json_filename String of filepath, must end in ".json"
 #'
-#' @return Object of type `spbart_bartmodel`
+#' @return Object of type `bslim_bartmodel`
 #' @export
 #'
 #' @examples
@@ -1629,7 +1629,7 @@ createBARTModelFromJsonFile <- function(json_filename){
 #'
 #' @param json_string JSON string dump
 #'
-#' @return Object of type `spbart_bartmodel`
+#' @return Object of type `bslim_bartmodel`
 #' @export
 #'
 #' @examples
@@ -1673,7 +1673,7 @@ createBARTModelFromJsonString <- function(json_string){
 #'
 #' @param json_object_list List of objects of type `CppJson` containing Json representation of a BART model
 #'
-#' @return Object of type `spbart_bartmodel`
+#' @return Object of type `bslim_bartmodel`
 #' @export
 #'
 #' @examples
@@ -1811,7 +1811,7 @@ createBARTModelFromCombinedJson <- function(json_object_list){
         preprocessor_metadata_string
     )
     
-    class(output) <- "spbart_bartmodel"
+    class(output) <- "bslim_bartmodel"
     return(output)
 }
 
@@ -1820,7 +1820,7 @@ createBARTModelFromCombinedJson <- function(json_object_list){
 #'
 #' @param json_string_list List of JSON strings which can be parsed to objects of type `CppJson` containing Json representation of a BART model
 #'
-#' @return Object of type `spbart_bartmodel`
+#' @return Object of type `bslim_bartmodel`
 #' @export
 #'
 #' @examples
@@ -1965,6 +1965,6 @@ createBARTModelFromCombinedJsonString <- function(json_string_list){
         preprocessor_metadata_string
     )
     
-    class(output) <- "spbart_bartmodel"
+    class(output) <- "bslim_bartmodel"
     return(output)
 }

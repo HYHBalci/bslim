@@ -25,7 +25,7 @@ predict_linear_bcf(
 )
 }
 \arguments{
-\item{object}{Object of type \code{spbart_bcfmodel} returned by \code{bcf_linear_probit}.}
+\item{object}{Object of type \code{bslim_bcfmodel} returned by \code{bcf_linear_probit}.}
 
 \item{X}{Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
 For orthogonalised models, apply the same external covariate transformations

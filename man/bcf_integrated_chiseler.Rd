@@ -60,7 +60,7 @@ bcf_integrated_chiseler(
 \item{variance_forest_params}{(Optional) A list of variance forest model parameters.}
 }
 \value{
-A list of class \code{spbart_bcfchiseler} containing posterior samples, inclusion probabilities, and boundary coefficients.
+A list of class \code{bslim_bcfchiseler} containing posterior samples, inclusion probabilities, and boundary coefficients.
 }
 \description{
 Fit an Integrated BCF Model + Chiseled Boundary

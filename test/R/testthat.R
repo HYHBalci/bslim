@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(spbart)
+library(bslim)
 
-test_check("spbart")
+test_check("bslim")

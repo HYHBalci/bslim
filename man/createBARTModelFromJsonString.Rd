@@ -11,7 +11,7 @@ createBARTModelFromJsonString(json_string)
 \item{json_string}{JSON string dump}
 }
 \value{
-Object of type \code{spbart_bartmodel}
+Object of type \code{bslim_bartmodel}
 }
 \description{
 Convert a JSON string containing sample information on a trained BART model

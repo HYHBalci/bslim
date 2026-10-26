@@ -7,7 +7,7 @@
 saveBARTModelToJsonString(object)
 }
 \arguments{
-\item{object}{Object of type \code{spbart_bartmodel} containing draws of a BART model and associated sampling outputs.}
+\item{object}{Object of type \code{bslim_bartmodel} containing draws of a BART model and associated sampling outputs.}
 }
 \value{
 in-memory JSON string

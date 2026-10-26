@@ -225,7 +225,7 @@ test_that("new-data orthogonal predictions validate external propensity", {
                                    args$propensity_test), "Z")
     expect_error(predict_linear_bcf(fit, args$X_test, args$Z_test[-1L],
                                    args$propensity_test), "Z")
-    expect_equal(predict.spbart_bcfmodel(fit, args$X_test, args$Z_test,
+    expect_equal(predict.bslim_bcfmodel(fit, args$X_test, args$Z_test,
                                  args$propensity_test),
                  predict_linear_bcf(fit, args$X_test, args$Z_test,
                                     args$propensity_test), tolerance = 1e-12)

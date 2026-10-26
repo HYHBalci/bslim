@@ -35,7 +35,7 @@
 #'   - `sigma2_global_shape` Shape parameter in the `IG(sigma2_global_shape, sigma2_global_scale)` global error variance model. Default: `0`.
 #'   - `sigma2_global_scale` Scale parameter in the `IG(sigma2_global_shape, sigma2_global_scale)` global error variance model. Default: `0`.
 #'   - `variable_weights` Numeric weights reflecting the relative probability of splitting on each variable. Does not need to sum to 1 but cannot be negative. Defaults to `rep(1/ncol(X_train), ncol(X_train))` if not set here. Note that if the propensity score is included as a covariate in either forest, its weight will default to `1/ncol(X_train)`. A workaround if you wish to provide a custom weight for the propensity score is to include it as a column in `X_train` and then set `propensity_covariate` to `'none'` adjust `keep_vars` accordingly for the `mu` or `tau` forests.
-#'   - `propensity_covariate` Whether to include the propensity score as a covariate in either or both of the forests. Enter `"none"` for neither, `"mu"` for the prognostic forest, `"tau"` for the treatment forest, and `"both"` for both forests. If this is not `"none"` and a propensity score is not provided, it will be estimated from (`X_train`, `Z_train`) using `spbart::bart()`. Default: `"mu"`.
+#'   - `propensity_covariate` Whether to include the propensity score as a covariate in either or both of the forests. Enter `"none"` for neither, `"mu"` for the prognostic forest, `"tau"` for the treatment forest, and `"both"` for both forests. If this is not `"none"` and a propensity score is not provided, it will be estimated from (`X_train`, `Z_train`) using `bslim::bart()`. Default: `"mu"`.
 #'   - `adaptive_coding` Whether or not to use an "adaptive coding" scheme in which a binary treatment variable is not coded manually as (0,1) or (-1,1) but learned via parameters `b_0` and `b_1` that attach to the outcome model `[b_0 (1-Z) + b_1 Z] tau(X)`. This is ignored when Z is not binary. Default: `TRUE`.
 #'   - `control_coding_init` Initial value of the "control" group coding parameter. This is ignored when Z is not binary. Default: `-0.5`.
 #'   - `treated_coding_init` Initial value of the "treatment" group coding parameter. This is ignored when Z is not binary. Default: `0.5`.
@@ -1478,7 +1478,7 @@ bcf <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_id
     if (internal_propensity_model) {
         result[["bart_propensity_model"]] = bart_model_propensity
     }
-    class(result) <- "spbart_bcfmodel"
+    class(result) <- "bslim_bcfmodel"
     
     # Restore global RNG state if user provided a random seed
     if (custom_rng) {
@@ -1493,7 +1493,7 @@ bcf <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_id
 
 #' Predict from a sampled BCF model on new data
 #'
-#' @param object Object of type `spbart_bcfmodel` containing draws of a Bayesian causal forest model and associated sampling outputs.
+#' @param object Object of type `bslim_bcfmodel` containing draws of a Bayesian causal forest model and associated sampling outputs.
 #' @param X Covariates used to determine tree leaf predictions for each observation. Must be passed as a matrix or dataframe.
 #' @param Z Treatments used for prediction.
 #' @param propensity (Optional) Propensities used for prediction.
@@ -1552,7 +1552,7 @@ bcf <- function(X_train, Z_train, y_train, propensity_train = NULL, rfx_group_id
 #'                  propensity_train = pi_train, num_gfr = 10, 
 #'                  num_burnin = 0, num_mcmc = 10)
 #' preds <- predict(bcf_model, X_test, Z_test, pi_test)
-predict.spbart_bcfmodel <- function(object, X, Z, propensity = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...){
+predict.bslim_bcfmodel <- function(object, X, Z, propensity = NULL, rfx_group_ids = NULL, rfx_basis = NULL, ...){
     if (identical(object$model_params$orthogonalization, "fixed-external")) {
         return(.predict_linear_bcf_fixed_external(
             object, X, Z, propensity, rfx_group_ids, rfx_basis, ...))
@@ -1678,7 +1678,7 @@ predict.spbart_bcfmodel <- function(object, X, Z, propensity = NULL, rfx_group_i
 
 #' Extract raw sample values for each of the random effect parameter terms.
 #'
-#' @param object Object of type `spbart_bcfmodel` containing draws of a Bayesian causal forest model and associated sampling outputs.
+#' @param object Object of type `bslim_bcfmodel` containing draws of a Bayesian causal forest model and associated sampling outputs.
 #' @param ... Other parameters to be used in random effects extraction
 #' @return List of arrays. The alpha array has dimension (`num_components`, `num_samples`) and is simply a vector if `num_components = 1`.
 #' The xi and beta arrays have dimension (`num_components`, `num_groups`, `num_samples`) and is simply a matrix if `num_components = 1`.
@@ -1751,7 +1751,7 @@ predict.spbart_bcfmodel <- function(object, X, Z, propensity = NULL, rfx_group_i
 #'                  prognostic_forest_params = mu_params, 
 #'                  treatment_effect_forest_params = tau_params)
 #' rfx_samples <- getRandomEffectSamples(bcf_model)
-getRandomEffectSamples.spbart_bcfmodel <- function(object, ...){
+getRandomEffectSamples.bslim_bcfmodel <- function(object, ...){
     result = list()
     
     if (!object$model_params$has_rfx) {

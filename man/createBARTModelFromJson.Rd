@@ -11,7 +11,7 @@ createBARTModelFromJson(json_object)
 \item{json_object}{Object of type \code{CppJson} containing Json representation of a BART model}
 }
 \value{
-Object of type \code{spbart_bartmodel}
+Object of type \code{bslim_bartmodel}
 }
 \description{
 Convert an (in-memory) JSON representation of a BART model to a BART model object
